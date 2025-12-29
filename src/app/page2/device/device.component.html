@@ -1,0 +1,327 @@
+<div class="body">
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>Device Management</h3>
+      <div class="separator"></div>
+    </div>
+    <div class="sidebar-menu">
+      <button class="menu-button"
+        *ngFor="let button of buttons"
+        (click)="toggleButton(button.id)"
+        [ngClass]="{'button-pressed':button.pressed}">
+          {{button.title}}
+      </button>
+    </div>
+  </div>
+
+  <div class="main-content" *ngIf="!buttons[0].pressed && !buttons[1].pressed && !buttons[2].pressed">
+    <div class="welcome-container">
+      <h1 class="welcome-title">Welcome to Device Management</h1>
+      <p class="welcome-subtitle">This is the place where you can manage your devices</p>
+    </div>
+  </div>
+
+  <div class="main-content-form" *ngIf="buttons[0].pressed">
+    <div class="form-container">
+      <h1 class="form-title">Register Device</h1>
+
+      <form>
+        <div class="form-group">
+          <input type="text" id="deviceName" class="form-input" placeholder="Enter device name">
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="deviceType" class="form-input" placeholder="Enter device type">
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="deviceModel" class="form-input" placeholder="Enter device model">
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="description" class="form-input" placeholder="Enter description">
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="manufacturer" class="form-input" placeholder="Enter manufacturer">
+        </div>
+
+        <div class="form-group">
+          <input type="number" id="minLimit" class="form-input" placeholder="Enter a minLimit">
+        </div>
+
+        <div class="form-group">
+          <input type="number" id="maxLimit" class="form-input" placeholder="Enter a maxLimit">
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="unit" class="form-input" placeholder="Enter a unit">
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="location" class="form-input" placeholder="Enter a location">
+        </div>
+
+        <div class="form-buttons">
+          <button type="button" class="form-button register-button">Register</button>
+          <button type="button" class="form-button cancel-button">Cancel</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="main-content-table" *ngIf="buttons[1].pressed">
+
+    <div class="table-container">
+
+      <div class="search-container">
+        <h2 class="table-title">All Devices</h2>
+        <input type="text" placeholder="Search" class="search-input">
+      </div>
+
+      <div style="padding: 20px;">
+        <table class="device-table">
+          <thead>
+            <tr>
+              <th>Device Name</th>
+              <th>Type</th>
+              <th>Model</th>
+              <th>Description</th>
+              <th>Manufacturer</th>
+              <th>Min Limit</th>
+              <th>Max Limit</th>
+              <th>Unit</th>
+              <th>Location</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Temperature Sensor</td>
+              <td>Sensor</td>
+              <td>TS-200</td>
+              <td>dasds daasss</td>
+              <td>Acme Corp</td>
+              <td>0</td>
+              <td>100</td>
+              <td>°C</td>
+              <td>Room 1</td>
+              <td class="action-buttons">
+                <button class="action-button test-button">Test</button>
+                <button class="action-button edit-button" (click)="openModalDeviceUpdate = !openModalDeviceUpdate">Edit</button>
+                <button class="action-button delete-button" (click)="openModalDeviceDelete = !openModalDeviceDelete">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Pressure Gauge</td>
+              <td>Gauge</td>
+              <td>PG-500</td>
+              <td>dasds daasss</td>
+              <td>XYZ Instruments</td>
+              <td>0</td>
+              <td>1000</td>
+              <td>kPa</td>
+              <td>Lab A</td>
+              <td class="action-buttons">
+                <button class="action-button test-button">Test</button>
+                <button class="action-button edit-button">Edit</button>
+                <button class="action-button delete-button">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Humidity Monitor</td>
+              <td>Monitor</td>
+              <td>HM-300</td>
+              <td>dasds daasss</td>
+              <td>WeatherTech</td>
+              <td>0</td>
+              <td>100</td>
+              <td>%</td>
+              <td>Storage Room</td>
+              <td class="action-buttons">
+                <button class="action-button test-button">Test</button>
+                <button class="action-button edit-button">Edit</button>
+                <button class="action-button delete-button">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Voltage Meter</td>
+              <td>Meter</td>
+              <td>VM-100</td>
+              <td>dasds daasss</td>
+              <td>PowerSystems</td>
+              <td>0</td>
+              <td>240</td>
+              <td>V</td>
+              <td>Electrical Panel</td>
+              <td class="action-buttons">
+                <button class="action-button test-button">Test</button>
+                <button class="action-button edit-button">Edit</button>
+                <button class="action-button delete-button">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Device Update Modal -->
+  <div class="update-modal" *ngIf="openModalDeviceUpdate">
+    <div class="update-modal-content">
+      <div>
+        <div class="form-container" [ngClass]="{'form-container-update': openModalDeviceUpdate}">
+          <p class="close-button-update" (click)="openModalDeviceUpdate = !openModalDeviceUpdate">X</p>
+          <h1 class="form-title">Update Device</h1>
+
+          <form>
+            <div class="form-group">
+              <input type="text" id="deviceName" class="form-input" placeholder="Enter device name">
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="deviceType" class="form-input" placeholder="Enter device type">
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="deviceModel" class="form-input" placeholder="Enter device model">
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="description" class="form-input" placeholder="Enter description">
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="manufacturer" class="form-input" placeholder="Enter manufacturer">
+            </div>
+
+            <div class="form-group">
+              <input type="number" id="minLimit" class="form-input" placeholder="Enter a minLimit">
+            </div>
+
+            <div class="form-group">
+              <input type="number" id="maxLimit" class="form-input" placeholder="Enter a maxLimit">
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="unit" class="form-input" placeholder="Enter a unit">
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="location" class="form-input" placeholder="Enter a location">
+            </div>
+
+            <div class="form-buttons">
+              <button type="button" class="form-button register-button">Update</button>
+              <button type="button" class="form-button cancel-button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!---->
+
+  <!-- Device Delete Modal -->
+
+  <div class="delete-modal" *ngIf="openModalDeviceDelete">
+    <div class="delete-modal-content">
+      <p class="close-button" (click)="openModalDeviceDelete = !openModalDeviceDelete">X</p>
+
+      <div style="display: flex; align-items: center; flex-direction: column;">
+        <h1 class="delete-modal-title">Delete Device</h1>
+        <p class="delete-modal-text">Are you sure you want to delete this device?</p>
+        <div class="delete-modal-buttons">
+          <button type="button" class="delete-modal-button">Delete</button>
+          <button type="button" class="delete-modal-button-cancel" (click)="openModalDeviceDelete = !openModalDeviceDelete">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!---->
+
+  <!-- Device Analysis Modal -->
+  <div class="analysis-modal" *ngIf="openModalTableInspection">
+    <div class="modal-content">
+      <p class="close-button" (click)="openModalTableInspection = !openModalTableInspection">X</p>
+
+      <div class="modal-title">
+        <h1>Device Settings</h1>
+        <p>Configuration monitoring and history</p>
+        <div class="reload-button">
+          <button>Reload</button>
+        </div>
+      </div>
+
+      <div class="modal-cards">
+
+        <div class="card-1">
+          <h2>Current Settings</h2>
+          <div>
+            <p>Min limit <span class="span-color-settings">-4</span></p>
+            <p>Max limit <span class="span-color-settings">20</span></p>
+            <p>CreatedAt <span>11/04/2001</span></p>
+            <p style="border-bottom: none;">UpdateAt <span>11/04/2003</span></p>
+          </div>
+        </div>
+
+        <div class="card-2">
+          <h2>Previous configuration</h2>
+          <div>
+            <p>Min limit <span class="span-color-settings">-4</span></p>
+            <p>Max limit <span class="span-color-settings">20</span></p>
+            <p style="border-bottom: none;">UpdateAt <span>11/04/2003</span></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!---->
+
+  <div class="main-content-analysis" *ngIf="buttons[2].pressed">
+
+    <div class="analysis-container">
+
+      <div class="search-container">
+        <h2 class="analysis-title">Real-time Device Analysis</h2>
+        <input type="text" placeholder="Search" class="search-input">
+      </div>
+
+      <div style="padding: 20px;">
+        <table class="devices-table" >
+          <thead>
+            <tr>
+              <th>Device Name</th>
+              <th>Type</th>
+              <th>Current Value</th>
+              <th>Previous Value</th>
+              <th>Change</th>
+              <th>Unit</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let iten of list">
+            <tr (click)="sensorTesting(iten.id)">
+              <td>{{iten.name}}</td>
+              <td>{{iten.type}}</td>
+              <td class="current-value">{{iten.minLimit}}</td>
+              <td class="previous-value">{{iten.maxLimit}}</td>
+              <td><span class="value-change value-increase">A</span></td>
+              <td>{{iten.unit}}</td>
+              <td><span class="status-indicator status-active"></span>Active</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
