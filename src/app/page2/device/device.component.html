@@ -26,45 +26,45 @@
     <div class="form-container">
       <h1 class="form-title">Register Device</h1>
 
-      <form>
+      <form method="post" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <input type="text" id="deviceName" class="form-input" placeholder="Enter device name">
+          <input type="text" formControlName="name" class="form-input" placeholder="Enter device name">
         </div>
 
         <div class="form-group">
-          <input type="text" id="deviceType" class="form-input" placeholder="Enter device type">
+          <input type="text" formControlName="type" class="form-input" placeholder="Enter device type">
         </div>
 
         <div class="form-group">
-          <input type="text" id="deviceModel" class="form-input" placeholder="Enter device model">
+          <input type="text" formControlName="deviceModel" class="form-input" placeholder="Enter device model">
         </div>
 
         <div class="form-group">
-          <input type="text" id="description" class="form-input" placeholder="Enter description">
+          <input type="text" formControlName="description" class="form-input" placeholder="Enter description">
         </div>
 
         <div class="form-group">
-          <input type="text" id="manufacturer" class="form-input" placeholder="Enter manufacturer">
+          <input type="text" formControlName="manufacturer" class="form-input" placeholder="Enter manufacturer">
         </div>
 
         <div class="form-group">
-          <input type="number" id="minLimit" class="form-input" placeholder="Enter a minLimit">
+          <input type="number" formControlName="minLimit" class="form-input" placeholder="Enter a minLimit">
         </div>
 
         <div class="form-group">
-          <input type="number" id="maxLimit" class="form-input" placeholder="Enter a maxLimit">
+          <input type="number" formControlName="maxLimit" class="form-input" placeholder="Enter a maxLimit">
         </div>
 
         <div class="form-group">
-          <input type="text" id="unit" class="form-input" placeholder="Enter a unit">
+          <input type="text" formControlName="unit" class="form-input" placeholder="Enter a unit">
         </div>
 
         <div class="form-group">
-          <input type="text" id="location" class="form-input" placeholder="Enter a location">
+          <input type="text" formControlName="location" class="form-input" placeholder="Enter a location">
         </div>
 
         <div class="form-buttons">
-          <button type="button" class="form-button register-button">Register</button>
+          <button type="submit" class="form-button register-button" [disabled]="registerForm.invalid">Register</button>
           <button type="button" class="form-button cancel-button">Cancel</button>
         </div>
       </form>
@@ -97,69 +97,21 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngFor="let device of listDevices">
             <tr>
-              <td>Temperature Sensor</td>
-              <td>Sensor</td>
-              <td>TS-200</td>
-              <td>dasds daasss</td>
-              <td>Acme Corp</td>
-              <td>0</td>
-              <td>100</td>
-              <td>°C</td>
-              <td>Room 1</td>
+              <td>{{device.name}}</td>
+              <td>{{device.type}}</td>
+              <td>{{device.deviceModel}}</td>
+              <td>{{device.manufacturer}}</td>
+              <td>{{device.description}}</td>
+              <td>{{device.minLimit}}</td>
+              <td>{{device.maxLimit}}</td>
+              <td>{{device.unit}}</td>
+              <td>{{device.location}}</td>
               <td class="action-buttons">
                 <button class="action-button test-button">Test</button>
                 <button class="action-button edit-button" (click)="openModalDeviceUpdate = !openModalDeviceUpdate">Edit</button>
                 <button class="action-button delete-button" (click)="openModalDeviceDelete = !openModalDeviceDelete">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Pressure Gauge</td>
-              <td>Gauge</td>
-              <td>PG-500</td>
-              <td>dasds daasss</td>
-              <td>XYZ Instruments</td>
-              <td>0</td>
-              <td>1000</td>
-              <td>kPa</td>
-              <td>Lab A</td>
-              <td class="action-buttons">
-                <button class="action-button test-button">Test</button>
-                <button class="action-button edit-button">Edit</button>
-                <button class="action-button delete-button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Humidity Monitor</td>
-              <td>Monitor</td>
-              <td>HM-300</td>
-              <td>dasds daasss</td>
-              <td>WeatherTech</td>
-              <td>0</td>
-              <td>100</td>
-              <td>%</td>
-              <td>Storage Room</td>
-              <td class="action-buttons">
-                <button class="action-button test-button">Test</button>
-                <button class="action-button edit-button">Edit</button>
-                <button class="action-button delete-button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Voltage Meter</td>
-              <td>Meter</td>
-              <td>VM-100</td>
-              <td>dasds daasss</td>
-              <td>PowerSystems</td>
-              <td>0</td>
-              <td>240</td>
-              <td>V</td>
-              <td>Electrical Panel</td>
-              <td class="action-buttons">
-                <button class="action-button test-button">Test</button>
-                <button class="action-button edit-button">Edit</button>
-                <button class="action-button delete-button">Delete</button>
               </td>
             </tr>
           </tbody>
@@ -254,7 +206,7 @@
         <h1>Device Settings</h1>
         <p>Configuration monitoring and history</p>
         <div class="reload-button">
-          <button>Reload</button>
+          <button (click)="reloadAnalysis()">Reload</button>
         </div>
       </div>
 
@@ -263,19 +215,19 @@
         <div class="card-1">
           <h2>Current Settings</h2>
           <div>
-            <p>Min limit <span class="span-color-settings">-4</span></p>
-            <p>Max limit <span class="span-color-settings">20</span></p>
-            <p>CreatedAt <span>11/04/2001</span></p>
-            <p style="border-bottom: none;">UpdateAt <span>11/04/2003</span></p>
+            <p>Min limit <span class="span-color-settings">{{deviceModel.minLimit}}</span></p>
+            <p>Max limit <span class="span-color-settings">{{deviceModel.maxLimit}}</span></p>
+            <p>CreatedAt <span>{{deviceModel.createdAt}}</span></p>
+            <p style="border-bottom: none;">UpdateAt <span>{{deviceModel.updatedAt}}</span></p>
           </div>
         </div>
 
         <div class="card-2">
           <h2>Previous configuration</h2>
           <div>
-            <p>Min limit <span class="span-color-settings">-4</span></p>
-            <p>Max limit <span class="span-color-settings">20</span></p>
-            <p style="border-bottom: none;">UpdateAt <span>11/04/2003</span></p>
+            <p>Min limit <span class="span-color-settings">{{deviceModel.lastReadingMinLimit}}</span></p>
+            <p>Max limit <span class="span-color-settings">{{deviceModel.lastReadingMaxLimit}}</span></p>
+            <p style="border-bottom: none;">UpdateAt <span>{{deviceModel.lastReadingUpdateAt}}</span></p>
           </div>
         </div>
 
@@ -308,14 +260,14 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody *ngFor="let iten of list">
-            <tr (click)="sensorTesting(iten.id)">
-              <td>{{iten.name}}</td>
-              <td>{{iten.type}}</td>
-              <td class="current-value">{{iten.minLimit}}</td>
-              <td class="previous-value">{{iten.maxLimit}}</td>
+          <tbody *ngFor="let device of listDevicesAnalysis" (click)="deviceForAnalysis(device.deviceModel)">
+            <tr>
+              <td>{{device.name}}</td>
+              <td>{{device.type}}</td>
+              <td class="current-value">{{device.minLimit}}</td>
+              <td class="previous-value">{{device.maxLimit}}</td>
               <td><span class="value-change value-increase">A</span></td>
-              <td>{{iten.unit}}</td>
+              <td>{{device.unit}}</td>
               <td><span class="status-indicator status-active"></span>Active</td>
             </tr>
           </tbody>

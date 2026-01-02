@@ -1,9 +1,15 @@
+import { CrudService } from './../../service/crud.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
+import { RegisterDevice } from '../../interfaces/RegisterDevice';
+import { DeviceAnalysisDto } from '../../interfaces/DeviceAnalysisDto';
+
 
 @Component({
   selector: 'app-device',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './device.component.html',
   styleUrl: './device.component.css'
 })
@@ -13,16 +19,89 @@ export class DeviceComponent {
   openModalTableInspection = false;
   openModalDeviceUpdate = false;
   openModalDeviceDelete = false;
+  deviceModel!: DeviceAnalysisDto;
+  registerForm!: FormGroup;
+  listDevices: RegisterDevice[] = [];
+  listDevicesAnalysis: DeviceAnalysisDto[] = [];
 
-  name = '';
-  type = '';
-  model = '';
-  description = '';
-  manufacturer = '';
-  minLimit = 0;
-  maxLimit = 0;
-  unit = '';
-  location = '';
+  constructor(
+    private formBuilder: FormBuilder,
+    private crudService: CrudService) {}
+
+  ngOnInit() {
+    this.allDevices();
+    this.configurationForm();
+    this.allDevicesAnalysis();
+  }
+
+  onSubmit() {
+    this.crudService.register(this.registerForm.value).subscribe({
+      next: (response) => {
+        console.log('Device registered successfully:', response);
+        this.registerForm.reset();
+        this.allDevices();
+      },
+      error: (error) => {
+        console.error('Error registering device:', error);
+      }
+    });
+  }
+
+  reloadAnalysis() {
+    this.allDevicesAnalysis();
+  }
+
+  allDevicesAnalysis() {
+    this.crudService.allDevicesAnalysis().subscribe({
+      next: (response) => {
+        this.listDevicesAnalysis = response;
+        this.deviceModel = response[0];
+      },
+      error: (error) => {
+        console.error('Error registering device:', error);
+      }
+    });
+  }
+
+  allDevices() {
+    this.crudService.allDevices().subscribe({
+      next: (response) => {
+        this.listDevices = response;
+      },
+      error: (error) => {
+        console.error('Error registering device:', error);
+      }
+    });
+  }
+
+
+  deviceForAnalysis(deviceModel: string) {
+
+    this.crudService.findDeviceModelForAnalysis(deviceModel).subscribe({
+      next: (response) => {
+        this.openModalTableInspection = !this.openModalTableInspection;
+        this.deviceModel = response;
+      },
+      error: (error) => {
+        console.error('Error registering device:', error);
+      }
+    });
+  }
+
+  configurationForm() {
+
+    this.registerForm = this.formBuilder.group({
+      name: [''],
+      type: [''],
+      deviceModel: [''],
+      description: [''],
+      manufacturer: [''],
+      minLimit: [''],
+      maxLimit: [''],
+      unit: [''],
+      location: ['']
+    });
+  }
 
   buttons = [
     {id: 1, title: 'Add Device', pressed : false},
@@ -39,32 +118,5 @@ export class DeviceComponent {
         button.pressed = false;
       }
     });
-  }
-
-  list = [
-    {id: 1, name: 'Temperature Sensor', type: 'Sensor', model: 'TS-200', description: 'dasds daasss', manufacturer: 'Acme Corp', minLimit: 0, maxLimit: 100, unit: '°C', location: 'Room 1'},
-    {id: 2, name: 'Pressure Gauge', type: 'Gauge', model: 'PG-500', description: 'dasds daasss', manufacturer: 'XYZ Instruments', minLimit: 0, maxLimit: 1000, unit: 'kPa', location: 'Lab A'},
-    {id: 3, name: 'Humidity Monitor', type: 'Monitor', model: 'HM-300', description: 'dasds daasss', manufacturer: 'WeatherTech', minLimit: 0, maxLimit: 100, unit: '%', location: 'Storage Room'},
-  ]
-
-  sensorTesting(id : number){
-
-    this.openModalTableInspection = !this.openModalTableInspection;
-
-    this.list.map(
-      (item) => {
-        if(item.id === id){
-          this.name = item.name;
-          this.type = item.type;
-          this.model = item.model;
-          this.description = item.description;
-          this.manufacturer = item.manufacturer;
-          this.minLimit = item.minLimit;
-          this.maxLimit = item.maxLimit;
-          this.unit = item.unit;
-          this.location = item.location;
-        }
-      }
-    )
   }
 }
