@@ -12,6 +12,7 @@ export class CrudService {
 
   constructor(private http: HttpClient) { }
 
+  // Método para registrar um dispositivo
   register(device: RegisterDevice): Observable<string> {
     return this.http.post<{ [key: string]: string }>('http://localhost:8080/api/register-device', device).pipe(
       map(response => {

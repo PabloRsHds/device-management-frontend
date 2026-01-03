@@ -26,47 +26,87 @@
     <div class="form-container">
       <h1 class="form-title">Register Device</h1>
 
-      <form method="post" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <form method="post" [formGroup]="registerForm" (ngSubmit)="register()">
         <div class="form-group">
           <input type="text" formControlName="name" class="form-input" placeholder="Enter device name">
+
+          <small *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')">
+            Device name is mandatory.
+          </small>
         </div>
 
+
         <div class="form-group">
-          <input type="text" formControlName="type" class="form-input" placeholder="Enter device type">
+          <select class="form-input" formControlName="type">
+            <option value="">Select a type</option>
+            <option *ngFor="let item of types" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+          <small *ngIf="registerForm.get('type')?.touched && registerForm.get('type')?.hasError('required')">
+            Type is mandatory.
+          </small>
         </div>
 
         <div class="form-group">
           <input type="text" formControlName="deviceModel" class="form-input" placeholder="Enter device model">
-        </div>
-
-        <div class="form-group">
-          <input type="text" formControlName="description" class="form-input" placeholder="Enter description">
+          <small *ngIf="registerForm.get('deviceModel')?.touched && registerForm.get('deviceModel')?.hasError('required')">
+            Device Model is mandatory.
+          </small>
         </div>
 
         <div class="form-group">
           <input type="text" formControlName="manufacturer" class="form-input" placeholder="Enter manufacturer">
+          <small *ngIf="registerForm.get('manufacturer')?.touched && registerForm.get('manufacturer')?.hasError('required')">
+            Manufacturer is mandatory.
+          </small>
         </div>
 
         <div class="form-group">
           <input type="number" formControlName="minLimit" class="form-input" placeholder="Enter a minLimit">
+          <small *ngIf="registerForm.get('minLimit')?.touched && registerForm.get('minLimit')?.hasError('required')">
+            Min limit is mandatory.
+          </small>
         </div>
 
         <div class="form-group">
           <input type="number" formControlName="maxLimit" class="form-input" placeholder="Enter a maxLimit">
+          <small *ngIf="registerForm.get('maxLimit')?.touched && registerForm.get('maxLimit')?.hasError('required')">
+            Max limit is mandatory.
+          </small>
         </div>
 
         <div class="form-group">
-          <input type="text" formControlName="unit" class="form-input" placeholder="Enter a unit">
+          <select class="form-input" formControlName="unit">
+            <option value="">Select a unit</option>
+            <option *ngFor="let item of units" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+          <small *ngIf="registerForm.get('unit')?.touched && registerForm.get('unit')?.hasError('required')">
+            Unit is mandatory.
+          </small>
         </div>
 
         <div class="form-group">
-          <input type="text" formControlName="location" class="form-input" placeholder="Enter a location">
+          <textarea rows="2" cols="50" formControlName="location" class="form-input" placeholder="Enter a location"></textarea>
+          <small *ngIf="registerForm.get('location')?.touched && registerForm.get('location')?.hasError('required')">
+            Location is mandatory.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <textarea rows="3" cols="50" formControlName="description" class="form-input" placeholder="Enter description"></textarea>
+          <small *ngIf="registerForm.get('description')?.touched && registerForm.get('description')?.hasError('required')">
+            Description is mandatory.
+          </small>
         </div>
 
         <div class="form-buttons">
           <button type="submit" class="form-button register-button" [disabled]="registerForm.invalid">Register</button>
           <button type="button" class="form-button cancel-button">Cancel</button>
         </div>
+
       </form>
 
     </div>
@@ -94,7 +134,7 @@
               <th>Max Limit</th>
               <th>Unit</th>
               <th>Location</th>
-              <th>Actions</th>
+              <th colspan="3">Actions</th>
             </tr>
           </thead>
           <tbody *ngFor="let device of listDevices">
@@ -102,15 +142,23 @@
               <td>{{device.name}}</td>
               <td>{{device.type}}</td>
               <td>{{device.deviceModel}}</td>
+              <td>
+                <button (click)="functionTableInspection(device.description)" class="button-info">Description</button>
+              </td>
               <td>{{device.manufacturer}}</td>
-              <td>{{device.description}}</td>
               <td>{{device.minLimit}}</td>
               <td>{{device.maxLimit}}</td>
               <td>{{device.unit}}</td>
-              <td>{{device.location}}</td>
-              <td class="action-buttons">
+              <td>
+                <button (click)="functionTableInspection(device.location)" class="button-info">Location</button>
+              </td>
+              <td>
                 <button class="action-button test-button">Test</button>
-                <button class="action-button edit-button" (click)="openModalDeviceUpdate = !openModalDeviceUpdate">Edit</button>
+              </td>
+              <td>
+                <button class="action-button edit-button" (click)="functionButtonUpdate(device.deviceModel)">Edit</button>
+              </td>
+              <td>
                 <button class="action-button delete-button" (click)="openModalDeviceDelete = !openModalDeviceDelete">Delete</button>
               </td>
             </tr>
@@ -120,54 +168,58 @@
     </div>
   </div>
 
+  <div class="modal-description" *ngIf="openModalDescription">
+    <div class="modal-description-content">
+      <p class="close-button" (click)="openModalDescription = !openModalDescription">X</p>
+      <p class="modal-description-text">{{selectedDeviceDescription}}</p>
+    </div>
+  </div>
+
+  <div class="modal-location" *ngIf="openModalLocation">
+    <div class="modal-location-content">
+      <p class="close-button" (click)="openModalLocation = !openModalLocation">X</p>
+      <p class="modal-location-text">{{selectedDeviceLocation}}</p>
+    </div>
+  </div>
+
   <!-- Device Update Modal -->
   <div class="update-modal" *ngIf="openModalDeviceUpdate">
     <div class="update-modal-content">
       <div>
         <div class="form-container" [ngClass]="{'form-container-update': openModalDeviceUpdate}">
-          <p class="close-button-update" (click)="openModalDeviceUpdate = !openModalDeviceUpdate">X</p>
+          <p class="close-button-update" (click)="closeModalDeviceUpdate()">X</p>
           <h1 class="form-title">Update Device</h1>
 
-          <form>
-            <div class="form-group">
-              <input type="text" id="deviceName" class="form-input" placeholder="Enter device name">
+          <form method="put" [formGroup]="updateForm" (ngSubmit)="update()">
+
+            <button class="button-update" *ngIf="!updateDeviceName" (click)="updateDeviceName = !updateDeviceName">Update Device name</button>
+            <div class="form-group" *ngIf="updateDeviceName">
+              <input type="text" formControlName="name" class="form-input" placeholder="Enter device name">
             </div>
 
-            <div class="form-group">
-              <input type="text" id="deviceType" class="form-input" placeholder="Enter device type">
+            <button class="button-update" *ngIf="!updateDeviceModel" (click)="updateDeviceModel = !updateDeviceModel">Update Device model</button>
+            <div class="form-group" *ngIf="updateDeviceModel">
+              <input type="text" formControlName="deviceModel" class="form-input" placeholder="Enter device model">
             </div>
 
-            <div class="form-group">
-              <input type="text" id="deviceModel" class="form-input" placeholder="Enter device model">
+            <button class="button-update" *ngIf="!updateManufacturer" (click)="updateManufacturer = !updateManufacturer">Update Manufacturer</button>
+            <div class="form-group" *ngIf="updateManufacturer">
+              <input type="text" formControlName="manufacturer" class="form-input" placeholder="Enter manufacturer">
             </div>
 
-            <div class="form-group">
-              <input type="text" id="description" class="form-input" placeholder="Enter description">
+            <button class="button-update" *ngIf="!updateLocation" (click)="updateLocation = !updateLocation">Update Location</button>
+            <div class="form-group" *ngIf="updateLocation">
+              <textarea rows="2" cols="50" formControlName="location" class="form-input" placeholder="Enter a location"></textarea>
             </div>
 
-            <div class="form-group">
-              <input type="text" id="manufacturer" class="form-input" placeholder="Enter manufacturer">
-            </div>
-
-            <div class="form-group">
-              <input type="number" id="minLimit" class="form-input" placeholder="Enter a minLimit">
-            </div>
-
-            <div class="form-group">
-              <input type="number" id="maxLimit" class="form-input" placeholder="Enter a maxLimit">
-            </div>
-
-            <div class="form-group">
-              <input type="text" id="unit" class="form-input" placeholder="Enter a unit">
-            </div>
-
-            <div class="form-group">
-              <input type="text" id="location" class="form-input" placeholder="Enter a location">
+            <button class="button-update" *ngIf="!updateDescription" (click)="updateDescription = !updateDescription">Update description</button>
+            <div class="form-group" *ngIf="updateDescription">
+              <textarea rows="4" cols="50" formControlName="description" class="form-input" placeholder="Enter a description"></textarea>
             </div>
 
             <div class="form-buttons">
               <button type="button" class="form-button register-button">Update</button>
-              <button type="button" class="form-button cancel-button">Cancel</button>
+              <button type="button" class="form-button cancel-button" (click)="closeModalDeviceUpdate()">Cancel</button>
             </div>
           </form>
         </div>
@@ -215,19 +267,19 @@
         <div class="card-1">
           <h2>Current Settings</h2>
           <div>
-            <p>Min limit <span class="span-color-settings">{{deviceModel.minLimit}}</span></p>
-            <p>Max limit <span class="span-color-settings">{{deviceModel.maxLimit}}</span></p>
-            <p>CreatedAt <span>{{deviceModel.createdAt}}</span></p>
-            <p style="border-bottom: none;">UpdateAt <span>{{deviceModel.updatedAt}}</span></p>
+            <p>Min limit <span class="span-color-settings">{{deviceAnalysis.minLimit}}</span></p>
+            <p>Max limit <span class="span-color-settings">{{deviceAnalysis.maxLimit}}</span></p>
+            <p>CreatedAt <span>{{deviceAnalysis.createdAt}}</span></p>
+            <p style="border-bottom: none;">UpdateAt <span>{{deviceAnalysis.updatedAt}}</span></p>
           </div>
         </div>
 
         <div class="card-2">
           <h2>Previous configuration</h2>
           <div>
-            <p>Min limit <span class="span-color-settings">{{deviceModel.lastReadingMinLimit}}</span></p>
-            <p>Max limit <span class="span-color-settings">{{deviceModel.lastReadingMaxLimit}}</span></p>
-            <p style="border-bottom: none;">UpdateAt <span>{{deviceModel.lastReadingUpdateAt}}</span></p>
+            <p>Min limit <span class="span-color-settings">{{deviceAnalysis.lastReadingMinLimit}}</span></p>
+            <p>Max limit <span class="span-color-settings">{{deviceAnalysis.lastReadingMaxLimit}}</span></p>
+            <p style="border-bottom: none;">UpdateAt <span>{{deviceAnalysis.lastReadingUpdateAt}}</span></p>
           </div>
         </div>
 
@@ -238,7 +290,8 @@
 
   <!---->
 
-  <div class="main-content-analysis" *ngIf="buttons[2].pressed">
+  <div class="main-content-analysis"
+    *ngIf="buttons[2].pressed">
 
     <div class="analysis-container">
 
