@@ -72,10 +72,6 @@ export class CrudService {
     return this.http.get<RegisterDevice[]>('http://localhost:8080/api/all-devices');
   }
 
-  allDevicesAnalysis(): Observable<DeviceAnalysisDto[]> {
-    return this.http.get<DeviceAnalysisDto[]>('http://localhost:8083/api/get-all-analysis');
-  }
-
   findDeviceModelForAnalysis(deviceModel: string): Observable<DeviceAnalysisDto> {
     return this.http.get<DeviceAnalysisDto>('http://localhost:8083/api/get-device-for-model', { params: { deviceModel } });
   }

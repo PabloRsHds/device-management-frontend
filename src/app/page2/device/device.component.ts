@@ -24,6 +24,19 @@ export class DeviceComponent {
   updateDescription = false;
   //
 
+  //Pesquisa
+  searchTerm: string = ''; // Variável para armazenar o termo de searchTerm
+  currentPage = 1;
+  itemsPerPage = 6;
+  //
+
+  //Pesquisa analysis
+  searchTermAnalysis: string = ''; // Variável para armazenar o termo de searchTerm
+  currentPageAnalysis = 1;
+  itemsPerPageAnalysis = 6;
+
+  //
+
   verification:boolean = false;
   openModalTableInspection = false;
   openModalDeviceUpdate = false;
@@ -58,13 +71,28 @@ export class DeviceComponent {
     this.configurationUpdateForm();
     // Inicializo o formulário de exclusão
     this.configurationDeleteForm();
-    this.allDevicesAnalysis();
   }
 
   functionTableInspection(device: string) {
     this.openModalDescription = true;
     this.selectedDeviceDescription = device;
   }
+
+
+  // ================= Retorna todos os dispositivos e salva na lista ==============================
+
+  allDevices() {
+    this.crudService.allDevices().subscribe({
+      next: (response) => {
+        this.listDevices = response;
+      },
+      error: (error) => {
+        console.error('Error registering device:', error);
+      }
+    });
+  }
+
+  // =========================================================================
 
   //============= Registrar dispositivo ==================
 
@@ -88,16 +116,23 @@ export class DeviceComponent {
   register() {
     this.crudService.register(this.registerForm.value).subscribe({
       next: (response) => {
-        console.log('Device registered successfully:', response);
-        this.registerForm.reset();
+        this.registerForm.reset(
+          {
+            type: '',
+            unit: ''
+          }
+        );
         this.allDevices();
-        this.snackBar.open('Device registered successfully!', 'Close', {
+        this.snackBar.open(response, 'Close', {
           duration: 3000,
           panelClass : ['snackbar']
         });
       },
-      error: (error) => {
-        console.error('Error registering device:', error);
+      error: (error: Error) => {
+        this.snackBar.open(error.message, 'Close', {
+          duration: 3000,
+          panelClass : ['snackbar']
+        });
       }
     });
   }
@@ -120,7 +155,6 @@ export class DeviceComponent {
   }
 
   update() {
-
     this.crudService.update(this.deviceModel,this.updateForm.value).subscribe({
       next: (response) => {
         console.log('Device updated successfully:', response);
@@ -158,20 +192,27 @@ export class DeviceComponent {
   // ================= Delete de dispositivos ==============================
 
 
+  // Criando formulário
   configurationDeleteForm() {
     this.deleteForm = this.formBuilder.group({
       deviceModel: ''
     });
   }
 
+  // Função de exclusão de dispositivos, onde eu ao clicar no botão pego o deviceModel para utiliza-lo na exclusão
   functionButtonDelete(deviceModel: string) {
     this.deviceModel = deviceModel;
     this.openModalDeviceDelete = !this.openModalDeviceDelete;
   }
 
+  // Função de exclusão
   delete() {
 
-    this.crudService.delete(this.deviceModel).subscribe({
+    this.deleteForm.patchValue({
+      deviceModel: this.deviceModel
+    });
+
+    this.crudService.delete(this.deleteForm.value.deviceModel).subscribe({
       next: (response) => {
         console.log('Device deleted successfully:', response);
         this.deleteForm.reset();
@@ -190,33 +231,90 @@ export class DeviceComponent {
 
   // =======================================================================
 
-  reloadAnalysis() {
-    this.allDevicesAnalysis();
-  }
 
-  allDevicesAnalysis() {
-    this.crudService.allDevicesAnalysis().subscribe({
-      next: (response) => {
-        this.listDevicesAnalysis = response;
-        this.deviceAnalysis = response[0];
-      },
-      error: (error) => {
-        console.error('Error registering device:', error);
-      }
+  // Filtra os dispositivos com base no termo de pesquisa
+  get filteredDevices() {
+    const term = this.searchTerm.trim().toLowerCase();
+
+    return this.listDevices.filter(device => {
+      return (
+        term === '' ||
+        device.name.toLowerCase().includes(term) ||
+        device.type.toLowerCase().includes(term) ||
+        device.deviceModel.toLowerCase().includes(term) ||
+        device.manufacturer.toLowerCase().includes(term) ||
+        device.unit.toString().toLowerCase().includes(term)
+      );
     });
   }
 
-  allDevices() {
-    this.crudService.allDevices().subscribe({
-      next: (response) => {
-        this.listDevices = response;
-      },
-      error: (error) => {
-        console.error('Error registering device:', error);
-      }
-    });
+  // Obtém documentos paginados
+  get paginatedDevices() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredDevices.slice(start, start + this.itemsPerPage);
   }
 
+  // Calcula o total de páginas
+  get totalPages(): number {
+    return Math.ceil(this.filteredDevices.length / this.itemsPerPage);
+  }
+
+  // Avança para a próxima página
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  // Volta para a página anterior
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+  // ===============================================================
+
+  //Filtra os dispositivos em analise com base no termo de pesquisa
+  //get filteredDevicesAnalysis() {
+  //  const term = this.searchTermAnalysis.trim().toLowerCase();
+
+  //  return this.listDevicesAnalysis.filter(device => {
+   //   return (
+   //     term === '' ||
+   //     device.name.toLowerCase().includes(term) ||
+    //    device.type.toLowerCase().includes(term) ||
+    //    device.deviceModel.toLowerCase().includes(term) ||
+    //    device.manufacturer.toLowerCase().includes(term)
+    //  );
+   // });
+ // }
+
+  // Obtém documentos paginados
+ // get paginatedDevicesAnalysis() {
+  //  const start = (this.currentPageAnalysis - 1) * this.itemsPerPageAnalysis;
+  //  return this.filteredDevicesAnalysis.slice(start, start + this.itemsPerPageAnalysis);
+ // }
+
+  // Calcula o total de páginas
+  //get totalPagesAnalysis(): number {
+  //  return Math.ceil(this.filteredDevicesAnalysis.length / this.itemsPerPageAnalysis);
+  //}
+
+  // Avança para a próxima página
+  //nextPageAnalysis() {
+   // if (this.currentPageAnalysis < this.totalPagesAnalysis) {
+   //   this.currentPageAnalysis++;
+   // }
+  //}
+
+  // Volta para a página anterior
+  //previousPageAnalysis() {
+  //  if (this.currentPageAnalysis > 1) {
+   //   this.currentPageAnalysis--;
+   // }
+ // }
+
+  // ===========================================================
 
   deviceForAnalysis(deviceModel: string) {
 
