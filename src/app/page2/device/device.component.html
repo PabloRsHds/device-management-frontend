@@ -159,7 +159,7 @@
                 <button class="action-button edit-button" (click)="functionButtonUpdate(device.deviceModel)">Edit</button>
               </td>
               <td>
-                <button class="action-button delete-button" (click)="openModalDeviceDelete = !openModalDeviceDelete">Delete</button>
+                <button class="action-button delete-button" (click)="functionButtonDelete(device.deviceModel);">Delete</button>
               </td>
             </tr>
           </tbody>
@@ -194,31 +194,46 @@
 
             <button class="button-update" *ngIf="!updateDeviceName" (click)="updateDeviceName = !updateDeviceName">Update Device name</button>
             <div class="form-group" *ngIf="updateDeviceName">
-              <input type="text" formControlName="name" class="form-input" placeholder="Enter device name">
+              <div style="display: flex; align-items: center; flex-direction: row;">
+                <input type="text" formControlName="newName" class="form-input" placeholder="Enter device name">
+                <span (click)="updateDeviceName = !updateDeviceName">X</span>
+              </div>
             </div>
 
             <button class="button-update" *ngIf="!updateDeviceModel" (click)="updateDeviceModel = !updateDeviceModel">Update Device model</button>
             <div class="form-group" *ngIf="updateDeviceModel">
-              <input type="text" formControlName="deviceModel" class="form-input" placeholder="Enter device model">
+              <div style="display: flex; align-items: center; flex-direction: row;">
+                <input type="text" formControlName="newDeviceModel" class="form-input" placeholder="Enter device model">
+                <span (click)="updateDeviceModel = !updateDeviceModel">X</span>
+              </div>
             </div>
 
             <button class="button-update" *ngIf="!updateManufacturer" (click)="updateManufacturer = !updateManufacturer">Update Manufacturer</button>
             <div class="form-group" *ngIf="updateManufacturer">
-              <input type="text" formControlName="manufacturer" class="form-input" placeholder="Enter manufacturer">
+              <div style="display: flex; align-items: center; flex-direction: row;">
+                <input type="text" formControlName="newManufacturer" class="form-input" placeholder="Enter manufacturer">
+                <span (click)="updateManufacturer = !updateManufacturer">X</span>
+              </div>
             </div>
 
             <button class="button-update" *ngIf="!updateLocation" (click)="updateLocation = !updateLocation">Update Location</button>
             <div class="form-group" *ngIf="updateLocation">
-              <textarea rows="2" cols="50" formControlName="location" class="form-input" placeholder="Enter a location"></textarea>
+              <div style="display: flex; align-items: center; flex-direction: row;">
+                <textarea rows="2" cols="50" formControlName="newLocation" class="form-input" placeholder="Enter a location"></textarea>
+                <span style="margin-bottom: 25px;" (click)="updateLocation = !updateLocation">X</span>
+              </div>
             </div>
 
             <button class="button-update" *ngIf="!updateDescription" (click)="updateDescription = !updateDescription">Update description</button>
             <div class="form-group" *ngIf="updateDescription">
-              <textarea rows="4" cols="50" formControlName="description" class="form-input" placeholder="Enter a description"></textarea>
+              <div style="display: flex; align-items: center; flex-direction: row;">
+                <textarea rows="4" cols="50" formControlName="newDescription" class="form-input" placeholder="Enter a description"></textarea>
+                <span style="margin-bottom: 58px;" (click)="updateDescription = !updateDescription">X</span>
+              </div>
             </div>
 
             <div class="form-buttons">
-              <button type="button" class="form-button register-button">Update</button>
+              <button type="submit" class="form-button register-button">Update</button>
               <button type="button" class="form-button cancel-button" (click)="closeModalDeviceUpdate()">Cancel</button>
             </div>
           </form>
@@ -238,10 +253,14 @@
       <div style="display: flex; align-items: center; flex-direction: column;">
         <h1 class="delete-modal-title">Delete Device</h1>
         <p class="delete-modal-text">Are you sure you want to delete this device?</p>
-        <div class="delete-modal-buttons">
-          <button type="button" class="delete-modal-button">Delete</button>
-          <button type="button" class="delete-modal-button-cancel" (click)="openModalDeviceDelete = !openModalDeviceDelete">Cancel</button>
-        </div>
+
+        <form method="delete" [formGroup]="deleteForm" (ngSubmit)="delete()">
+          <div class="delete-modal-buttons">
+            <input style="display: none;" type="text" formControlName="deviceModel">
+            <button type="submit" class="delete-modal-button">Delete</button>
+            <button type="button" class="delete-modal-button-cancel" (click)="openModalDeviceDelete = !openModalDeviceDelete">Cancel</button>
+          </div>
+        </form>
       </div>
 
     </div>

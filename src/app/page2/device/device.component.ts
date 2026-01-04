@@ -34,6 +34,7 @@ export class DeviceComponent {
   deviceAnalysis!: DeviceAnalysisDto;
   registerForm!: FormGroup;
   updateForm!: FormGroup;
+  deleteForm!: FormGroup;
   listDevices: RegisterDevice[] = [];
   listDevicesAnalysis: DeviceAnalysisDto[] = [];
 
@@ -55,7 +56,8 @@ export class DeviceComponent {
     this.configurationForm();
     // Inicializo o formulário de atualização
     this.configurationUpdateForm();
-
+    // Inicializo o formulário de exclusão
+    this.configurationDeleteForm();
     this.allDevicesAnalysis();
   }
 
@@ -108,16 +110,33 @@ export class DeviceComponent {
 
   configurationUpdateForm() {
     this.updateForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      deviceModel: ['', Validators.required],
-      manufacturer: ['', Validators.required],
-      location: ['', Validators.required],
-      description: ['', Validators.required]
+      deviceModel: '',
+      newName: null,
+      newDeviceModel: null,
+      newManufacturer: null,
+      newLocation: null,
+      newDescription: null
     });
   }
 
   update() {
-    this.updateForm.reset();
+
+    this.crudService.update(this.deviceModel,this.updateForm.value).subscribe({
+      next: (response) => {
+        console.log('Device updated successfully:', response);
+        this.updateForm.reset();
+        this.openModalDeviceUpdate = !this.openModalDeviceUpdate;
+        this.allDevices();
+        this.snackBar.open('Device updated successfully!', 'Close', {
+          duration: 3000,
+          panelClass : ['snackbar']
+        });
+      },
+      error: (error) => {
+        console.error('Error updated device:', error);
+      }
+    });
+
   }
 
   functionButtonUpdate(deviceModel: string) {
@@ -134,7 +153,42 @@ export class DeviceComponent {
     this.updateDescription = false;
   }
 
-  //
+  // ===============================================================
+
+  // ================= Delete de dispositivos ==============================
+
+
+  configurationDeleteForm() {
+    this.deleteForm = this.formBuilder.group({
+      deviceModel: ''
+    });
+  }
+
+  functionButtonDelete(deviceModel: string) {
+    this.deviceModel = deviceModel;
+    this.openModalDeviceDelete = !this.openModalDeviceDelete;
+  }
+
+  delete() {
+
+    this.crudService.delete(this.deviceModel).subscribe({
+      next: (response) => {
+        console.log('Device deleted successfully:', response);
+        this.deleteForm.reset();
+        this.openModalDeviceDelete = !this.openModalDeviceDelete;
+        this.allDevices();
+        this.snackBar.open('Device deleted successfully!', 'Close', {
+          duration: 3000,
+          panelClass : ['snackbar']
+        });
+      },
+      error: (error) => {
+        console.error('Error deleting device:', error);
+      }
+    });
+  }
+
+  // =======================================================================
 
   reloadAnalysis() {
     this.allDevicesAnalysis();
@@ -176,6 +230,8 @@ export class DeviceComponent {
       }
     });
   }
+
+
 
 
   // ================= Configuração dos tipos de dispositivos ===================

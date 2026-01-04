@@ -4,6 +4,8 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { RegisterDevice } from '../interfaces/RegisterDevice';
 import { DeviceAnalysis } from '../interfaces/DeviceAnalysis';
 import { DeviceAnalysisDto } from '../interfaces/DeviceAnalysisDto';
+import { UpdateDevice } from '../interfaces/UpdateDevice';
+import { DeleteDevice } from '../interfaces/DeleteDevice';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,38 @@ export class CrudService {
         return throwError(() => new Error(errorMsg)); // Retorna o erro
       })
     );
+  }
+
+  // Método para registrar um dispositivo
+  update(deviceModel: string ,device: UpdateDevice): Observable<string> {
+    return this.http.patch<{ [key: string]: string }>(`http://localhost:8080/api/update-device/${deviceModel}`, device).pipe(
+      map(response => {
+        const firstKey = Object.keys(response)[0]; // Pega a primeira chave do objeto
+        return response[firstKey]; // Retorna o valor da primeira chave
+      }),
+      catchError((err: HttpErrorResponse) => {
+        let errorMsg = 'Erro ao atualizar dispositivo';
+
+        if (err.error) {
+          if (typeof err.error === 'string') {
+            errorMsg = err.error;
+          } else if (typeof err.error === 'object') {
+            const keys = Object.keys(err.error);
+            if (keys.length > 0) {
+              errorMsg = err.error[keys[0]];
+            }
+          }
+        } else if (err.status === 404) {
+          errorMsg = 'Device não encontrado';
+        }
+
+        return throwError(() => new Error(errorMsg));
+      })
+    );
+  }
+
+  delete(deviceModel: string): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8080/api/delete-device/${deviceModel}`);
   }
 
   allDevices(): Observable<RegisterDevice[]> {

@@ -474,6 +474,29 @@ small {
   background-color: white;
 }
 
+.update-modal-content .form-input {
+  width: 90%;
+  margin: 0px -23px 0px 23px;
+  padding: 8px;
+  border: 1px solid rgb(133, 133, 133);
+  border-radius: 5px;
+}
+
+.update-modal-content span{
+  cursor: pointer;
+}
+
+.update-modal-content span:hover{
+  color: #686868;
+}
+
+.update-modal-content .form-input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
+}
+
+
 .close-button-update {
   text-align: end;
   font-size: 17px;
