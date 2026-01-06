@@ -291,6 +291,7 @@ export class DeviceComponent {
         if (this.status === 'ACTIVATED') {
 
           this.getAllSensorsActivated();
+          this.openModalTableInspection = false;
           this.snackBar.open('Sensor turned OFF', 'Close', {
             duration: 3000,
             panelClass : ['snackbar-danger']
