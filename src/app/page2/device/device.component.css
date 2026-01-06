@@ -22,6 +22,20 @@
   font-weight: bold;
 }
 
+::ng-deep .snackbar-success .mdc-snackbar__surface {
+  background-color: #0b5e18 !important;
+  color: rgb(255, 255, 255) !important;
+  padding: 10px;
+  font-weight: bold;
+}
+
+::ng-deep .snackbar-danger .mdc-snackbar__surface {
+  background-color: #8d0000 !important;
+  color: rgb(255, 255, 255) !important;
+  padding: 10px;
+  font-weight: bold;
+}
+
 .body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;

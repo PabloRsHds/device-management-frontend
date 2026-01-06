@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
-import { RegisterDevice } from '../../interfaces/RegisterDevice';
 import { DeviceAnalysisDto } from '../../interfaces/DeviceAnalysisDto';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { AllDevices } from '../../interfaces/AllDevices';
+import { AllSensors } from '../../interfaces/AllSensors';
 
 
 @Component({
@@ -34,7 +35,12 @@ export class DeviceComponent {
   searchTermAnalysis: string = ''; // Variável para armazenar o termo de searchTerm
   currentPageAnalysis = 1;
   itemsPerPageAnalysis = 6;
+  //
 
+  //Pesquisa sensors
+  searchTermSensors: string = ''; // Variável para armazenar o termo de searchTerm
+  currentPageSensors = 1;
+  itemsPerPageSensors = 6;
   //
 
   verification:boolean = false;
@@ -48,14 +54,17 @@ export class DeviceComponent {
   registerForm!: FormGroup;
   updateForm!: FormGroup;
   deleteForm!: FormGroup;
-  listDevices: RegisterDevice[] = [];
+  listDevices: AllDevices[] = [];
   listDevicesAnalysis: DeviceAnalysisDto[] = [];
+  listSensorsActivated: AllSensors[] = [];
 
   openModalDescription = false;
   selectedDeviceDescription: string = '';
 
   openModalLocation = false;
   selectedDeviceLocation: string = '';
+
+  status: string = '';
 
 
   constructor(
@@ -67,10 +76,8 @@ export class DeviceComponent {
     this.allDevices();
     // Inicializo o formulário
     this.configurationForm();
-    // Inicializo o formulário de atualização
-    this.configurationUpdateForm();
-    // Inicializo o formulário de exclusão
-    this.configurationDeleteForm();
+    // Pega todos os sensores ativados
+    this.getAllSensorsActivated();
   }
 
   functionTableInspection(device: string) {
@@ -105,9 +112,6 @@ export class DeviceComponent {
       deviceModel: ['', Validators.required],
       description: ['', Validators.required],
       manufacturer: ['', Validators.required],
-      minLimit: ['', Validators.required],
-      maxLimit: ['', Validators.required],
-      unit: ['', Validators.required],
       location: ['', Validators.required]
     });
   }
@@ -174,6 +178,25 @@ export class DeviceComponent {
   }
 
   functionButtonUpdate(deviceModel: string) {
+
+    this.configurationUpdateForm();
+
+    this.crudService.findDeviceWithDeviceModel(deviceModel).subscribe({
+      next: (response) => {
+        this.updateForm.patchValue({
+          deviceModel: response.deviceModel,
+          newName: response.name,
+          newDeviceModel: response.deviceModel,
+          newManufacturer: response.manufacturer,
+          newLocation: response.location,
+          newDescription: response.description
+        });
+      },
+      error: (error) => {
+        console.error('Error updating device:', error);
+      }
+    });
+
     this.deviceModel = deviceModel;
     this.openModalDeviceUpdate = !this.openModalDeviceUpdate;
   }
@@ -201,6 +224,9 @@ export class DeviceComponent {
 
   // Função de exclusão de dispositivos, onde eu ao clicar no botão pego o deviceModel para utiliza-lo na exclusão
   functionButtonDelete(deviceModel: string) {
+
+    this.configurationDeleteForm();
+
     this.deviceModel = deviceModel;
     this.openModalDeviceDelete = !this.openModalDeviceDelete;
   }
@@ -228,6 +254,78 @@ export class DeviceComponent {
       }
     });
   }
+
+  // ======================================================================
+
+
+  //Função do teste e analysis
+  getAllSensorsActivated() {
+    this.crudService.getAllSensorsActivated().subscribe({
+      next: (response) => {
+        this.listSensorsActivated = response;
+      },
+      error: (error) => {
+        console.error('Error registering device:', error);
+      }
+    });
+  }
+
+  reloadAnalysis() {
+    this.deviceForAnalysis(this.deviceModel);
+  }
+
+  functionChangeStatus(deviceModel: string) {
+
+    this.crudService.getStatus(deviceModel).subscribe({
+      next: (response) => {
+        this.status = response;
+      },
+      error: (error) => {
+        console.error('Error registering device:', error);
+      }
+    });
+
+    this.crudService.changeStatus(deviceModel).subscribe({
+      next: (response) => {
+
+        if (this.status === 'ACTIVATED') {
+
+          this.getAllSensorsActivated();
+          this.snackBar.open('Sensor turned OFF', 'Close', {
+            duration: 3000,
+            panelClass : ['snackbar-danger']
+          });
+        } else if (this.status === 'DEACTIVATED') {
+
+          this.getAllSensorsActivated();
+          this.snackBar.open('Sensor turned ON', 'Close', {
+          duration: 3000,
+          panelClass : ['snackbar-success']
+        });
+        }
+
+      },
+      error: (error) => {
+        console.error('Error changing device status:', error);
+      }
+    });
+
+  }
+
+  deviceForAnalysis(deviceModel: string) {
+
+    this.crudService.findDeviceModelForAnalysis(deviceModel).subscribe({
+      next: (response) => {
+        this.openModalTableInspection = true;
+        this.deviceAnalysis = response;
+        this.deviceModel = deviceModel;
+      },
+      error: (error) => {
+        console.error('Error registering device:', error);
+      }
+    });
+  }
+
 
   // =======================================================================
 
@@ -274,62 +372,48 @@ export class DeviceComponent {
   }
   // ===============================================================
 
-  //Filtra os dispositivos em analise com base no termo de pesquisa
-  //get filteredDevicesAnalysis() {
-  //  const term = this.searchTermAnalysis.trim().toLowerCase();
+  // Filtra os dispositivos com base no termo de pesquisa
+  get filteredSensorsActivated() {
+    const term = this.searchTermSensors.trim().toLowerCase();
 
-  //  return this.listDevicesAnalysis.filter(device => {
-   //   return (
-   //     term === '' ||
-   //     device.name.toLowerCase().includes(term) ||
-    //    device.type.toLowerCase().includes(term) ||
-    //    device.deviceModel.toLowerCase().includes(term) ||
-    //    device.manufacturer.toLowerCase().includes(term)
-    //  );
-   // });
- // }
-
-  // Obtém documentos paginados
- // get paginatedDevicesAnalysis() {
-  //  const start = (this.currentPageAnalysis - 1) * this.itemsPerPageAnalysis;
-  //  return this.filteredDevicesAnalysis.slice(start, start + this.itemsPerPageAnalysis);
- // }
-
-  // Calcula o total de páginas
-  //get totalPagesAnalysis(): number {
-  //  return Math.ceil(this.filteredDevicesAnalysis.length / this.itemsPerPageAnalysis);
-  //}
-
-  // Avança para a próxima página
-  //nextPageAnalysis() {
-   // if (this.currentPageAnalysis < this.totalPagesAnalysis) {
-   //   this.currentPageAnalysis++;
-   // }
-  //}
-
-  // Volta para a página anterior
-  //previousPageAnalysis() {
-  //  if (this.currentPageAnalysis > 1) {
-   //   this.currentPageAnalysis--;
-   // }
- // }
-
-  // ===========================================================
-
-  deviceForAnalysis(deviceModel: string) {
-
-    this.crudService.findDeviceModelForAnalysis(deviceModel).subscribe({
-      next: (response) => {
-        this.openModalTableInspection = !this.openModalTableInspection;
-        this.deviceAnalysis = response;
-      },
-      error: (error) => {
-        console.error('Error registering device:', error);
-      }
+    return this.listSensorsActivated.filter(device => {
+      return (
+        term === '' ||
+        device.name.toLowerCase().includes(term) ||
+        device.type.toLowerCase().includes(term) ||
+        device.deviceModel.toLowerCase().includes(term) ||
+        device.manufacturer.toLowerCase().includes(term) ||
+        device.status.toLowerCase().includes(term)
+      );
     });
   }
 
+  // Obtém documentos paginados
+  get paginateSensorsActivated() {
+    const start = (this.currentPageSensors - 1) * this.itemsPerPageSensors;
+    return this.filteredSensorsActivated.slice(start, start + this.itemsPerPageSensors);
+  }
 
+  // Calcula o total de páginas
+  get totalPagesSensorsActivated(): number {
+    return Math.ceil(this.filteredSensorsActivated.length / this.itemsPerPageSensors);
+  }
+
+  // Avança para a próxima página
+  nextPageSensorsActivated() {
+    if (this.currentPageSensors < this.totalPagesSensorsActivated) {
+      this.currentPageSensors++;
+    }
+  }
+
+  // Volta para a página anterior
+  previousPageSensorsActivated() {
+    if (this.currentPageSensors > 1) {
+      this.currentPageSensors--;
+    }
+  }
+
+  // ===========================================================
 
 
   // ================= Configuração dos tipos de dispositivos ===================

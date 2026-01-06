@@ -63,32 +63,6 @@
         </div>
 
         <div class="form-group">
-          <input type="number" formControlName="minLimit" class="form-input" placeholder="Enter a minLimit">
-          <small *ngIf="registerForm.get('minLimit')?.touched && registerForm.get('minLimit')?.hasError('required')">
-            Min limit is mandatory.
-          </small>
-        </div>
-
-        <div class="form-group">
-          <input type="number" formControlName="maxLimit" class="form-input" placeholder="Enter a maxLimit">
-          <small *ngIf="registerForm.get('maxLimit')?.touched && registerForm.get('maxLimit')?.hasError('required')">
-            Max limit is mandatory.
-          </small>
-        </div>
-
-        <div class="form-group">
-          <select class="form-input" formControlName="unit">
-            <option value="">Select a unit</option>
-            <option *ngFor="let item of units" [value]="item">
-              {{ item }}
-            </option>
-          </select>
-          <small *ngIf="registerForm.get('unit')?.touched && registerForm.get('unit')?.hasError('required')">
-            Unit is mandatory.
-          </small>
-        </div>
-
-        <div class="form-group">
           <textarea rows="2" cols="50" formControlName="location" class="form-input" placeholder="Enter a location"></textarea>
           <small *ngIf="registerForm.get('location')?.touched && registerForm.get('location')?.hasError('required')">
             Location is mandatory.
@@ -153,7 +127,7 @@
                 <button (click)="functionTableInspection(device.location)" class="button-info">Location</button>
               </td>
               <td>
-                <button class="action-button test-button">Test</button>
+                <button class="action-button test-button" (click)="functionChangeStatus(device.deviceModel)">Test</button>
               </td>
               <td>
                 <button class="action-button edit-button" (click)="functionButtonUpdate(device.deviceModel)">Edit</button>
@@ -284,7 +258,7 @@
         <h1>Device Settings</h1>
         <p>Configuration monitoring and history</p>
         <div class="reload-button">
-          <button >Reload</button>
+          <button (click)="reloadAnalysis()">Reload</button>
         </div>
       </div>
 
@@ -325,7 +299,7 @@
 
       <div class="search-container">
         <h2 class="analysis-title">Real-time Device Analysis</h2>
-        <input type="text" placeholder="Search" class="search-input">
+        <input type="text" placeholder="Search" class="search-input" [(ngModel)]="searchTermSensors">
       </div>
 
       <div style="padding: 20px;">
@@ -339,20 +313,20 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody >
+          <tbody *ngFor="let sensor of paginateSensorsActivated" (click)="deviceForAnalysis(sensor.deviceModel)">
             <tr>
-              <td></td>
-              <td></td>
-              <td class="current-value"></td>
-              <td class="previous-value"></td>
-              <td><span class="status-indicator status-active"></span>Active</td>
+              <td>{{sensor.name}}</td>
+              <td>{{sensor.type}}</td>
+              <td class="current-value">{{sensor.deviceModel}}</td>
+              <td class="previous-value">{{sensor.manufacturer}}</td>
+              <td><span class="status-indicator status-active"></span>{{sensor.status}}</td>
             </tr>
           </tbody>
         </table>
         <div class="pagination">
-          <button  [disabled]="currentPageAnalysis === 1">Previous</button>
-          <span class="pagination-info">Page {{ currentPageAnalysis }} of </span>
-          <button>Next</button>
+          <button (click)="previousPageSensorsActivated()" [disabled]="currentPageSensors === 1">Previous</button>
+          <span class="pagination-info">Page {{ currentPageSensors }} of {{ totalPagesSensorsActivated }}</span>
+          <button (click)="nextPageSensorsActivated()" [disabled]="currentPageSensors === totalPagesSensorsActivated">Next</button>
         </div>
       </div>
     </div>

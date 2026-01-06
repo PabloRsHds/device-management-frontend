@@ -2,10 +2,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { RegisterDevice } from '../interfaces/RegisterDevice';
-import { DeviceAnalysis } from '../interfaces/DeviceAnalysis';
 import { DeviceAnalysisDto } from '../interfaces/DeviceAnalysisDto';
 import { UpdateDevice } from '../interfaces/UpdateDevice';
-import { DeleteDevice } from '../interfaces/DeleteDevice';
+import { AllDevices } from '../interfaces/AllDevices';
+import { AllSensors } from '../interfaces/AllSensors';
 
 @Injectable({
   providedIn: 'root'
@@ -68,8 +68,24 @@ export class CrudService {
     return this.http.delete<void>(`http://localhost:8080/api/delete-device/${deviceModel}`);
   }
 
-  allDevices(): Observable<RegisterDevice[]> {
-    return this.http.get<RegisterDevice[]>('http://localhost:8080/api/all-devices');
+  getAllSensorsActivated(): Observable<AllSensors[]> {
+    return this.http.get<AllSensors[]>('http://localhost:8081/api/find-all-sensors-activated');
+  }
+
+  getStatus(deviceModel: string): Observable<string> {
+    return this.http.get<string>(`http://localhost:8081/api/get-status/${deviceModel}`, { responseType: 'text' as 'json' });
+  }
+
+  changeStatus(deviceModel: string): Observable<void> {
+    return this.http.patch<void>(`http://localhost:8081/api/change-status/${deviceModel}`, deviceModel);
+  }
+
+  allDevices(): Observable<AllDevices[]> {
+    return this.http.get<AllDevices[]>('http://localhost:8080/api/all-devices');
+  }
+
+  findDeviceWithDeviceModel(deviceModel: string): Observable<AllDevices> {
+    return this.http.get<AllDevices>(`http://localhost:8080/api/find-by-device/${deviceModel}`);
   }
 
   findDeviceModelForAnalysis(deviceModel: string): Observable<DeviceAnalysisDto> {

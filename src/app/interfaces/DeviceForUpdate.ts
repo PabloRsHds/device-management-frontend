@@ -1,4 +1,4 @@
-export interface RegisterDevice {
+export interface DeviceForUpdate {
   name: string,
   type: string,
   deviceModel: string,
