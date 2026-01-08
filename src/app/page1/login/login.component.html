@@ -1,1 +1,17 @@
+<div class="body">
+
+    <form class="form-control" method="post" [formGroup]="formLogin" (ngSubmit)="login()">
+      <p class="title">Login</p>
+      <div class="input-field">
+        <input required="" formControlName="email" class="input" type="text" />
+        <label class="label"  for="input">Enter Email</label>
+      </div>
+      <div class="input-field">
+        <input required="" formControlName="password" class="input" type="password" />
+        <label class="label" for="input">Enter Password</label>
+      </div>
+      <button type="submit" class="submit-btn">Sign In</button>
+    </form>
+
+</div>
 
