@@ -1,10 +1,10 @@
 import { CrudService } from './../../service/crud.service';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
 import { DeviceAnalysisDto } from '../../interfaces/DeviceAnalysisDto';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AllDevices } from '../../interfaces/AllDevices';
 import { AllSensors } from '../../interfaces/AllSensors';
 
@@ -66,11 +66,9 @@ export class DeviceComponent {
 
   status: string = '';
 
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private crudService: CrudService,
-    private snackBar: MatSnackBar) {}
+  formBuilder = inject(FormBuilder);
+  crudService = inject(CrudService);
+  snackBar = inject(MatSnackBar);
 
   ngOnInit() {
     this.allDevices();

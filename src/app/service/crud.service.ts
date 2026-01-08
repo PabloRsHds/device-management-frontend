@@ -8,6 +8,7 @@ import { AllDevices } from '../interfaces/AllDevices';
 import { AllSensors } from '../interfaces/AllSensors';
 import { Login } from '../interfaces/Login';
 import { ResponseTokens } from '../interfaces/ResponseTokens';
+import { RequestTokens } from '../interfaces/RequestTokens';
 
 @Injectable({
   providedIn: 'root'
@@ -107,6 +108,23 @@ export class CrudService {
 
         catchError((err: HttpErrorResponse) => {
         let errorMsg = 'Serviço de login está temporiamente fora do ar';
+
+        if (err.error && typeof err.error === 'object') {
+          const keys = Object.keys(err.error);
+          if (keys.length > 0) {
+            errorMsg = err.error[keys[0]];
+          }
+        }
+        return throwError(() => new Error(errorMsg));
+      })
+    );
+  }
+
+  refreshTokens(tokens: RequestTokens): Observable<ResponseTokens> {
+    return this.http.post<ResponseTokens>('http://localhost:8081/api/refresh-token', tokens).pipe(
+
+        catchError((err: HttpErrorResponse) => {
+        let errorMsg = 'Não foi possivel criar novos tokens';
 
         if (err.error && typeof err.error === 'object') {
           const keys = Object.keys(err.error);

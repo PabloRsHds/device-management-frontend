@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
 import { CrudService } from '../../service/crud.service';
@@ -16,8 +16,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent {
 
   formLogin!: FormGroup
-
-  constructor(private service: CrudService, private FormBuilder: FormBuilder, private router: Router, private snackBar: MatSnackBar) {}
+  service = inject(CrudService);
+  formBuilder = inject(FormBuilder);
+  router = inject(Router);
+  snackBar = inject(MatSnackBar);
 
   ngOnInit(){
     this.configurationFormLogin();
@@ -25,7 +27,7 @@ export class LoginComponent {
 
   configurationFormLogin() {
 
-    this.formLogin = this.FormBuilder.group({
+    this.formLogin = this.formBuilder.group({
       email: [''],
       password: ['']
     })
@@ -38,7 +40,7 @@ export class LoginComponent {
           duration: 3000,
           panelClass : ['snackbar-success']
         });
-        localStorage.setItem('token', response.accessToken);
+        localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('refreshToken', response.refreshToken);
         this.router.navigate(['device/home']);
       },
