@@ -285,6 +285,85 @@ small {
 
 /**********************/
 
+/**** NOTIFICATIONS ****/
+
+.modal-notifications {
+  position: fixed;
+  top: 155px;
+  right: 200px;
+  z-index: 9999;
+}
+
+.modal-notifications-content {
+  width: 500px;
+  height: 450px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.938);
+  overflow-y: auto;
+}
+
+.modal-notifications-content h2 {
+  color: white;
+  text-align: center;
+  margin: 20px 0px 30px 0px;
+  text-indent: 0px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.modal-notifications-content .content{
+  background-color: #0422506e;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0px auto 10px auto;
+  width: 90%;
+}
+
+.modal-notifications-content p {
+  text-align: end;
+  color: rgb(241, 241, 241);
+  margin: 0px 10px 20px 0px;
+  cursor: pointer;
+}
+
+.modal-notifications-content p:hover {
+  text-align: end;
+  color: rgb(180, 180, 180);
+}
+
+.modal-notifications-content span {
+  color: rgb(187, 187, 187);
+  font-weight: 700;
+  text-align: center;
+  padding: 10px;
+}
+
+/* largura da barra */
+.modal-notifications-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* fundo da barra */
+.modal-notifications-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* parte que se move */
+.modal-notifications-content::-webkit-scrollbar-thumb {
+  background: #0D6EFD;/* cor da barra */
+  border-radius: 10px;
+}
+
+/* hover */
+.modal-notifications-content::-webkit-scrollbar-thumb:hover {
+  background: #0D6EFD;
+}
+
+/**********************/
+
+
 
 /****TABLE****/
 
@@ -294,13 +373,13 @@ small {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 100px;
+  padding: 50px;
 }
 
 
 .table-container {
   background-color: white;
-  padding: 20px;
+  padding: 80px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -308,33 +387,42 @@ small {
 }
 
 .search-container {
-  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  margin-right: 40px;
 }
 
-.search-container h2{
-  margin-bottom: 25px;
+.search-container h2 {
+  text-indent: 40px;
+  color: rgb(14, 17, 34);
 }
 
-.search-container input{
+.search-container button {
+  background-color: #1574ff;
+  border: none;
+  border-radius: 100%;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #1058c4;
+}
+
+.main-content-table input{
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-right: 10px;
+  margin: 10px 0px 40px 0px;
 }
 
-.search-container input:focus {
+.main-content-table input:focus {
   outline: none;
   border-color: #0d6efd;
   box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
-}
-
-.table-title {
-  margin: 20px 0px 30px 5px;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 50px;
-  color: #333;
 }
 
 .device-table {
@@ -896,15 +984,16 @@ small {
   background-color: #ececec;
   align-items: center;
   justify-content: center;
-  padding: 100px;
+  padding: 50px;
 }
 
 .analysis-container {
   background-color: white;
-  padding: 20px;
-  height: 100%;
+  padding: 80px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
 }
 
 .sensor-test-container {
@@ -931,10 +1020,23 @@ small {
   color: #333;
 }
 
+.main-content-analysis input{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 10px 0px 40px 0px;
+}
+
+.main-content-analysis input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
+}
+
 .devices-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
 }
 
 .devices-table th {

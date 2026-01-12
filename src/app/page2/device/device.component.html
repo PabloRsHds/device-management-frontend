@@ -91,11 +91,14 @@
     <div class="table-container">
 
       <div class="search-container">
-        <h2 class="table-title">All Devices</h2>
-        <input [(ngModel)]="searchTerm" type="text" placeholder="Search" class="search-input">
+        <h2>All Devices</h2>
+        <button (click)="openNotifications()">🔔</button>
       </div>
 
-      <div style="padding: 20px;">
+      <div style="padding: 40px;">
+        <div>
+          <input [(ngModel)]="searchTerm" type="text" placeholder="Search devices" class="search-input">
+        </div>
         <table class="device-table">
           <thead>
             <tr>
@@ -145,6 +148,24 @@
           <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-notifications" *ngIf="openModalNotifications">
+    <div class="modal-notifications-content"
+    (scroll)="onScroll($event)">
+      <div>
+        <h2>Notifications</h2>
+      </div>
+      <div class="content" *ngFor="let notification of listNotifications">
+        <div>
+          <p>X</p>
+
+        </div>
+        <div>
+          <span>{{notification.message}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -293,17 +314,19 @@
 
   <!---->
 
-  <div class="main-content-analysis"
-    *ngIf="buttons[2].pressed">
+  <div class="main-content-analysis" *ngIf="buttons[2].pressed">
 
     <div class="analysis-container">
 
       <div class="search-container">
-        <h2 class="analysis-title">Real-time Device Analysis</h2>
-        <input type="text" placeholder="Search" class="search-input" [(ngModel)]="searchTermSensors">
+        <h2>Real-time Device Analysis</h2>
+        <button (click)="openNotifications()">🔔</button>
       </div>
 
-      <div style="padding: 20px;">
+      <div style="padding: 40px;">
+        <div>
+          <input type="text" placeholder="Search" class="search-input" [(ngModel)]="searchTermSensors">
+        </div>
         <table class="devices-table" >
           <thead>
             <tr>

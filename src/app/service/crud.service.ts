@@ -9,6 +9,7 @@ import { AllSensors } from '../interfaces/AllSensors';
 import { Login } from '../interfaces/Login';
 import { ResponseTokens } from '../interfaces/ResponseTokens';
 import { RequestTokens } from '../interfaces/RequestTokens';
+import { Notifications } from '../interfaces/Notifications';
 
 @Injectable({
   providedIn: 'root'
@@ -136,5 +137,10 @@ export class CrudService {
         return throwError(() => new Error(errorMsg));
       })
     );
+  }
+
+  //NOTIFICAÇÃO
+  notifications(page: number, size: number):Observable<Notifications[]>{
+    return this.http.get<Notifications[]>(`http://localhost:8085/api/notifications?page=${page}&size=${size}`);
   }
 }

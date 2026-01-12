@@ -7,6 +7,7 @@ import { DeviceAnalysisDto } from '../../interfaces/DeviceAnalysisDto';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AllDevices } from '../../interfaces/AllDevices';
 import { AllSensors } from '../../interfaces/AllSensors';
+import { Notifications } from '../../interfaces/Notifications';
 
 
 @Component({
@@ -57,8 +58,10 @@ export class DeviceComponent {
   listDevices: AllDevices[] = [];
   listDevicesAnalysis: DeviceAnalysisDto[] = [];
   listSensorsActivated: AllSensors[] = [];
+  listNotifications: Notifications[] = [];
 
   openModalDescription = false;
+  openModalNotifications = false;
   selectedDeviceDescription: string = '';
 
   openModalLocation = false;
@@ -502,9 +505,63 @@ export class DeviceComponent {
         button.pressed = !button.pressed;
       } else {
         button.pressed = false;
+        this.openModalNotifications = false;
       }
     });
   }
 
   //===============================================================
+
+  loading = false;
+  hasMore = true;
+
+  page = 0;
+  size = 4;
+
+  openNotifications() {
+    this.openModalNotifications = !this.openModalNotifications;
+    this.page = 0;
+    this.listNotifications = [];
+    this.hasMore = true;
+
+    this.loadMore();
+  }
+
+
+  loadMore() {
+    if (this.loading || !this.hasMore) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.crudService.notifications(this.page, this.size).subscribe({
+      next: (response) => {
+
+        if (response.length < this.size) {
+          this.hasMore = false; // não tem mais dados
+        }
+
+        this.listNotifications.push(...response);
+        this.page++;
+
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
+  }
+
+  onScroll(event: Event) {
+    const element = event.target as HTMLElement;
+
+    const chegouNoFim =
+      element.scrollHeight - element.scrollTop <= element.clientHeight + 5;
+
+    if (chegouNoFim) {
+      this.loadMore();
+    }
+  }
+
 }
