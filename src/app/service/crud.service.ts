@@ -143,4 +143,17 @@ export class CrudService {
   notifications(page: number, size: number):Observable<Notifications[]>{
     return this.http.get<Notifications[]>(`http://localhost:8085/api/notifications?page=${page}&size=${size}`);
   }
+
+  //NOTIFICAÇÃO
+  visualization(): Observable<void> {
+    return this.http.put<void>('http://localhost:8085/api/visualisation-notification', {});
+  }
+
+  ocultNotification(notificationId : number): Observable<void> {
+    return this.http.put<void>( `http://localhost:8085/api/occult-notification/${notificationId}`, {});
+  }
+
+  countNotification(): Observable<number> {
+    return this.http.get<number>('http://localhost:8085/api/count-notification');
+  }
 }

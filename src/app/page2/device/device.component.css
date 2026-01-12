@@ -393,6 +393,21 @@ small {
   margin-right: 40px;
 }
 
+.search-container .icon {
+  position: fixed;
+  right: 160px;
+  top: 128px;
+  background-color: rgb(223, 3, 3);
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+}
+
 .search-container h2 {
   text-indent: 40px;
   color: rgb(14, 17, 34);

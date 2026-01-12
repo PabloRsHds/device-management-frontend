@@ -79,6 +79,8 @@ export class DeviceComponent {
     this.configurationForm();
     // Pega todos os sensores ativados
     this.getAllSensorsActivated();
+
+    this.countNotification();
   }
 
   functionTableInspection(device: string) {
@@ -522,11 +524,20 @@ export class DeviceComponent {
     this.openModalNotifications = !this.openModalNotifications;
     this.page = 0;
     this.listNotifications = [];
+    this.countNotifications = 0;
     this.hasMore = true;
 
     this.loadMore();
   }
 
+  reloadNotifications() {
+    this.page = 0;
+    this.listNotifications = [];
+    this.hasMore = true;
+    this.loading = false;
+
+    this.loadMore();
+  }
 
   loadMore() {
     if (this.loading || !this.hasMore) {
@@ -543,12 +554,32 @@ export class DeviceComponent {
         }
 
         this.listNotifications.push(...response);
+        this.visualization();
         this.page++;
-
         this.loading = false;
       },
       error: () => {
         this.loading = false;
+      }
+    });
+  }
+
+  visualization() {
+    this.crudService.visualization().subscribe();
+  }
+
+  countNotifications = 0;
+
+  countNotification() {
+    this.crudService.countNotification().subscribe(
+      response => this.countNotifications = response
+    );
+  }
+
+  ocultNotifications(notificationId : number) {
+    this.crudService.ocultNotification(notificationId).subscribe({
+      next: (response) => {
+        this.reloadNotifications();
       }
     });
   }

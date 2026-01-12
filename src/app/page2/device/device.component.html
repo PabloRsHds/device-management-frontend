@@ -92,6 +92,8 @@
 
       <div class="search-container">
         <h2>All Devices</h2>
+        <div class="icon" *ngIf="countNotifications > 0 && countNotifications < 10">{{countNotifications}}</div>
+        <div class="icon" *ngIf="countNotifications > 9">9+</div>
         <button (click)="openNotifications()">🔔</button>
       </div>
 
@@ -160,8 +162,7 @@
       </div>
       <div class="content" *ngFor="let notification of listNotifications">
         <div>
-          <p>X</p>
-
+          <p (click)="ocultNotifications(notification.notificationId)">X</p>
         </div>
         <div>
           <span>{{notification.message}}</span>
@@ -319,7 +320,9 @@
     <div class="analysis-container">
 
       <div class="search-container">
-        <h2>Real-time Device Analysis</h2>
+        <h2>All Devices</h2>
+        <div class="icon" *ngIf="countNotifications > 0 && countNotifications < 10">{{countNotifications}}</div>
+        <div class="icon" *ngIf="countNotifications > 9">9+</div>
         <button (click)="openNotifications()">🔔</button>
       </div>
 
