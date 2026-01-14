@@ -8,13 +8,20 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AllDevices } from '../../interfaces/AllDevices';
 import { AllSensors } from '../../interfaces/AllSensors';
 import { Notifications } from '../../interfaces/Notifications';
+import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
+import { EChartsOption } from 'echarts';
 
 
 @Component({
   selector: 'app-device',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSnackBarModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSnackBarModule, NgxEchartsDirective],
   templateUrl: './device.component.html',
-  styleUrl: './device.component.css'
+  styleUrl: './device.component.css',
+  providers : [
+    provideEchartsCore({
+      echarts: () => import('echarts') // 🔑 AQUI está a correção
+    })
+  ]
 })
 export class DeviceComponent {
 
@@ -87,6 +94,47 @@ export class DeviceComponent {
     this.openModalDescription = true;
     this.selectedDeviceDescription = device;
   }
+
+
+
+  // Graficos
+
+  chartOptions: EChartsOption = {};
+
+  graphic() {
+    this.chartOptions = {
+      color: ['#d4d4d4','#345991'],
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        top: '10%',
+        left: 'center'
+      },
+      series: [
+        {
+          name: 'Status Devices',
+          type: 'pie',
+          radius: '50%',
+          data: [
+            { value: this.deviceAnalysis.analysisFailed || 0, name: 'Fail' },
+            { value: this.deviceAnalysis.analysisWorked || 0, name: 'Sucess' }
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    };
+  }
+
+
+
+  //========================================================================
 
 
   // ================= Retorna todos os dispositivos e salva na lista ==============================
@@ -323,6 +371,8 @@ export class DeviceComponent {
         this.openModalTableInspection = true;
         this.deviceAnalysis = response;
         this.deviceModel = deviceModel;
+
+        this.graphic();
       },
       error: (error) => {
         console.error('Error registering device:', error);

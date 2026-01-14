@@ -7,4 +7,6 @@ export interface DeviceAnalysisDto {
   lastReadingMinLimit: number;
   lastReadingMaxLimit: number;
   lastReadingUpdateAt: string;
+  analysisWorked: number,
+  analysisFailed: number
 }

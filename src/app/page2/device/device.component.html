@@ -272,7 +272,7 @@
   <!---->
 
   <!-- Device Analysis Modal -->
-  <div class="analysis-modal" *ngIf="!openModalTableInspection">
+  <div class="analysis-modal" *ngIf="openModalTableInspection">
     <div class="modal-content">
 
       <div class="close-button">
@@ -346,7 +346,7 @@
         <div class="card-3">
           <h2>Operation Status</h2>
           <div>
-
+            <div echarts [options]="chartOptions" class="chart"></div>
           </div>
         </div>
 
