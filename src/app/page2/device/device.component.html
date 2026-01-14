@@ -272,13 +272,18 @@
   <!---->
 
   <!-- Device Analysis Modal -->
-  <div class="analysis-modal" *ngIf="openModalTableInspection">
+  <div class="analysis-modal" *ngIf="!openModalTableInspection">
     <div class="modal-content">
-      <p class="close-button" (click)="openModalTableInspection = !openModalTableInspection">X</p>
+
+      <div class="close-button">
+        <span (click)="openModalTableInspection = !openModalTableInspection">X</span>
+      </div>
 
       <div class="modal-title">
-        <h1>Device Settings</h1>
-        <p>Configuration monitoring and history</p>
+        <div>
+          <h1>Device Settings</h1>
+          <p>Configuration monitoring and history</p>
+        </div>
         <div class="reload-button">
           <button (click)="reloadAnalysis()">Reload</button>
           <button style="margin-right: 70px;" (click)="functionChangeStatus(this.deviceModel)">Disable</button>
@@ -290,21 +295,58 @@
         <div class="card-1">
           <h2>Current Settings</h2>
           <div>
-            <p>Min limit <span class="span-color-settings">{{deviceAnalysis.minLimit}}</span></p>
-            <p>Max limit <span class="span-color-settings">{{deviceAnalysis.maxLimit}}</span></p>
-            <p>Unit <span class="span-color-settings">{{deviceAnalysis.unit}}</span></p>
-            <p>CreatedAt <span>{{deviceAnalysis.createdAt}}</span></p>
-            <p style="border-bottom: none;">UpdateAt <span>{{deviceAnalysis.updatedAt}}</span></p>
+            <p>Min limit</p>
+            <p class="value">{{deviceAnalysis.minLimit}}</p>
+
+            <div class="separator-card"></div>
+
+            <p>Max limit</p>
+            <p class="value">{{deviceAnalysis.maxLimit}}</p>
+
+            <div class="separator-card"></div>
+
+            <p>Unit</p>
+            <p class="value">{{deviceAnalysis.unit}}</p>
+
+            <div class="separator-card"></div>
+
+            <p>CreatedAt</p>
+            <p class="value">{{deviceAnalysis.createdAt}}</p>
+
+            <div class="separator-card"></div>
+
+            <p>UpdateAt</p>
+            <p class="value">{{deviceAnalysis.updatedAt}}</p>
           </div>
         </div>
 
         <div class="card-2">
           <h2>Previous configuration</h2>
           <div>
-            <p>Min limit <span class="span-color-settings">{{deviceAnalysis.lastReadingMinLimit}}</span></p>
-            <p>Max limit <span class="span-color-settings">{{deviceAnalysis.lastReadingMaxLimit}}</span></p>
-            <p>Unit <span class="span-color-settings">{{deviceAnalysis.unit}}</span></p>
-            <p style="border-bottom: none;">UpdateAt <span>{{deviceAnalysis.lastReadingUpdateAt}}</span></p>
+            <p>Min limit</p>
+            <p class="value">{{deviceAnalysis.lastReadingMinLimit}}</p>
+
+            <div class="separator-card"></div>
+
+            <p>Max limit</p>
+            <p class="value">{{deviceAnalysis.lastReadingMaxLimit}}</p>
+
+            <div class="separator-card"></div>
+
+            <p>Unit</p>
+            <p class="value">{{deviceAnalysis.unit}}</p>
+
+            <div class="separator-card"></div>
+
+            <p>UpdateAt</p>
+            <p class="value">{{deviceAnalysis.lastReadingUpdateAt}}</p>
+          </div>
+        </div>
+
+        <div class="card-3">
+          <h2>Operation Status</h2>
+          <div>
+
           </div>
         </div>
 
