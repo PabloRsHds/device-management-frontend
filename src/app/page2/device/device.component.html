@@ -281,8 +281,8 @@
 
       <div class="modal-title">
         <div>
-          <h1>Device Settings</h1>
-          <p>Configuration monitoring and history</p>
+          <h1>Device model: <span>{{deviceModel}}</span></h1>
+          <p>Configuration, monitoring and history</p>
         </div>
         <div class="reload-button">
           <button (click)="reloadAnalysis()">Reload</button>
@@ -296,12 +296,12 @@
           <h2>Current Settings</h2>
           <div>
             <p>Min limit</p>
-            <p class="value">{{deviceAnalysis.minLimit}}</p>
+            <p class="value">{{deviceAnalysis.minLimit}} {{unit}}</p>
 
             <div class="separator-card"></div>
 
             <p>Max limit</p>
-            <p class="value">{{deviceAnalysis.maxLimit}}</p>
+            <p class="value">{{deviceAnalysis.maxLimit}} {{unit}}</p>
 
             <div class="separator-card"></div>
 
@@ -324,12 +324,12 @@
           <h2>Previous configuration</h2>
           <div>
             <p>Min limit</p>
-            <p class="value">{{deviceAnalysis.lastReadingMinLimit}}</p>
+            <p class="value">{{deviceAnalysis.lastReadingMinLimit}} {{unit}}</p>
 
             <div class="separator-card"></div>
 
             <p>Max limit</p>
-            <p class="value">{{deviceAnalysis.lastReadingMaxLimit}}</p>
+            <p class="value">{{deviceAnalysis.lastReadingMaxLimit}} {{unit}}</p>
 
             <div class="separator-card"></div>
 

@@ -33,6 +33,10 @@ export class DeviceComponent {
   updateDescription = false;
   //
 
+  //Unidade de medida
+  unit:string = '';
+  //
+
   //Pesquisa
   searchTerm: string = ''; // Variável para armazenar o termo de searchTerm
   currentPage = 1;
@@ -364,6 +368,24 @@ export class DeviceComponent {
 
   }
 
+  private readonly unitMap: Record<string, string> = {
+    CELSIUS: '°C',
+    PERCENTAGE: '%',
+    PPM: 'ppm',
+    BAR: 'bar',
+    LUX: 'lux',
+    DECIBEL: 'dB',
+    NEWTON: 'N',
+    KILOGRAM_FORCE: 'kgf',
+    OHM: 'Ω',
+    METER: 'm',
+    CENTIMETER: 'cm',
+    LITER_PER_MINUTE: 'L/min',
+    AMPERE: 'A',
+    METER_PER_SECOND: 'm/s',
+    METER_PER_SECOND_SQUARED: 'm/s²'
+  };
+
   deviceForAnalysis(deviceModel: string) {
 
     this.crudService.findDeviceModelForAnalysis(deviceModel).subscribe({
@@ -371,7 +393,8 @@ export class DeviceComponent {
         this.openModalTableInspection = true;
         this.deviceAnalysis = response;
         this.deviceModel = deviceModel;
-
+        this.unit = this.unitMap[response.unit] ?? '';
+        console.log(this.unit)
         this.graphic();
       },
       error: (error) => {
@@ -379,6 +402,8 @@ export class DeviceComponent {
       }
     });
   }
+
+
 
 
   // =======================================================================

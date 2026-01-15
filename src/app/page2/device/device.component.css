@@ -862,6 +862,10 @@ small {
   background-color: #F7F9FC;
 }
 
+.modal-content .modal-title span {
+  color: rgb(10, 69, 158);
+}
+
 .modal-content .close-button {
   display: flex;
   justify-content: flex-end;
@@ -938,7 +942,7 @@ small {
 
 .modal-cards .card-1 h2 {
   margin: 0px 0px 30px 0px;
-  text-indent: 40px;
+  text-align: center;
   color: rgb(14, 17, 34);
 }
 
@@ -982,7 +986,7 @@ small {
 
 .modal-cards .card-2 h2 {
   margin: 0px 0px 30px 0px;
-  text-indent: 40px;
+  text-align: center;
   color: rgb(14, 17, 34);
 }
 
@@ -1020,6 +1024,9 @@ small {
   background-color: white;
 }
 
+.modal-cards .card-3 h2{
+  text-align: center;
+}
 /*****************************/
 
 .main-content-analysis {
