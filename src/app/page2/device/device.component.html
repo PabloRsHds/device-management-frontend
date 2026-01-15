@@ -1,28 +1,15 @@
 <div class="body">
 
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <h3>Device Management</h3>
-      <div class="separator"></div>
-    </div>
-    <div class="sidebar-menu">
-      <button class="menu-button"
-        *ngFor="let button of buttons"
-        (click)="toggleButton(button.id)"
-        [ngClass]="{'button-pressed':button.pressed}">
-          {{button.title}}
-      </button>
-    </div>
-  </div>
+  <app-sidebar (menuSelected)="activeMenu = $event"></app-sidebar>
 
-  <div class="main-content" *ngIf="!buttons[0].pressed && !buttons[1].pressed && !buttons[2].pressed">
+  <div class="main-content" *ngIf=" activeMenu == menuType.HOME">
     <div class="welcome-container">
       <h1 class="welcome-title">Welcome to Device Management</h1>
       <p class="welcome-subtitle">This is the place where you can manage your devices</p>
     </div>
   </div>
 
-  <div class="main-content-form" *ngIf="buttons[0].pressed">
+  <div class="main-content-form" *ngIf="activeMenu == menuType.ADD_DEVICE">
     <div class="form-container">
       <h1 class="form-title">Register Device</h1>
 
@@ -86,7 +73,7 @@
     </div>
   </div>
 
-  <div class="main-content-table" *ngIf="buttons[1].pressed">
+  <div class="main-content-table" *ngIf="activeMenu == menuType.LIST_DEVICES">
 
     <div class="table-container">
 
@@ -357,7 +344,7 @@
 
   <!---->
 
-  <div class="main-content-analysis" *ngIf="buttons[2].pressed">
+  <div class="main-content-analysis" *ngIf="activeMenu == menuType.ANALYSIS">
 
     <div class="analysis-container">
 

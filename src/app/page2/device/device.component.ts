@@ -10,11 +10,19 @@ import { AllSensors } from '../../interfaces/AllSensors';
 import { Notifications } from '../../interfaces/Notifications';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 import { EChartsOption } from 'echarts';
+import { SidebarComponent } from "../../components/sidebar/sidebar.component";
 
+
+export enum MenuType {
+  HOME = 0,
+  ADD_DEVICE = 1,
+  LIST_DEVICES = 2,
+  ANALYSIS = 3
+}
 
 @Component({
   selector: 'app-device',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSnackBarModule, NgxEchartsDirective],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSnackBarModule, NgxEchartsDirective, SidebarComponent],
   templateUrl: './device.component.html',
   styleUrl: './device.component.css',
   providers : [
@@ -24,6 +32,8 @@ import { EChartsOption } from 'echarts';
   ]
 })
 export class DeviceComponent {
+
+  menuType = MenuType;
 
   //Updates
   updateDeviceName = false;
@@ -566,26 +576,9 @@ export class DeviceComponent {
   // =============================================================
 
 
-  // ================= Configuração dos botões ===================
+  // ================= Altera menu ativo ====================
 
-  // Lista de botões
-  buttons = [
-    {id: 1, title: 'Add Device', pressed : false},
-    {id: 2, title:'View all Devices', pressed: false},
-    {id: 3, title:'Analysis of Devices', pressed: false}
-  ];
-
-  // Alterna botões da lista de configurações
-  toggleButton(id: number) {
-    this.buttons.forEach(button => {
-      if (button.id === id) {
-        button.pressed = !button.pressed;
-      } else {
-        button.pressed = false;
-        this.openModalNotifications = false;
-      }
-    });
-  }
+  activeMenu: number = 0;
 
   //===============================================================
 

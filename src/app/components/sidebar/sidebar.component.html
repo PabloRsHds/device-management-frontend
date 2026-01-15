@@ -1,0 +1,17 @@
+<div class="sidebar">
+
+  <div class="sidebar-header">
+    <h3>Device Management</h3>
+    <div class="separator"></div>
+  </div>
+
+  <div class="sidebar-menu">
+    <button class="menu-button"
+      *ngFor="let button of buttons"
+      (click)="toggleButton(button.id)"
+      [ngClass]="{'button-pressed':button.pressed}">
+        {{button.title}}
+    </button>
+  </div>
+
+</div>
