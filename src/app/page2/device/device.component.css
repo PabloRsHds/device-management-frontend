@@ -44,6 +44,17 @@
 }
 
 
+.layout-sidebar {
+  display: flex;
+  height: 100vh;
+}
+
+.layout-sidebar {
+  display: flex;
+  height: 100vh;
+}
+
+
 /************* MAIN CONTENT ***************/
 
 .main-content {
@@ -75,9 +86,6 @@
 }
 
 @media (max-width: 768px) {
-  .sidebar {
-      width: 200px;
-  }
 
   .welcome-title {
       font-size: 2rem;
@@ -89,13 +97,6 @@
       flex-direction: column;
   }
 
-  .sidebar {
-      width: 100%;
-      height: auto;
-      border-right: none;
-      border-bottom: 1px solid #dee2e6;
-  }
-
   .main-content {
       height: calc(100vh - 250px);
   }
@@ -104,132 +105,7 @@
 
 /****************************/
 
-/*** FORMULARIO  *****/
-.main-content-form {
-  flex: 1;
-  background-color: #ececec;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
 
-.form-container {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-}
-
-.form-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 20px 0px 40px 0px;
-  text-align: center;
-  color: #333;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group textarea {
-  resize: none;
-}
-
-.form-input {
-  display: flex;
-  width: 90%;
-  margin: 0 auto;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: border-color 0.2s ease;
-}
-
-small {
-  color: red;
-  margin-top: 10px;
-  margin-left: 30px;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #0d6efd;
-  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
-}
-
-.form-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 30px;
-}
-
-.form-button {
-  width: 150px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.register-button {
-  background-color: #e9ecef;
-  color: #333;
-}
-
-.register-button:hover {
-  background-color: #dee2e6;
-}
-
-.cancel-button {
-  background-color: #f8f9fa;
-  color: #6c757d;
-}
-
-.cancel-button:hover {
-  background-color: #e9ecef;
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-      width: 200px;
-  }
-
-  .form-container {
-      padding: 20px;
-      margin: 0 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-      flex-direction: column;
-  }
-
-  .sidebar {
-      width: 100%;
-      height: auto;
-      border-right: none;
-      border-bottom: 1px solid #dee2e6;
-  }
-
-  .main-content {
-      height: calc(100vh - 250px);
-  }
-
-  .form-container {
-      max-width: 100%;
-  }
-}
-
-/**********************/
 
 /**** NOTIFICATIONS ****/
 
@@ -467,9 +343,6 @@ small {
 }
 
 @media (max-width: 768px) {
-  .sidebar {
-      width: 200px;
-  }
 
   .table-container {
       padding: 15px;
@@ -484,15 +357,8 @@ small {
 }
 
 @media (max-width: 480px) {
-  body {
+  .body {
       flex-direction: column;
-  }
-
-  .sidebar {
-      width: 100%;
-      height: auto;
-      border-right: none;
-      border-bottom: 1px solid #dee2e6;
   }
 
   .main-content {
@@ -1109,9 +975,6 @@ small {
 }
 
 @media (max-width: 768px) {
-  .sidebar {
-      width: 200px;
-  }
 
   .analysis-container {
       padding: 15px;
@@ -1130,15 +993,8 @@ small {
 }
 
 @media (max-width: 480px) {
-  body {
+  .body {
       flex-direction: column;
-  }
-
-  .sidebar {
-      width: 100%;
-      height: auto;
-      border-right: none;
-      border-bottom: 1px solid #dee2e6;
   }
 
   .main-content {

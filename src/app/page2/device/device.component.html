@@ -1,79 +1,21 @@
 <div class="body">
 
-  <app-sidebar (menuSelected)="activeMenu = $event"></app-sidebar>
+  <app-sidebar
+  (menuSelected)="activeMenu = $event">
+  </app-sidebar>
 
-  <div class="main-content" *ngIf=" activeMenu == menuType.HOME">
+  <div class="main-content" *ngIf="activeMenu === menuType.HOME">
     <div class="welcome-container">
       <h1 class="welcome-title">Welcome to Device Management</h1>
       <p class="welcome-subtitle">This is the place where you can manage your devices</p>
     </div>
   </div>
 
-  <div class="main-content-form" *ngIf="activeMenu == menuType.ADD_DEVICE">
-    <div class="form-container">
-      <h1 class="form-title">Register Device</h1>
+  <app-register
+  *ngIf="activeMenu === menuType.REGISTER">
+  </app-register>
 
-      <form method="post" [formGroup]="registerForm" (ngSubmit)="register()">
-        <div class="form-group">
-          <input type="text" formControlName="name" class="form-input" placeholder="Enter device name">
-
-          <small *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')">
-            Device name is mandatory.
-          </small>
-        </div>
-
-
-        <div class="form-group">
-          <select class="form-input" formControlName="type">
-            <option value="">Select a type</option>
-            <option *ngFor="let item of types" [value]="item">
-              {{ item }}
-            </option>
-          </select>
-          <small *ngIf="registerForm.get('type')?.touched && registerForm.get('type')?.hasError('required')">
-            Type is mandatory.
-          </small>
-        </div>
-
-        <div class="form-group">
-          <input type="text" formControlName="deviceModel" class="form-input" placeholder="Enter device model">
-          <small *ngIf="registerForm.get('deviceModel')?.touched && registerForm.get('deviceModel')?.hasError('required')">
-            Device Model is mandatory.
-          </small>
-        </div>
-
-        <div class="form-group">
-          <input type="text" formControlName="manufacturer" class="form-input" placeholder="Enter manufacturer">
-          <small *ngIf="registerForm.get('manufacturer')?.touched && registerForm.get('manufacturer')?.hasError('required')">
-            Manufacturer is mandatory.
-          </small>
-        </div>
-
-        <div class="form-group">
-          <textarea rows="2" cols="50" formControlName="location" class="form-input" placeholder="Enter a location"></textarea>
-          <small *ngIf="registerForm.get('location')?.touched && registerForm.get('location')?.hasError('required')">
-            Location is mandatory.
-          </small>
-        </div>
-
-        <div class="form-group">
-          <textarea rows="3" cols="50" formControlName="description" class="form-input" placeholder="Enter description"></textarea>
-          <small *ngIf="registerForm.get('description')?.touched && registerForm.get('description')?.hasError('required')">
-            Description is mandatory.
-          </small>
-        </div>
-
-        <div class="form-buttons">
-          <button type="submit" class="form-button register-button" [disabled]="registerForm.invalid">Register</button>
-          <button type="button" class="form-button cancel-button">Cancel</button>
-        </div>
-
-      </form>
-
-    </div>
-  </div>
-
-  <div class="main-content-table" *ngIf="activeMenu == menuType.LIST_DEVICES">
+  <div class="main-content-table" *ngIf="activeMenu === menuType.LIST_DEVICES">
 
     <div class="table-container">
 
@@ -344,7 +286,7 @@
 
   <!---->
 
-  <div class="main-content-analysis" *ngIf="activeMenu == menuType.ANALYSIS">
+  <div class="main-content-analysis" *ngIf="activeMenu === menuType.ANALYSIS">
 
     <div class="analysis-container">
 

@@ -11,18 +11,19 @@ import { Notifications } from '../../interfaces/Notifications';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 import { EChartsOption } from 'echarts';
 import { SidebarComponent } from "../../components/sidebar/sidebar.component";
+import { RegisterComponent } from "../../components/register/register.component";
 
 
 export enum MenuType {
   HOME = 0,
-  ADD_DEVICE = 1,
+  REGISTER = 1,
   LIST_DEVICES = 2,
   ANALYSIS = 3
 }
 
 @Component({
   selector: 'app-device',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSnackBarModule, NgxEchartsDirective, SidebarComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSnackBarModule, NgxEchartsDirective, SidebarComponent, RegisterComponent],
   templateUrl: './device.component.html',
   styleUrl: './device.component.css',
   providers : [
