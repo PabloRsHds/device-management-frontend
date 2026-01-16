@@ -3,11 +3,12 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
 import { AllDevices } from '../../interfaces/AllDevices';
+import { NotificationComponent } from "../notification/notification.component";
 
 
 @Component({
   selector: 'app-table-devices',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NotificationComponent],
   templateUrl: './table-devices.component.html',
   styleUrl: './table-devices.component.css'
 })

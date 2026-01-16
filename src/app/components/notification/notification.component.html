@@ -1,0 +1,22 @@
+<div class="search-container">
+  <div class="icon" *ngIf="countNotifications > 0 && countNotifications < 10">{{countNotifications}}</div>
+  <div class="icon" *ngIf="countNotifications > 9">9+</div>
+  <button (click)="openNotifications()">🔔</button>
+</div>
+
+<div class="modal-notifications" *ngIf="openModalNotifications">
+  <div class="modal-notifications-content"
+  (scroll)="onScroll($event)">
+    <div>
+      <h2>Notifications</h2>
+    </div>
+    <div class="content" *ngFor="let notification of listNotifications">
+      <div>
+        <p (click)="ocultNotifications(notification.notificationId)">X</p>
+      </div>
+      <div>
+        <span>{{notification.message}}</span>
+      </div>
+    </div>
+  </div>
+</div>

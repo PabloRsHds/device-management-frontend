@@ -19,37 +19,6 @@
   *ngIf="activeMenu === menuType.LIST_DEVICES">
   </app-table-devices>
 
-  <div class="modal-notifications" *ngIf="openModalNotifications">
-    <div class="modal-notifications-content"
-    (scroll)="onScroll($event)">
-      <div>
-        <h2>Notifications</h2>
-      </div>
-      <div class="content" *ngFor="let notification of listNotifications">
-        <div>
-          <p (click)="ocultNotifications(notification.notificationId)">X</p>
-        </div>
-        <div>
-          <span>{{notification.message}}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-description" *ngIf="openModalDescription">
-    <div class="modal-description-content">
-      <p class="close-button" (click)="openModalDescription = !openModalDescription">X</p>
-      <p class="modal-description-text">{{selectedDeviceDescription}}</p>
-    </div>
-  </div>
-
-  <div class="modal-location" *ngIf="openModalLocation">
-    <div class="modal-location-content">
-      <p class="close-button" (click)="openModalLocation = !openModalLocation">X</p>
-      <p class="modal-location-text">{{selectedDeviceLocation}}</p>
-    </div>
-  </div>
-
   <!-- Device Update Modal -->
   <div class="update-modal" *ngIf="openModalDeviceUpdate">
     <div class="update-modal-content">
