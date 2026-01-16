@@ -15,73 +15,9 @@
   *ngIf="activeMenu === menuType.REGISTER">
   </app-register>
 
-  <div class="main-content-table" *ngIf="activeMenu === menuType.LIST_DEVICES">
-
-    <div class="table-container">
-
-      <div class="search-container">
-        <h2>All Devices</h2>
-        <div class="icon" *ngIf="countNotifications > 0 && countNotifications < 10">{{countNotifications}}</div>
-        <div class="icon" *ngIf="countNotifications > 9">9+</div>
-        <button (click)="openNotifications()">🔔</button>
-      </div>
-
-      <div style="padding: 40px;">
-        <div>
-          <input [(ngModel)]="searchTerm" type="text" placeholder="Search devices" class="search-input">
-        </div>
-        <table class="device-table">
-          <thead>
-            <tr>
-              <th>Device Name</th>
-              <th>Type</th>
-              <th>Model</th>
-              <th>Description</th>
-              <th>Manufacturer</th>
-              <th>Min Limit</th>
-              <th>Max Limit</th>
-              <th>Unit</th>
-              <th>Location</th>
-              <th colspan="3">Actions</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let device of paginatedDevices">
-            <tr>
-              <td>{{device.name}}</td>
-              <td>{{device.type}}</td>
-              <td>{{device.deviceModel}}</td>
-              <td>
-                <button (click)="functionTableInspection(device.description)" class="button-info">Description</button>
-              </td>
-              <td>{{device.manufacturer}}</td>
-              <td>{{device.minLimit}}</td>
-              <td>{{device.maxLimit}}</td>
-              <td>{{device.unit}}</td>
-              <td>
-                <button (click)="functionTableInspection(device.location)" class="button-info">Location</button>
-              </td>
-              <td>
-                <button class="action-button test-button" (click)="functionChangeStatus(device.deviceModel)">Test</button>
-              </td>
-              <td>
-                <button class="action-button edit-button" (click)="functionButtonUpdate(device.deviceModel)">Edit</button>
-              </td>
-              <td>
-                <button class="action-button delete-button" (click)="functionButtonDelete(device.deviceModel);">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="pagination">
-          <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-          <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
-          <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
+  <app-table-devices
+  *ngIf="activeMenu === menuType.LIST_DEVICES">
+  </app-table-devices>
 
   <div class="modal-notifications" *ngIf="openModalNotifications">
     <div class="modal-notifications-content"

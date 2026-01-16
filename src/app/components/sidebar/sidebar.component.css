@@ -1,7 +1,6 @@
 /************* SIDEBAR ***************/
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Badeen+Display&family=Bebas+Neue&family=Diplomata&family=Oswald:wght@200..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');@import url('https://fonts.googleapis.com/css2?family=Anton&family=Badeen+Display&family=Bebas+Neue&family=Diplomata&family=Oswald:wght@200..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-
 .sidebar {
   width: 400px;
   background-color: #ffffff;
@@ -9,6 +8,7 @@
   display: flex;
   flex-direction: column;
   padding: 30px;
+  height: 93.4vh;
 }
 
 .sidebar-header h3{
