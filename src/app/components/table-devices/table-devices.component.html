@@ -45,16 +45,13 @@
                 <button (click)="functionTableInspection(device.location)" class="button-info">Location</button>
               </td>
               <td>
-                <!-- <button class="action-button test-button" (click)="functionChangeStatus(device.deviceModel)">Test</button> -->
-                <button class="action-button test-button">test</button>
+                <button class="action-button test-button" (click)="functionChangeStatus(device.deviceModel)">Test</button>
               </td>
               <td>
-                <!-- <button class="action-button edit-button" (click)="functionButtonUpdate(device.deviceModel)">Edit</button> -->
-                <button class="action-button edit-button">edit</button>
+                <button class="action-button edit-button" (click)="functionGetDeviceModel(device.deviceModel);">Update</button>
               </td>
               <td>
                 <!-- <button class="action-button delete-button" (click)="functionButtonDelete(device.deviceModel);">Delete</button> -->
-                <button class="action-button delete-button">delete</button>
               </td>
             </tr>
           </tbody>
@@ -68,6 +65,8 @@
 
       </div>
     </div>
+
+    <app-update *ngIf="openModalUpdate" [deviceModel]="deviceModel"></app-update>
 
     <div class="modal-description" *ngIf="openModalDescription">
       <div class="modal-description-content">

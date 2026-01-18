@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
@@ -19,6 +19,8 @@ export class RegisterComponent {
   formBuilder = inject(FormBuilder);
   service = inject(CrudService);
   snackBar = inject(MatSnackBar);
+
+  @Output() reloadTableDevices = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.configurationForm();
@@ -49,7 +51,7 @@ export class RegisterComponent {
             unit: ''
           }
         );
-        //this.allDevices(); resolver essa parada aqui
+        this.reloadTableDevices.emit();
         this.snackBar.open(response, 'Close', {
           duration: 3000,
           panelClass : ['snackbar']

@@ -12,11 +12,13 @@
   </div>
 
   <app-register
-  *ngIf="activeMenu === menuType.REGISTER">
+  *ngIf="activeMenu === menuType.REGISTER"
+  (reloadTableDevices)="functionReloadTableDevices()">
   </app-register>
 
   <app-table-devices
-  *ngIf="activeMenu === menuType.LIST_DEVICES">
+  *ngIf="activeMenu === menuType.LIST_DEVICES"
+  [reloadTableDevices]="reloadTableDevices">
   </app-table-devices>
 
   <!-- Device Update Modal -->

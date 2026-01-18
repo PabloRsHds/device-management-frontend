@@ -37,6 +37,12 @@ export class DeviceComponent {
 
   menuType = MenuType;
 
+  reloadTableDevices:number = 0;
+
+  functionReloadTableDevices() {
+    this.reloadTableDevices++;
+  }
+
   //Updates
   updateDeviceName = false;
   updateDeviceModel = false;
@@ -111,10 +117,7 @@ export class DeviceComponent {
     this.selectedDeviceDescription = device;
   }
 
-
-
   // Graficos
-
   chartOptions: EChartsOption = {};
 
   graphic() {

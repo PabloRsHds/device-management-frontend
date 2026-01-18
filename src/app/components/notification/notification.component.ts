@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CrudService } from '../../service/crud.service';
 import { Notifications } from '../../interfaces/Notifications';
 import { CommonModule } from '@angular/common';
+import { interval, startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-notification',
@@ -29,7 +30,12 @@ export class NotificationComponent {
 
 
   ngOnInit(): void {
-    this.countNotification();
+    interval(5000) // a cada 5 segundos
+    .pipe(
+      startWith(0), // dispara imediatamente
+      switchMap(() => this.service.countNotification())
+    )
+    .subscribe(count => this.countNotifications = count);
   }
 
   visualization() {

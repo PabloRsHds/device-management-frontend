@@ -71,7 +71,7 @@
 }
 .submit-btn {
   margin-top: 30px;
-  height: 55px;
+  padding: 10px;
   background: #f2f2f2;
   border-radius: 11px;
   border: 0;

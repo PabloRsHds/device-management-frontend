@@ -1,0 +1,77 @@
+/**** UPDATE MODAL ****/
+.update-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.update-modal-content {
+  width: 500px;
+  height: 550px;
+  border-radius: 10px;
+  background-color: rgb(255, 0, 0);
+}
+
+.update-modal-content .form-input {
+  width: 90%;
+  margin: 0px -23px 0px 23px;
+  padding: 8px;
+  border: 1px solid rgb(133, 133, 133);
+  border-radius: 5px;
+}
+
+.update-modal-content span{
+  cursor: pointer;
+}
+
+.update-modal-content span:hover{
+  color: #686868;
+}
+
+.update-modal-content .form-input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
+}
+
+
+.close-button-update {
+  text-align: end;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.close-button-update:hover {
+  color: rgb(151, 151, 151);
+}
+
+.form-container-update {
+  box-shadow: none;
+  padding: 20px;
+}
+
+.form-container-update .button-update{
+  width: 90%;
+  margin-left: 23px;
+  padding: 8px;
+  border: 1px solid rgb(133, 133, 133);
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.form-container-update .button-update:hover{
+  border: 1px solid rgb(36, 36, 36);
+  background-color: #083e91;
+  color: white;
+}
+
+/**********************/
