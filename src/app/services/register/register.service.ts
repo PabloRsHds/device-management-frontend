@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { DevicesStateService } from '../states/devices-state.service';
-import { RegisterDevice } from '../../interfaces/RegisterDevice';
-import { AllDevices } from '../../interfaces/AllDevices';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { RegisterDevice } from '../../interfaces/device/RegisterDevice';
+import { Observable } from 'rxjs';
+import { Device } from '../../interfaces/device/Device';
+import { DevicesStateService } from '../state/devices/devices-state.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +11,8 @@ export class RegisterService {
 
   private state = inject(DevicesStateService);
 
-  submitRegistration(request: RegisterDevice) : Observable<AllDevices> {
-    return this.state.addDeviceToState(request).pipe(
-      tap(),
-      catchError((error) => {
-        console.error('Error registering device:', error);
-        return throwError(() => error)
-      } )
-    );
+  registerDevice(request: RegisterDevice): Observable<Device> {
+    return this.state.registerDevice(request);
   }
 }
+
