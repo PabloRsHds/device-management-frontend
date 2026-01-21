@@ -1,32 +1,27 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Types } from '../../enums/Types';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RegisterService } from '../../services/register/register.service';
-
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
 
-  // pegando os tipos
+  public registerForm!: FormGroup;
+  private snackBar = inject(MatSnackBar);
   types = Object.values(Types);
-  // criando formulário
-  registerForm!: FormGroup;
-  // Usado para criar o formulário
-  formBuilder = inject(FormBuilder);
-  service = inject(RegisterService);
-  snackBar = inject(MatSnackBar);
+  private formBuilder = inject(FormBuilder);
+  private service = inject(RegisterService);
 
-  @Output() reloadTableDevices = new EventEmitter<void>();
-
-  ngOnInit(): void {
+  ngOnInit(){
+    // Inicialização do formulário
     this.configurationForm();
   }
 
@@ -44,30 +39,28 @@ export class RegisterComponent {
   }
 
   // Função de registro
-  register() {
-    this.service.submitRegistration(this.registerForm.value).subscribe({
+  HandleRegistration() {
+    this.service.registerDevice(this.registerForm.value).subscribe({
       next: (response) => {
+        // Resetando o formulário
         this.registerForm.reset(
           {
-            type: '',
-            unit: ''
+            type: ''
           }
         );
-        this.reloadTableDevices.emit();
+
         this.snackBar.open('Device registered successfully!', 'Close', {
-          duration: 3000,
-          panelClass : ['snackbar']
-        });
+            duration: 3000,
+            panelClass: ['snackbar']
+          });
       },
-      error: (error: Error) => {
-        this.snackBar.open(error.message, 'Close', {
+      error : (err: Error) => {
+        this.snackBar.open(err.message, 'Close', {
           duration: 3000,
-          panelClass : ['snackbar']
+          panelClass: ['snackbar-danger']
         });
       }
     });
   }
-
-  // ===============================================================
 
 }
