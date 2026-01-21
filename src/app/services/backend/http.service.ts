@@ -1,71 +1,31 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { RegisterDevice } from '../../interfaces/RegisterDevice';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { RegisterDevice } from '../interfaces/RegisterDevice';
-import { DeviceAnalysisDto } from '../interfaces/DeviceAnalysisDto';
-import { UpdateDevice } from '../interfaces/UpdateDevice';
-import { AllDevices } from '../interfaces/AllDevices';
-import { AllSensors } from '../interfaces/AllSensors';
-import { Login } from '../interfaces/Login';
-import { ResponseTokens } from '../interfaces/ResponseTokens';
-import { RequestTokens } from '../interfaces/RequestTokens';
-import { Notifications } from '../interfaces/Notifications';
+import { AllDevices } from '../../interfaces/AllDevices';
+import { AllSensors } from '../../interfaces/AllSensors';
+import { DeviceAnalysisDto } from '../../interfaces/DeviceAnalysisDto';
+import { Login } from '../../interfaces/Login';
+import { Notifications } from '../../interfaces/Notifications';
+import { RequestTokens } from '../../interfaces/RequestTokens';
+import { ResponseTokens } from '../../interfaces/ResponseTokens';
+import { UpdateDevice } from '../../interfaces/UpdateDevice';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CrudService {
+export class HttpService {
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
   //DEVICE MANAGEMENT
-  register(device: RegisterDevice): Observable<string> {
-    return this.http.post<{ [key: string]: string }>('http://localhost:8082/api/register-device', device).pipe(
-      map(response => {
-        const firstKey = Object.keys(response)[0]; // Pega a primeira chave do objeto
-        return response[firstKey]; // Retorna o valor da primeira chave
-      }),
-      catchError((err: HttpErrorResponse) => {
-        let errorMsg:string; // Variável para armazenar o erro
-
-        // err.error é um objeto: { "Bad request": "This cpf already cadastred" }
-        if (err.error && typeof err.error === 'object') { // Se err.error for um objeto
-          const keys = Object.keys(err.error); // Pega as chaves do objeto
-          if (keys.length > 0) { // Se houver pelo menos uma chave
-            errorMsg = err.error[keys[0]]; // <- pega "This cpf already cadastred"
-          }
-        }
-        return throwError(() => new Error(errorMsg)); // Retorna o erro
-      })
-    );
+  register(device: RegisterDevice): Observable<AllDevices> {
+    return this.http.post<AllDevices>('http://localhost:8082/api/register-device', device);
   }
 
   //DEVICE MANAGEMENT
-  update(deviceModel: string ,device: UpdateDevice): Observable<string> {
-    return this.http.patch<{ [key: string]: string }>(`http://localhost:8082/api/update-device/${deviceModel}`, device).pipe(
-      map(response => {
-        const firstKey = Object.keys(response)[0]; // Pega a primeira chave do objeto
-        return response[firstKey]; // Retorna o valor da primeira chave
-      }),
-      catchError((err: HttpErrorResponse) => {
-        let errorMsg = 'Erro ao atualizar dispositivo';
-
-        if (err.error) {
-          if (typeof err.error === 'string') {
-            errorMsg = err.error;
-          } else if (typeof err.error === 'object') {
-            const keys = Object.keys(err.error);
-            if (keys.length > 0) {
-              errorMsg = err.error[keys[0]];
-            }
-          }
-        } else if (err.status === 404) {
-          errorMsg = 'Device não encontrado';
-        }
-
-        return throwError(() => new Error(errorMsg));
-      })
-    );
+  update(deviceModel: string ,device: UpdateDevice): Observable<AllDevices> {
+    return this.http.patch<AllDevices>(`http://localhost:8082/api/update-device/${deviceModel}`, device);
   }
 
   //DEVICE MANAGEMENT
@@ -149,10 +109,12 @@ export class CrudService {
     return this.http.put<void>('http://localhost:8085/api/visualisation-notification', {});
   }
 
+  //NOTIFICAÇÃO
   ocultNotification(notificationId : number): Observable<void> {
     return this.http.put<void>( `http://localhost:8085/api/occult-notification/${notificationId}`, {});
   }
 
+  //NOTIFICAÇÃO
   countNotification(): Observable<number> {
     return this.http.get<number>('http://localhost:8085/api/count-notification');
   }

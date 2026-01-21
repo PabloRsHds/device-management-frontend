@@ -7,11 +7,11 @@
       <div style="padding: 60px;">
         <div class="search-container">
           <h2>All Devices</h2>
-          <app-notification></app-notification>
+          <app-notification class="APP-NOTIFICATIONS"></app-notification>
         </div>
 
         <div>
-          <input [(ngModel)]="searchTerm" type="text" placeholder="Search devices" class="search-input">
+          <input (input)="onSearchInput($event)" placeholder="Search devices" class="search-input">
         </div>
 
         <table class="device-table">
@@ -29,7 +29,7 @@
               <th colspan="3">Actions</th>
             </tr>
           </thead>
-          <tbody *ngFor="let device of paginatedDevices">
+          <tbody *ngFor="let device of paginatedDevices$ | async">
             <tr>
               <td>{{device.name}}</td>
               <td>{{device.type}}</td>
@@ -45,29 +45,28 @@
                 <button (click)="functionTableInspection(device.location)" class="button-info">Location</button>
               </td>
               <td>
-                <button class="action-button test-button" (click)="functionChangeStatus(device.deviceModel)">Test</button>
+               <!-- <button class="action-button test-button" (click)="functionGetStatusAndChangeIt(device.deviceModel)">Test</button> -->
               </td>
               <td>
-                <button class="action-button edit-button" (click)="functionGetDeviceModel(device.deviceModel);">Update</button>
+                <button class="action-button edit-button" (click)="functionGetDeviceModelForUpdate(device.deviceModel);">Update</button>
               </td>
               <td>
-                <!-- <button class="action-button delete-button" (click)="functionButtonDelete(device.deviceModel);">Delete</button> -->
+                <button class="action-button delete-button" (click)="functionGetDeviceModelForDelete(device.deviceModel);">Delete</button>
               </td>
             </tr>
           </tbody>
         </table>
 
         <div class="pagination">
-          <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-          <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
-          <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+          <button (click)="previousPage()" [disabled]="(currentPage$ | async) === 1">Previous</button>
+          <span class="pagination-info">Page {{ currentPage$ | async}} of {{ totalPages$ | async }}</span>
+          <button (click)="nextPage()" [disabled]="(currentPage$ | async) === (totalPages$ | async)">Next</button>
         </div>
 
       </div>
     </div>
 
-    <app-update *ngIf="openModalUpdate" [deviceModel]="deviceModel"></app-update>
-
+    <!-- Visualizar a descrição do dispositivo -->
     <div class="modal-description" *ngIf="openModalDescription">
       <div class="modal-description-content">
         <p class="close-button" (click)="openModalDescription = !openModalDescription">X</p>
@@ -75,5 +74,15 @@
       </div>
     </div>
 
+    <app-update *ngIf="openModalUpdate" [deviceModel]="deviceModel"
+    (sendEventCloseModalUpdate)="getEventCloseModalUpdate()">
+    </app-update>
+
+    <!-- <app-delete-device *ngIf="openModalDelete" [deviceModel]="deviceModel"
+    (sendEventCloseModalDeviceDelete)="consumerEventCloseModalDeviceDelete()"
+    (reloadTableDevices)="functionReloadTableDevicesAfterDelete()">
+    </app-delete-device> -->
+
   </div>
 </div>
+

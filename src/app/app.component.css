@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Badeen+Display&family=Bebas+Neue&family=Diplomata&family=Oswald:wght@200..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');@import url('https://fonts.googleapis.com/css2?family=Anton&family=Badeen+Display&family=Bebas+Neue&family=Diplomata&family=Oswald:wght@200..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "PT Serif", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__label {
+  font-weight: 500 !important;
+  text-align: center;
+  margin-right: 15px;
+}
+
+::ng-deep .snackbar .mdc-snackbar__surface {
+  background-color: #0a0a0a !important;
+  color: white !important;
+  padding: 10px;
+  font-weight: bold;
+}
+
+::ng-deep .snackbar-success .mdc-snackbar__surface {
+  background-color: #0b5e18 !important;
+  color: rgb(255, 255, 255) !important;
+  padding: 10px;
+  font-weight: bold;
+}
+
+::ng-deep .snackbar-danger .mdc-snackbar__surface {
+  background-color: #8d0000 !important;
+  color: rgb(255, 255, 255) !important;
+  padding: 10px;
+  font-weight: bold;
+}
