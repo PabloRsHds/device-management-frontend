@@ -7,13 +7,13 @@ import {
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, switchMap, throwError } from 'rxjs';
-import { CrudService } from '../service/crud.service';
+import { HttpService } from '../services/backend/http.service';
 
 // Interceptor HTTP que adiciona o token de acesso automaticamente
 // Também renova tokens expirados e faz logout se necessário
 export const AuthInterceptorService: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
   const router = inject(Router);
-  const service = inject(CrudService);
+  const api = inject(HttpService);
 
   // Recupera tokens do localStorage
   const accessToken = localStorage.getItem('accessToken');
@@ -49,7 +49,7 @@ export const AuthInterceptorService: HttpInterceptorFn = (req: HttpRequest<any>,
       }
 
       // Tenta atualizar os tokens
-      return service.refreshTokens({
+      return api.refreshTokens({
         accessToken: accessToken!,
         refreshToken: refreshToken
       }).pipe(
