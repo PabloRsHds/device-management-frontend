@@ -1,9 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
-import { CrudService } from '../../service/crud.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UpdateService } from '../../services/update/update.service';
 
 @Component({
   selector: 'app-update',
@@ -13,16 +13,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UpdateComponent {
 
-
   @Input() deviceModel: string = '';
-
+  @Output() sendEventCloseModalUpdate = new EventEmitter<void>();
 
   openModalDeviceUpdate = false;
 
   updateForm!: FormGroup;
 
   formBuilder = inject(FormBuilder);
-  crudService = inject(CrudService);
+  service = inject(UpdateService);
   snackBar = inject(MatSnackBar);
 
   //Updates
@@ -33,7 +32,10 @@ export class UpdateComponent {
   updateDescription = false;
   //
 
-
+  ngOnChanges(): void {
+    // Toda a vez que o deviceModel se atualizar, preencher o formulario
+    this.functionFillOutUpdateForm(this.deviceModel);
+  }
 
   // ================== Update de dispositivos ==============================
 
@@ -48,30 +50,26 @@ export class UpdateComponent {
     });
   }
 
-  update() {
-    this.crudService.update(this.deviceModel,this.updateForm.value).subscribe({
+  handleUpdate() {
+    this.service.updateDevice(this.deviceModel,this.updateForm.value).subscribe({
       next: (response) => {
-        console.log('Device updated successfully:', response);
         this.updateForm.reset();
-        this.openModalDeviceUpdate = !this.openModalDeviceUpdate;
-        //this.allDevices(); vê isso aqui
+        this.sendEventCloseModalUpdate.emit();
+
         this.snackBar.open('Device updated successfully!', 'Close', {
           duration: 3000,
-          panelClass : ['snackbar']
+          panelClass : ['snackbar-success']
         });
-      },
-      error: (error) => {
-        console.error('Error updated device:', error);
       }
     });
-
   }
 
-  functionButtonUpdate(deviceModel: string) {
+  // Função onde eu pego os dados do dispositivo para preencher o formulario para facilitar a atualização
+  functionFillOutUpdateForm(deviceModel: string) {
 
     this.configurationUpdateForm();
 
-    this.crudService.findDeviceWithDeviceModel(deviceModel).subscribe({
+    this.service.getDeviceForUpdate(deviceModel).subscribe({
       next: (response) => {
         this.updateForm.patchValue({
           deviceModel: response.deviceModel,
@@ -81,17 +79,12 @@ export class UpdateComponent {
           newLocation: response.location,
           newDescription: response.description
         });
-      },
-      error: (error) => {
-        console.error('Error updating device:', error);
       }
     });
-
-    this.deviceModel = deviceModel;
-    this.openModalDeviceUpdate = !this.openModalDeviceUpdate;
   }
 
   closeModalDeviceUpdate() {
+    this.sendEventCloseModalUpdate.emit();
     this.openModalDeviceUpdate = !this.openModalDeviceUpdate;
     this.updateDeviceName = false;
     this.updateDeviceModel = false;
