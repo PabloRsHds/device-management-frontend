@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { SensorsService } from '../../services/sensors/sensors.service';
 import { SensorsStateService } from '../../services/state/sensors/sensors-state.service';
-import { AnalysisComponent } from "../modal-analysis/analysis/analysis.component";
+import { ModalAnalysisComponent } from "../modal-analysis/modal-analysis.component";
 
 @Component({
   selector: 'app-table-sensors',
-  imports: [CommonModule, AnalysisComponent],
+  imports: [CommonModule, ModalAnalysisComponent],
   templateUrl: './table-sensors.component.html',
   styleUrl: './table-sensors.component.css'
 })

@@ -2,9 +2,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
-import { CrudService } from '../../service/crud.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginService } from '../../services/login/login.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent {
 
   formLogin!: FormGroup
-  service = inject(CrudService);
+  private service = inject(LoginService);
   formBuilder = inject(FormBuilder);
   router = inject(Router);
   snackBar = inject(MatSnackBar);
