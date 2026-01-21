@@ -1,0 +1,189 @@
+/** ANALYSIS MODAL **/
+
+.analysis-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  width: 70%;
+  height: 80vh;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #F7F9FC;
+}
+
+.modal-content .modal-title span {
+  color: rgb(10, 69, 158);
+}
+
+.modal-content .close-button {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 15px 60px 0px;
+}
+
+.close-button span {
+  cursor: pointer;
+}
+
+.close-button span:hover {
+  color: #6d6d6d;
+}
+
+.modal-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 100px;
+}
+
+.modal-title h1 {
+  text-align: center;
+}
+
+.modal-title p {
+  text-align: center;
+  color: #505050;
+}
+
+.modal-title .reload-button {
+  display: flex;
+  gap: 10px;
+}
+
+.reload-button button {
+  padding: 10px 30px;
+  gap: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  background-color: rgb(62, 74, 90);
+  color: white;
+}
+
+
+.reload-button button:hover {
+  background-color: rgb(42, 52, 65);
+  color: white;
+
+}
+
+.modal-cards {
+  display: flex;
+  gap: 30px;
+  margin: 50px 50px 0px 50px;
+}
+
+.modal-cards .card-1{
+  flex: 1;
+  height: 430px;
+  border-radius: 10px;
+  padding: 30px;
+  border: 1px solid #dae9ff;
+  cursor: pointer;
+  background-color: white;
+}
+
+.modal-cards .card-1:hover{
+  box-shadow: 0px 5px 10px 5px #4b93ff1e;
+}
+
+.modal-cards .card-1 h2 {
+  margin: 0px 0px 30px 0px;
+  text-align: center;
+  color: rgb(14, 17, 34);
+}
+
+.card-1 p {
+  color: rgb(112, 112, 112);
+}
+
+.card-1 .value {
+  color: rgb(6, 6, 17);
+  font-weight: 700;
+  margin: 2px 0px 5px 0px;
+}
+
+.modal-cards .card-1 .separator-card {
+  height: 1px;
+  width: 100%;
+  background-color: #dfdfdf;
+  margin-bottom: 15px;
+}
+
+.modal-cards .card-1 .span-color-settings {
+  color: rgb(24, 94, 223);
+}
+
+
+
+
+.modal-cards .card-2{
+  flex: 1;
+  height: 430px;
+  border-radius: 10px;
+  padding: 30px;
+  border: 1px solid #dae9ff;
+  cursor: pointer;
+  background-color: white;
+}
+
+.modal-cards .card-2:hover{
+  box-shadow: 0px 5px 10px 5px #4b93ff1e;
+}
+
+.modal-cards .card-2 h2 {
+  margin: 0px 0px 30px 0px;
+  text-align: center;
+  color: rgb(14, 17, 34);
+}
+
+.modal-cards .card-2 p {
+  color: rgb(112, 112, 112);
+}
+
+.modal-cards .card-2 .value {
+  color: rgb(6, 6, 17);
+  font-weight: 700;
+  margin: 2px 0px 5px 0px;
+}
+
+.modal-cards .card-2 .separator-card {
+  height: 1px;
+  width: 100%;
+  background-color: #dfdfdf;
+  margin-bottom: 15px;
+}
+
+.modal-cards .card-2 .span-color-settings {
+  color: rgb(24, 94, 223);
+}
+
+
+
+
+.modal-cards .card-3{
+  flex: 1;
+  height: 430px;
+  border-radius: 10px;
+  padding: 30px;
+  border: 1px solid #dae9ff;
+  cursor: pointer;
+  background-color: white;
+}
+
+.modal-cards .card-3 h2{
+  text-align: center;
+}
+/*****************************/

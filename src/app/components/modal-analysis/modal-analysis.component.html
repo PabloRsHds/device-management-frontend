@@ -1,0 +1,83 @@
+<!-- Device Analysis Modal -->
+<div class="analysis-modal">
+  <div class="modal-content">
+
+    <div class="close-button">
+      <span (click)="closeModalAnalysis()">X</span>
+    </div>
+
+    <div class="modal-title">
+      <div>
+        <h1>Device model: {{analysis.name}}<span></span></h1>
+        <p>Configuration, monitoring and history</p>
+      </div>
+      <div class="reload-button">
+        <button (click)="reloadAnalysis()">Reload</button>
+        <button style="margin-right: 70px;" (click)="desactiveDevice(analysis.deviceModel)">Disable</button>
+      </div>
+    </div>
+
+    <div class="modal-cards">
+
+      <div class="card-1">
+        <h2>Current Settings</h2>
+        <div>
+          <p>Min limit</p>
+          <p class="value">{{analysis.minLimit}} {{analysis.unit}}</p>
+
+          <div class="separator-card"></div>
+
+          <p>Max limit</p>
+          <p class="value">{{analysis.maxLimit}} {{analysis.unit}}</p>
+
+          <div class="separator-card"></div>
+
+          <p>Unit</p>
+          <p class="value">{{analysis.unit}}</p>
+
+          <div class="separator-card"></div>
+
+          <p>CreatedAt</p>
+          <p class="value">{{analysis.createdAt}}</p>
+
+          <div class="separator-card"></div>
+
+          <p>UpdateAt</p>
+          <p class="value">{{analysis.updatedAt}}</p>
+        </div>
+      </div>
+
+      <div class="card-2">
+        <h2>Previous configuration</h2>
+        <div>
+          <p>Min limit</p>
+          <p class="value">{{analysis.lastReadingMinLimit}} {{analysis.unit}}</p>
+
+          <div class="separator-card"></div>
+
+          <p>Max limit</p>
+          <p class="value">{{analysis.lastReadingMaxLimit}} {{analysis.unit}}</p>
+
+          <div class="separator-card"></div>
+
+          <p>Unit</p>
+          <p class="value">{{analysis.unit}}</p>
+
+          <div class="separator-card"></div>
+
+          <p>UpdateAt</p>
+          <p class="value">{{analysis.lastReadingUpdateAt}}</p>
+        </div>
+      </div>
+
+      <div class="card-3">
+        <h2>Operation Status</h2>
+        <div>
+          <div echarts [options]="chartOptions" class="chart"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
