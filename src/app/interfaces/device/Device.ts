@@ -1,4 +1,4 @@
-export interface AllDevices {
+export interface Device {
   name: string,
   type: string,
   deviceModel: string,

@@ -1,4 +1,4 @@
-export interface AllSensors {
+export interface Sensor {
   name: string;
   type: string;
   deviceModel: string;

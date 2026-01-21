@@ -1,4 +1,4 @@
-import { TestStatus } from "./TestStatus";
+import { TestStatus } from "../../enums/TestStatus";
 
 export interface TestResult {
 

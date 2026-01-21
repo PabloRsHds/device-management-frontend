@@ -1,4 +1,6 @@
 export interface DeviceAnalysisDto {
+  name: string;
+  deviceModel: string;
   minLimit: number;
   maxLimit: number;
   unit: string;
