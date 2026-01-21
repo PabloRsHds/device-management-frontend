@@ -1,5 +1,5 @@
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter } from '@angular/core'; // ← Adicione Output, EventEmitter
 
 @Component({
   selector: 'app-sidebar',
@@ -19,6 +19,9 @@ export class SidebarComponent {
 
   // Alterna botões da lista de configurações
   toggleButton(id: number) {
+
+    console.log(id);
+
     let activeId: number = 0;
 
     this.buttons.forEach(button => {
