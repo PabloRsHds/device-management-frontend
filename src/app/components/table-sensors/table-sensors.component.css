@@ -1,0 +1,158 @@
+/*****************************/
+
+:host {
+  display: flex;
+}
+
+.main-content-sensors {
+  flex: 4;
+  background-color: #ececec;
+  align-items: center;
+  justify-content: center;
+}
+
+.sensors-container {
+  background-color: white;
+  padding: 80px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
+}
+
+.main-content-sensors input{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 10px 0px 40px 0px;
+}
+
+.main-content-sensors input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
+}
+
+.sensors-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.devices-table th {
+  padding: 12px;
+  text-align: left;
+  cursor: default;
+}
+.devices-table td {
+  padding: 12px;
+  text-align: left;
+  border-top: 1px solid #dee2e6;
+  cursor: pointer;
+}
+
+.devices-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  text-align: center;
+}
+
+.devices-table td {
+  text-align: center;
+
+}
+
+.devices-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.current-value {
+  font-weight: bold;
+  color: #28a745;
+  font-size: 1.1em;
+}
+
+.previous-value {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.value-change {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.value-increase {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.value-decrease {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-active {
+  background-color: #28a745;
+}
+
+.status-warning {
+  background-color: #ffc107;
+}
+
+@media (max-width: 768px) {
+
+  .analysis-container {
+      padding: 15px;
+      margin: 0 10px;
+  }
+
+  .devices-table th,
+  .devices-table td {
+      padding: 8px;
+      font-size: 12px;
+  }
+
+  .analysis-title {
+      font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .body {
+      flex-direction: column;
+  }
+
+  .main-content {
+      height: calc(100vh - 250px);
+  }
+
+  .analysis-container {
+      max-width: 100%;
+  }
+
+  .devices-table {
+      font-size: 10px;
+  }
+
+  .devices-table th,
+  .devices-table td {
+      padding: 6px;
+  }
+
+  .current-value, .previous-value {
+      font-size: 0.9em;
+  }
+}

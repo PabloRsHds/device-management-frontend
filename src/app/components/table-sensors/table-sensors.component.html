@@ -1,0 +1,50 @@
+<div class="main-content-sensors">
+
+  <div class="sensors-container">
+
+    <div class="search-container">
+      <h2>All Devices</h2>
+      <div class="icon" ></div>
+      <div class="icon">9+</div>
+      <button>🔔</button>
+    </div>
+
+    <div style="padding: 40px;">
+      <div>
+        <input type="text" placeholder="Search" class="search-input" (input)="onSearchInput($event)">
+      </div>
+      <table class="sensors-table" >
+        <thead>
+          <tr>
+            <th>Device Name</th>
+            <th>Type</th>
+            <th>Model</th>
+            <th>Manufacturer</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let sensor of paginatedSensors$ | async"
+                (click)="openModalAnaysis(sensor.deviceModel)">
+          <tr>
+            <td>{{sensor.name}}</td>
+            <td>{{sensor.type}}</td>
+            <td class="current-value">{{sensor.deviceModel}}</td>
+            <td class="previous-value">{{sensor.manufacturer}}</td>
+            <td><span class="status-indicator status-active"></span>{{sensor.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <button (click)="previousPage()" [disabled]="(currentPage$ | async) === 1">Previous</button>
+        <span class="pagination-info">Page {{ currentPage$ | async }} of {{ totalPages$ | async }}</span>
+        <button (click)="nextPage()" [disabled]="(currentPage$ | async) === (totalPages$ | async)">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <app-analysis *ngIf="modalAnalysis"
+  (sendEventcloseModalAnalysis)="consumerEventCloseModalAnalysis()"
+  [deviceModal]="deviceModel">
+  </app-analysis>
+
+</div>
