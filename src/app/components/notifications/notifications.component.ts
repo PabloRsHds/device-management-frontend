@@ -1,16 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { CrudService } from '../../service/crud.service';
-import { Notifications } from '../../interfaces/Notifications';
+import { Notification } from '../../interfaces/notification/Notification';
 import { CommonModule } from '@angular/common';
-import { interval, startWith, switchMap } from 'rxjs';
+import { NotificationService } from '../../services/notification/notification.service';
 
 @Component({
-  selector: 'app-notification',
+  selector: 'app-notifications',
   imports: [CommonModule],
-  templateUrl: './notification.component.html',
-  styleUrl: './notification.component.css'
+  templateUrl: './notifications.component.html',
+  styleUrl: './notifications.component.css'
 })
-export class NotificationComponent {
+export class NotificationsComponent {
 
   //===============================================================
 
@@ -24,32 +23,27 @@ export class NotificationComponent {
 
   openModalNotifications = false;
 
-  listNotifications: Notifications[] = [];
+  listNotifications: Notification[] = [];
 
-  service = inject(CrudService);
+  service = inject(NotificationService);
 
 
   ngOnInit(): void {
-    interval(5000) // a cada 5 segundos
-    .pipe(
-      startWith(0), // dispara imediatamente
-      switchMap(() => this.service.countNotification())
-    )
-    .subscribe(count => this.countNotifications = count);
+    this.countNotification();
   }
 
   visualization() {
-    this.service.visualization().subscribe();
+    this.service.visualize().subscribe();
   }
 
   countNotification() {
-    this.service.countNotification().subscribe(
+    this.service.pollCount().subscribe(
       response => this.countNotifications = response
     );
   }
 
   ocultNotifications(notificationId : number) {
-    this.service.ocultNotification(notificationId).subscribe({
+    this.service.ocult(notificationId).subscribe({
       next: (response) => {
         this.reloadNotifications();
       }
@@ -82,7 +76,7 @@ export class NotificationComponent {
 
     this.loading = true;
 
-    this.service.notifications(this.page, this.size).subscribe({
+    this.service.loadNotifications(this.page, this.size).subscribe({
       next: (response) => {
 
         if (response.length < this.size) {
@@ -99,7 +93,6 @@ export class NotificationComponent {
       }
     });
   }
-
 
 
   onScroll(event: Event) {
