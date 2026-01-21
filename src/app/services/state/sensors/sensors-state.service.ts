@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Sensor } from '../../../interfaces/sensor/Sensor';
 import { HttpService } from '../../backend/http.service';
 

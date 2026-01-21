@@ -1,0 +1,23 @@
+<!-- Device Delete Modal -->
+
+<div class="delete-modal">
+  <div class="delete-modal-content">
+    <p class="close-button" (click)="closeModalDeviceDelete()">X</p>
+
+    <div style="display: flex; align-items: center; flex-direction: column;">
+      <h1 class="delete-modal-title">Delete Device</h1>
+      <p class="delete-modal-text">Are you sure you want to delete this device?</p>
+
+      <form method="delete" [formGroup]="deleteForm" (ngSubmit)="delete()">
+        <div class="delete-modal-buttons">
+          <input style="display: none;" type="text" formControlName="deviceModel">
+          <button type="submit" class="delete-modal-button">Delete</button>
+          <button type="button" class="delete-modal-button-cancel" (click)="closeModalDeviceDelete()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!---->
