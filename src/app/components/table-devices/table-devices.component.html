@@ -7,7 +7,7 @@
       <div style="padding: 60px;">
         <div class="search-container">
           <h2>All Devices</h2>
-          <app-notification class="APP-NOTIFICATIONS"></app-notification>
+          <app-notifications class="APP-NOTIFICATIONS"></app-notifications>
         </div>
 
         <div>
@@ -29,7 +29,7 @@
               <th colspan="3">Actions</th>
             </tr>
           </thead>
-          <tbody *ngFor="let device of paginatedDevices$ | async">
+          <tbody *ngFor="let device of (paginatedDevices$ | async)">
             <tr>
               <td>{{device.name}}</td>
               <td>{{device.type}}</td>
@@ -45,7 +45,7 @@
                 <button (click)="functionTableInspection(device.location)" class="button-info">Location</button>
               </td>
               <td>
-               <!-- <button class="action-button test-button" (click)="functionGetStatusAndChangeIt(device.deviceModel)">Test</button> -->
+                <button class="action-button test-button" (click)="handleChangeStatus(device.deviceModel)">Test</button>
               </td>
               <td>
                 <button class="action-button edit-button" (click)="functionGetDeviceModelForUpdate(device.deviceModel);">Update</button>
@@ -78,10 +78,9 @@
     (sendEventCloseModalUpdate)="getEventCloseModalUpdate()">
     </app-update>
 
-    <!-- <app-delete-device *ngIf="openModalDelete" [deviceModel]="deviceModel"
-    (sendEventCloseModalDeviceDelete)="consumerEventCloseModalDeviceDelete()"
-    (reloadTableDevices)="functionReloadTableDevicesAfterDelete()">
-    </app-delete-device> -->
+    <app-delete-device *ngIf="openModalDelete" [deviceModel]="deviceModel"
+    (sendEventCloseModalDeviceDelete)="consumerEventCloseModalDeviceDelete()">
+    </app-delete-device>
 
   </div>
 </div>

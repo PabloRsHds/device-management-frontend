@@ -1,27 +1,29 @@
-import { Component, Inject, inject, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule here
-import { AllDevices } from '../../interfaces/AllDevices';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationsComponent } from "../notifications/notifications.component";
 import { UpdateComponent } from "../update/update.component";
+import { DeleteDeviceComponent } from "../delete-device/delete-device.component";
 import { DevicesService } from '../../services/devices/devices.service';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
-import { DevicesStateService } from '../../services/states/devices-state.service';
-import { NotificationComponent } from "../notification/notification.component";
-
+import { SensorsService } from '../../services/sensors/sensors.service';
+import { DevicesStateService } from '../../services/state/devices/devices-state.service';
 
 @Component({
   selector: 'app-table-devices',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, UpdateComponent, NotificationComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NotificationsComponent, UpdateComponent, DeleteDeviceComponent],
   templateUrl: './table-devices.component.html',
   styleUrl: './table-devices.component.css'
 })
 export class TableDevicesComponent {
 
   snackBar = inject(MatSnackBar);
-  private state = inject(DevicesStateService);
-  private service = inject(DevicesService);
-  devices$ = this.state.device$;
+
+  private devicesState = inject(DevicesStateService);
+  devices$ = this.devicesState.device$;
+  private deviceService = inject(DevicesService);
+  private sensorsService = inject(SensorsService);
 
   itemsPerPage = 6;
   searchTerm$ = new BehaviorSubject<string>('');
@@ -30,8 +32,6 @@ export class TableDevicesComponent {
   openModalDescription = false;
   openModalTableInspection = false;
   selectedDeviceDescription: string = '';
-
-  listDevices: AllDevices[] = [];
 
   status: string = '';
 
@@ -42,14 +42,8 @@ export class TableDevicesComponent {
   // Vai armazenar o deviceModel para o update
   deviceModel: string = '';
 
-
-
-  ngOnInit(): void {
-    this.InitializeDevices();
-  }
-
   consumerEventCloseModalDeviceDelete() {
-    this.openModalDelete = !this.openModalDelete;
+    this.openModalDelete = false;
   }
 
   // ================= Abre o modal de update e pega o deviceModel ==============================
@@ -63,27 +57,22 @@ export class TableDevicesComponent {
   }
   //=============================================================================================
 
-  functionReloadTableDevicesAfterDelete() {
-    this.InitializeDevices();
-    this.openModalDelete = !this.openModalDelete;
-  }
-
   functionGetDeviceModelForDelete(deviceModel: string) {
     this.deviceModel = deviceModel;
     this.openModalDelete = !this.openModalDelete;
   }
 
-  // ================= Retorna todos os dispositivos e salva na lista ==============================
-
-  InitializeDevices() {
-    this.service.submitGetDevices().subscribe({
-      next: (response) => {
-        this.listDevices = response;
-      }
-    });
+  ngOnInit(): void {
+    this.intializeAllDevices();
   }
 
-  // ========================== Paginação ===============================
+  intializeAllDevices() {
+    this.deviceService.getAllDevices()
+      .subscribe();
+  }
+
+
+  // ========================= Paginacao e busca de dispositivos ===============================================
 
   onSearchInput(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -112,14 +101,14 @@ export class TableDevicesComponent {
     this.filteredDevices$,
     this.currentPage$
   ]).pipe(
-    map(([devices, page]) => {
+    map(([sensors, page]) => {
       const start = (page - 1) * this.itemsPerPage;
-      return devices.slice(start, start + this.itemsPerPage);
+      return sensors.slice(start, start + this.itemsPerPage);
     })
   );
 
   totalPages$ = this.filteredDevices$.pipe(
-    map(devices => Math.ceil(devices.length / this.itemsPerPage))
+    map(sensors => Math.ceil(sensors.length / this.itemsPerPage))
   );
 
   nextPage() {
@@ -144,29 +133,34 @@ export class TableDevicesComponent {
     this.openModalDescription = true;
     this.selectedDeviceDescription = device;
   }
+
   // ============================================================================
 
 
-  //functionGetStatusAndChangeIt(deviceModel: string) {
+  handleChangeStatus(deviceModel: string) {
 
-  //  this.api.getStatusAndChangeIt(deviceModel).subscribe({
-   //   next: (response) => {
+    this.sensorsService.changeStatusSensor(deviceModel).subscribe({
+      next: (response) => {
 
-   //     if (response === 'ACTIVATED') {
-   //       this.snackBar.open('Sensor turned OFF', 'Close', {
-   //         duration: 3000,
-   //         panelClass: ['snackbar-danger']
-   //       });
-   //     } else {
-    //      this.snackBar.open('Sensor turned ON', 'Close', {
-   //        duration: 3000,
-    //        panelClass: ['snackbar-success']
-   //       });
-    //    }
-    //  },
-   //   error: (err) =>{
-   ///     console.log('Error registering device:', err);
-  //    },
-  //  });
-  //}
+        if (response.status === 'ACTIVATED') {
+          this.snackBar.open('Sensor turned ON', 'Close', {
+           duration: 3000,
+            panelClass: ['snackbar-success']
+          });
+        } else {
+          this.snackBar.open('Sensor turned OFF', 'Close', {
+           duration: 3000,
+            panelClass: ['snackbar-danger']
+         });
+        }
+      },
+      error: () => {
+        this.snackBar.open('Error changing sensor status', 'Close', {
+          duration: 3000,
+          panelClass: ['snackbar-danger']
+        });
+      }
+    });
+  }
+
 }
