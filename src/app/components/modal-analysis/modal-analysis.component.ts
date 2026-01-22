@@ -11,6 +11,7 @@ import { NgxEchartsDirective } from 'ngx-echarts';
   imports: [NgxEchartsDirective],
   templateUrl: './modal-analysis.component.html',
   styleUrl: './modal-analysis.component.css'
+
 })
 export class ModalAnalysisComponent {
   @Output() sendEventcloseModalAnalysis = new EventEmitter<void>();
@@ -110,4 +111,10 @@ export class ModalAnalysisComponent {
       ]
     };
   }
+}
+
+function provideEchartsCore(arg0: {
+  echarts: () => Promise<typeof import("echarts/types/dist/echarts")>; // 🔑 AQUI está a correção
+}): import("@angular/core").Provider {
+  throw new Error('Function not implemented.');
 }
