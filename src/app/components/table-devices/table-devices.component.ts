@@ -25,7 +25,7 @@ export class TableDevicesComponent {
   private deviceService = inject(DevicesService);
   private sensorsService = inject(SensorsService);
 
-  itemsPerPage = 6;
+  itemsPerPage = 5;
   searchTerm$ = new BehaviorSubject<string>('');
   currentPage$ = new BehaviorSubject<number>(1);
 

@@ -5,10 +5,11 @@ import { DeviceAnalysisDto } from '../../interfaces/analysis/DeviceAnalysisDto';
 import { AnalysisService } from '../../services/analysis/analysis.service';
 import { SensorsService } from '../../services/sensors/sensors.service';
 import { NgxEchartsDirective } from 'ngx-echarts';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-modal-analysis',
-  imports: [NgxEchartsDirective],
+  imports: [NgxEchartsDirective, CommonModule],
   templateUrl: './modal-analysis.component.html',
   styleUrl: './modal-analysis.component.css'
 

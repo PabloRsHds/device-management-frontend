@@ -1,50 +1,115 @@
 <div class="main-content-sensors">
-
   <div class="sensors-container">
 
-    <div class="search-container">
-      <h2>All Devices</h2>
-      <div class="icon" ></div>
-      <div class="icon">9+</div>
-      <button>🔔</button>
+    <div class="container-wrapper">
+      <!-- Header -->
+      <div class="table-header">
+        <div class="header-content">
+          <h2 class="table-title">All Devices</h2>
+          <div class="header-actions">
+            <app-notifications class="notifications-component"></app-notifications>
+          </div>
+        </div>
+        <div class="header-subtitle">Monitor and analyze all connected devices</div>
+      </div>
+
+      <!-- Search Box -->
+      <div class="search-box">
+        <input
+          type="text"
+          placeholder="Search devices by name, model, type or status..."
+          class="search-input"
+          (input)="onSearchInput($event)"
+        >
+        <span class="search-icon">🔍</span>
+      </div>
+
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="sensors-table">
+          <thead>
+            <tr>
+              <th>Device Name</th>
+              <th>Type</th>
+              <th>Model</th>
+              <th>Manufacturer</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sensor of paginatedSensors$ | async"
+                (click)="openModalAnaysis(sensor.deviceModel)"
+                class="table-row">
+              <td data-label="Device Name" class="device-name">
+                <span class="name-text">{{sensor.name}}</span>
+              </td>
+              <td data-label="Type">
+                <span class="device-type">{{sensor.type}}</span>
+              </td>
+              <td data-label="Model" class="current-value">
+                {{sensor.deviceModel}}
+              </td>
+              <td data-label="Manufacturer" class="previous-value">
+                {{sensor.manufacturer}}
+              </td>
+              <td data-label="Status">
+                <div class="status-container">
+                  <span class="status-indicator"
+                        [ngClass]="{
+                          'status-active': sensor.status === 'ACTIVE',
+                          'status-inactive': sensor.status === 'INACTIVE',
+                          'status-warning': sensor.status === 'WARNING'
+                        }">
+                  </span>
+                  <span class="status-text">{{sensor.status}}</span>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="(paginatedSensors$ | async)?.length === 0">
+              <td colspan="5" class="no-data">
+                <div class="empty-state">
+                  <span class="empty-icon">📡</span>
+                  <p>No devices found</p>
+                  <p class="empty-subtext">Try adjusting your search criteria</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button
+          class="pagination-btn prev-btn"
+          (click)="previousPage()"
+          [disabled]="(currentPage$ | async) === 1"
+          title="Previous Page"
+        >
+          ← Previous
+        </button>
+
+        <div class="pagination-info">
+          <span class="page-number">Page {{ currentPage$ | async }}</span>
+          <span class="page-total">of {{ totalPages$ | async }}</span>
+        </div>
+
+        <button
+          class="pagination-btn next-btn"
+          (click)="nextPage()"
+          [disabled]="(currentPage$ | async) === (totalPages$ | async)"
+          title="Next Page"
+        >
+          Next →
+        </button>
+      </div>
     </div>
 
-    <div style="padding: 40px;">
-      <div>
-        <input type="text" placeholder="Search" class="search-input" (input)="onSearchInput($event)">
-      </div>
-      <table class="sensors-table" >
-        <thead>
-          <tr>
-            <th>Device Name</th>
-            <th>Type</th>
-            <th>Model</th>
-            <th>Manufacturer</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let sensor of paginatedSensors$ | async"
-                (click)="openModalAnaysis(sensor.deviceModel)">
-          <tr>
-            <td>{{sensor.name}}</td>
-            <td>{{sensor.type}}</td>
-            <td class="current-value">{{sensor.deviceModel}}</td>
-            <td class="previous-value">{{sensor.manufacturer}}</td>
-            <td><span class="status-indicator status-active"></span>{{sensor.status}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="pagination">
-        <button (click)="previousPage()" [disabled]="(currentPage$ | async) === 1">Previous</button>
-        <span class="pagination-info">Page {{ currentPage$ | async }} of {{ totalPages$ | async }}</span>
-        <button (click)="nextPage()" [disabled]="(currentPage$ | async) === (totalPages$ | async)">Next</button>
-      </div>
-    </div>
   </div>
 
-  <app-modal-analysis *ngIf="modalAnalysis"
-  (sendEventcloseModalAnalysis)="consumerEventCloseModalAnalysis()"
-  [deviceModal]="deviceModel">
+  <app-modal-analysis
+    *ngIf="modalAnalysis"
+    (sendEventcloseModalAnalysis)="consumerEventCloseModalAnalysis()"
+    [deviceModal]="deviceModel">
   </app-modal-analysis>
-
 </div>

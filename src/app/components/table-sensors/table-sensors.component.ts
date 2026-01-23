@@ -4,10 +4,11 @@ import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { SensorsService } from '../../services/sensors/sensors.service';
 import { SensorsStateService } from '../../services/state/sensors/sensors-state.service';
 import { ModalAnalysisComponent } from "../modal-analysis/modal-analysis.component";
+import { NotificationsComponent } from "../notifications/notifications.component";
 
 @Component({
   selector: 'app-table-sensors',
-  imports: [CommonModule, ModalAnalysisComponent],
+  imports: [CommonModule, ModalAnalysisComponent, NotificationsComponent],
   templateUrl: './table-sensors.component.html',
   styleUrl: './table-sensors.component.css'
 })
@@ -18,7 +19,7 @@ export class TableSensorsComponent {
   private service = inject(SensorsService);
 
 
-  itemsPerPage = 6;
+  itemsPerPage = 5;
   searchTerm$ = new BehaviorSubject<string>('');
   currentPage$ = new BehaviorSubject<number>(1);
 

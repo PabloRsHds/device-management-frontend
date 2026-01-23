@@ -1,23 +1,36 @@
 <!-- Device Delete Modal -->
-
 <div class="delete-modal">
   <div class="delete-modal-content">
-    <p class="close-button" (click)="closeModalDeviceDelete()">X</p>
 
-    <div style="display: flex; align-items: center; flex-direction: column;">
+    <div class="modal-header">
       <h1 class="delete-modal-title">Delete Device</h1>
-      <p class="delete-modal-text">Are you sure you want to delete this device?</p>
+      <button class="close-button" (click)="closeModalDeviceDelete()" title="Close">
+        <span>×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="warning-container">
+        <div class="warning-icon">⚠️</div>
+        <p class="delete-modal-text">Are you sure you want to delete this device?</p>
+        <p class="delete-modal-subtext">This action cannot be undone.</p>
+      </div>
 
       <form method="delete" [formGroup]="deleteForm" (ngSubmit)="delete()">
         <div class="delete-modal-buttons">
-          <input style="display: none;" type="text" formControlName="deviceModel">
-          <button type="submit" class="delete-modal-button">Delete</button>
-          <button type="button" class="delete-modal-button-cancel" (click)="closeModalDeviceDelete()">Cancel</button>
+          <input type="hidden" formControlName="deviceModel">
+          <button type="submit" class="delete-modal-button delete-btn">
+            <span class="btn-icon">🗑️</span>
+            Delete Device
+          </button>
+          <button type="button" class="delete-modal-button-cancel cancel-btn"
+                  (click)="closeModalDeviceDelete()">
+            <span class="btn-icon">←</span>
+            Cancel
+          </button>
         </div>
       </form>
     </div>
 
   </div>
 </div>
-
-<!---->
