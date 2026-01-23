@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Notification } from '../../interfaces/notification/Notification';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../services/notification/notification.service';
+import { timeInterval } from 'rxjs';
 
 @Component({
   selector: 'app-notifications',

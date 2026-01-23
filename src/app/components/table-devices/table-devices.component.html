@@ -94,10 +94,14 @@
                 </td>
               </tr>
               <tr *ngIf="(paginatedDevices$ | async)?.length === 0">
-                <td colspan="11" class="no-data">
-                  No devices found. Try changing your search criteria.
-                </td>
-              </tr>
+              <td colspan="10" class="no-data">
+                <div class="empty-state">
+                  <span class="empty-icon">📡</span>
+                  <p>No devices found</p>
+                  <p class="empty-subtext">Try adjusting your search criteria</p>
+                </div>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>
