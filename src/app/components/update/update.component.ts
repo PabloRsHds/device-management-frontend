@@ -24,13 +24,7 @@ export class UpdateComponent {
   service = inject(UpdateService);
   snackBar = inject(MatSnackBar);
 
-  //Updates
-  updateDeviceName = false;
-  updateDeviceModel = false;
-  updateManufacturer = false;
-  updateLocation = false;
-  updateDescription = false;
-  //
+
 
   ngOnChanges(): void {
     // Toda a vez que o deviceModel se atualizar, preencher o formulario
@@ -64,6 +58,25 @@ export class UpdateComponent {
     });
   }
 
+  updates = [
+    {id: 1, name: 'Device Name', active: false},
+    {id: 2, name: 'Device Model', active: false},
+    {id: 3, name: 'Manufacturer', active: false},
+    {id: 4, name: 'Location', active: false},
+    {id: 5, name: 'Description', active: false}
+  ]
+
+  functionToggleUpdate(id: number) {
+
+    this.updates.forEach(update => {
+      if (update.id === id) {
+        update.active = !update.active;
+      } else {
+        update.active = false;
+      }
+    })
+  }
+
   // Função onde eu pego os dados do dispositivo para preencher o formulario para facilitar a atualização
   functionFillOutUpdateForm(deviceModel: string) {
 
@@ -86,11 +99,11 @@ export class UpdateComponent {
   closeModalDeviceUpdate() {
     this.sendEventCloseModalUpdate.emit();
     this.openModalDeviceUpdate = !this.openModalDeviceUpdate;
-    this.updateDeviceName = false;
-    this.updateDeviceModel = false;
-    this.updateManufacturer = false;
-    this.updateLocation = false;
-    this.updateDescription = false;
+    this.updates[0].active = false;
+    this.updates[1].active = false;
+    this.updates[2].active = false;
+    this.updates[3].active = false;
+    this.updates[4].active = false;
   }
 
   // ===============================================================

@@ -14,15 +14,15 @@
       <div class="form-container">
 
         <!-- Update Device Name -->
-        <div class="form-section" *ngIf="!updateDeviceName">
-          <button class="toggle-btn" type="button" (click)="updateDeviceName = true">
+        <div class="form-section" *ngIf="!updates[0].active">
+          <button class="toggle-btn" type="button" (click)="functionToggleUpdate(updates[0].id)">
             <span class="btn-icon">📝</span>
             Update Device Name
             <span class="arrow">→</span>
           </button>
         </div>
 
-        <div class="form-section active" *ngIf="updateDeviceName">
+        <div class="form-section active" *ngIf="updates[0].active">
           <div class="input-group">
             <label class="input-label">
               <span class="label-icon">📝</span>
@@ -39,7 +39,7 @@
               <button
                 type="button"
                 class="input-close"
-                (click)="updateDeviceName = false"
+                (click)="updates[0].active = false"
                 title="Cancel update"
               >
                 ×
@@ -49,15 +49,15 @@
         </div>
 
         <!-- Update Device Model -->
-        <div class="form-section" *ngIf="!updateDeviceModel">
-          <button class="toggle-btn" type="button" (click)="updateDeviceModel = true">
+        <div class="form-section" *ngIf="!updates[1].active">
+          <button class="toggle-btn" type="button" (click)="functionToggleUpdate(updates[1].id)">
             <span class="btn-icon">🖥️</span>
             Update Device Model
             <span class="arrow">→</span>
           </button>
         </div>
 
-        <div class="form-section active" *ngIf="updateDeviceModel">
+        <div class="form-section active" *ngIf="updates[1].active">
           <div class="input-group">
             <label class="input-label">
               <span class="label-icon">🖥️</span>
@@ -74,7 +74,7 @@
               <button
                 type="button"
                 class="input-close"
-                (click)="updateDeviceModel = false"
+                (click)="updates[1].active = false"
                 title="Cancel update"
               >
                 ×
@@ -84,15 +84,15 @@
         </div>
 
         <!-- Update Manufacturer -->
-        <div class="form-section" *ngIf="!updateManufacturer">
-          <button class="toggle-btn" type="button" (click)="updateManufacturer = true">
+        <div class="form-section" *ngIf="!updates[2].active">
+          <button class="toggle-btn" type="button" (click)="functionToggleUpdate(updates[2].id)">
             <span class="btn-icon">🏭</span>
             Update Manufacturer
             <span class="arrow">→</span>
           </button>
         </div>
 
-        <div class="form-section active" *ngIf="updateManufacturer">
+        <div class="form-section active" *ngIf="updates[2].active">
           <div class="input-group">
             <label class="input-label">
               <span class="label-icon">🏭</span>
@@ -109,7 +109,7 @@
               <button
                 type="button"
                 class="input-close"
-                (click)="updateManufacturer = false"
+                (click)="updates[2].active = false"
                 title="Cancel update"
               >
                 ×
@@ -119,15 +119,15 @@
         </div>
 
         <!-- Update Location -->
-        <div class="form-section" *ngIf="!updateLocation">
-          <button class="toggle-btn" type="button" (click)="updateLocation = true">
+        <div class="form-section" *ngIf="!updates[3].active">
+          <button class="toggle-btn" type="button" (click)="functionToggleUpdate(updates[3].id)">
             <span class="btn-icon">📍</span>
             Update Location
             <span class="arrow">→</span>
           </button>
         </div>
 
-        <div class="form-section active" *ngIf="updateLocation">
+        <div class="form-section active" *ngIf="updates[3].active">
           <div class="input-group">
             <label class="input-label">
               <span class="label-icon">📍</span>
@@ -143,7 +143,7 @@
               <button
                 type="button"
                 class="input-close textarea-close"
-                (click)="updateLocation = false"
+                (click)="updates[3].active = false"
                 title="Cancel update"
               >
                 ×
@@ -153,15 +153,15 @@
         </div>
 
         <!-- Update Description -->
-        <div class="form-section" *ngIf="!updateDescription">
-          <button class="toggle-btn" type="button" (click)="updateDescription = true">
+        <div class="form-section" *ngIf="!updates[4].active">
+          <button class="toggle-btn" type="button" (click)="functionToggleUpdate(updates[4].id)">
             <span class="btn-icon">📄</span>
             Update Description
             <span class="arrow">→</span>
           </button>
         </div>
 
-        <div class="form-section active" *ngIf="updateDescription">
+        <div class="form-section active" *ngIf="updates[4].active">
           <div class="input-group">
             <label class="input-label">
               <span class="label-icon">📄</span>
@@ -177,7 +177,7 @@
               <button
                 type="button"
                 class="input-close textarea-close"
-                (click)="updateDescription = false"
+                (click)="updates[4].active = false"
                 title="Cancel update"
               >
                 ×
@@ -206,14 +206,6 @@
             <span class="btn-icon">✕</span>
             Cancel
           </button>
-        </div>
-
-        <!-- Form Status -->
-        <div class="form-status" *ngIf="updateForm.valid">
-          <div class="status-indicator">
-            <span class="status-icon">✓</span>
-            <span class="status-text">Form is ready to submit</span>
-          </div>
         </div>
 
       </div>

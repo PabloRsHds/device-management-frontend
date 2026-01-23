@@ -131,7 +131,7 @@
 /* Toggle Buttons */
 .toggle-btn {
   width: 100%;
-  padding: 18px 20px;
+  padding: 10px;
   background: white;
   border: 2px solid #e0e0e0;
   border-radius: 12px;
@@ -291,7 +291,7 @@
 .action-buttons {
   display: flex;
   gap: 15px;
-  margin-top: 30px;
+  margin-top: 20px;
   padding-top: 25px;
   border-top: 2px solid #f0f0f0;
 }
