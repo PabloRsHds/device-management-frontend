@@ -1,87 +1,161 @@
-
 <div class="main-content-table">
-
-  <div>
+  <div class="container">
     <div class="table-container">
-
-      <div style="padding: 60px;">
-        <div class="search-container">
-          <h2>All Devices</h2>
-          <app-notifications class="APP-NOTIFICATIONS"></app-notifications>
+      <div class="table-wrapper">
+        <!-- Header com título e notificações -->
+        <div class="table-header">
+          <h2 class="table-title">All Devices</h2>
+          <app-notifications class="notifications-component"></app-notifications>
         </div>
 
-        <div>
-          <input (input)="onSearchInput($event)" placeholder="Search devices" class="search-input">
+        <!-- Campo de busca -->
+        <div class="search-box">
+          <input
+            type="text"
+            (input)="onSearchInput($event)"
+            placeholder="Search devices by name, model, type or manufacturer..."
+            class="search-input"
+          >
+          <span class="search-icon">🔍</span>
         </div>
 
-        <table class="device-table">
-          <thead>
-            <tr>
-              <th>Device Name</th>
-              <th>Type</th>
-              <th>Model</th>
-              <th>Description</th>
-              <th>Manufacturer</th>
-              <th>Min Limit</th>
-              <th>Max Limit</th>
-              <th>Unit</th>
-              <th>Location</th>
-              <th colspan="3">Actions</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let device of (paginatedDevices$ | async)">
-            <tr>
-              <td>{{device.name}}</td>
-              <td>{{device.type}}</td>
-              <td>{{device.deviceModel}}</td>
-              <td>
-                <button (click)="functionTableInspection(device.description)" class="button-info">Description</button>
-              </td>
-              <td>{{device.manufacturer}}</td>
-              <td>{{device.minLimit}}</td>
-              <td>{{device.maxLimit}}</td>
-              <td>{{device.unit}}</td>
-              <td>
-                <button (click)="functionTableInspection(device.location)" class="button-info">Location</button>
-              </td>
-              <td>
-                <button class="action-button test-button" (click)="handleChangeStatus(device.deviceModel)">Test</button>
-              </td>
-              <td>
-                <button class="action-button edit-button" (click)="functionGetDeviceModelForUpdate(device.deviceModel);">Update</button>
-              </td>
-              <td>
-                <button class="action-button delete-button" (click)="functionGetDeviceModelForDelete(device.deviceModel);">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- Tabela de dispositivos -->
+        <div class="table-responsive">
+          <table class="device-table">
+            <thead>
+              <tr>
+                <th>Device Name</th>
+                <th>Type</th>
+                <th>Model</th>
+                <th>Description</th>
+                <th>Manufacturer</th>
+                <th>Min Limit</th>
+                <th>Max Limit</th>
+                <th>Unit</th>
+                <th>Location</th>
+                <th colspan="3" class="actions-column">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let device of (paginatedDevices$ | async)">
+                <td data-label="Device Name">{{device.name}}</td>
+                <td data-label="Type">
+                  <span class="device-type">{{device.type}}</span>
+                </td>
+                <td data-label="Model">{{device.deviceModel}}</td>
+                <td data-label="Description">
+                  <button
+                    class="button-info description-btn"
+                    (click)="functionTableInspection(device.description)"
+                    [title]="device.description || 'No description'"
+                  >
+                    <span>View</span>
+                  </button>
+                </td>
+                <td data-label="Manufacturer">{{device.manufacturer}}</td>
+                <td data-label="Min Limit">
+                  <span class="limit-value">{{device.minLimit}}</span>
+                </td>
+                <td data-label="Max Limit">
+                  <span class="limit-value">{{device.maxLimit}}</span>
+                </td>
+                <td data-label="Unit">
+                  <span class="unit-badge">{{device.unit}}</span>
+                </td>
+                <td data-label="Location">
+                  <button
+                    class="button-info location-btn"
+                    (click)="functionTableInspection(device.location)"
+                    [title]="device.location || 'No location'"
+                  >
+                    <span>View</span>
+                  </button>
+                </td>
+                <td class="action-cell" data-label="Test">
+                  <button class="action-button test-button"
+                    (click)="handleChangeStatus(device.deviceModel)"
+                    title="Test Device">
+                    Test
+                  </button>
+                </td>
+                <td class="action-cell" data-label="Update">
+                  <button class="action-button edit-button"
+                    (click)="functionGetDeviceModelForUpdate(device.deviceModel)"
+                    title="Update Device">
+                    Update
+                  </button>
+                </td>
+                <td class="action-cell" data-label="Delete">
+                  <button class="action-button delete-button"
+                    (click)="functionGetDeviceModelForDelete(device.deviceModel)"
+                    title="Delete Device">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="(paginatedDevices$ | async)?.length === 0">
+                <td colspan="11" class="no-data">
+                  No devices found. Try changing your search criteria.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
+        <!-- Paginação -->
         <div class="pagination">
-          <button (click)="previousPage()" [disabled]="(currentPage$ | async) === 1">Previous</button>
-          <span class="pagination-info">Page {{ currentPage$ | async}} of {{ totalPages$ | async }}</span>
-          <button (click)="nextPage()" [disabled]="(currentPage$ | async) === (totalPages$ | async)">Next</button>
-        </div>
+          <button
+            class="pagination-btn prev-btn"
+            (click)="previousPage()"
+            [disabled]="(currentPage$ | async) === 1"
+            title="Previous Page"
+          >
+            ← Previous
+          </button>
 
+          <div class="pagination-info">
+            <span class="page-number">Page {{ currentPage$ | async }}</span>
+            <span class="page-total">of {{ totalPages$ | async }}</span>
+          </div>
+
+          <button
+            class="pagination-btn next-btn"
+            (click)="nextPage()"
+            [disabled]="(currentPage$ | async) === (totalPages$ | async)"
+            title="Next Page"
+          >
+            Next →
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Visualizar a descrição do dispositivo -->
+    <!-- Modal de descrição -->
     <div class="modal-description" *ngIf="openModalDescription">
       <div class="modal-description-content">
-        <p class="close-button" (click)="openModalDescription = !openModalDescription">X</p>
-        <p class="modal-description-text">{{selectedDeviceDescription}}</p>
+        <div class="modal-header">
+          <h3>Device Description</h3>
+          <button class="modal-close" (click)="openModalDescription = false" title="Close">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-description-text">{{selectedDeviceDescription || 'No description available'}}</p>
+        </div>
       </div>
     </div>
 
-    <app-update *ngIf="openModalUpdate" [deviceModel]="deviceModel"
-    (sendEventCloseModalUpdate)="getEventCloseModalUpdate()">
+    <!-- Componentes de update e delete -->
+    <app-update
+      *ngIf="openModalUpdate"
+      [deviceModel]="deviceModel"
+      (sendEventCloseModalUpdate)="getEventCloseModalUpdate()">
     </app-update>
 
-    <app-delete-device *ngIf="openModalDelete" [deviceModel]="deviceModel"
-    (sendEventCloseModalDeviceDelete)="consumerEventCloseModalDeviceDelete()">
+    <app-delete-device
+      *ngIf="openModalDelete"
+      [deviceModel]="deviceModel"
+      (sendEventCloseModalDeviceDelete)="consumerEventCloseModalDeviceDelete()">
     </app-delete-device>
-
   </div>
 </div>
-

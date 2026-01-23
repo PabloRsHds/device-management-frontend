@@ -1,37 +1,39 @@
-<div class="search-container">
-  <div class="notification-wrapper">
-    <button class="notification-btn" (click)="openNotifications()">
-      🔔
-      <div class="notification-badge" *ngIf="countNotifications > 0 && countNotifications < 10">
-        {{countNotifications}}
-      </div>
-      <div class="notification-badge" *ngIf="countNotifications > 9">9+</div>
-    </button>
-
-    <div class="modal-notifications" *ngIf="openModalNotifications">
-      <div class="modal-notifications-content" (scroll)="onScroll($event)">
-        <div class="modal-header">
-          <h2>Notifications</h2>
-          <span class="close-modal" (click)="openModalNotifications = false">×</span>
+<div style="z-index: 1;">
+  <div class="search-container">
+    <div class="notification-wrapper">
+      <button class="notification-btn" (click)="openNotifications()">
+        🔔
+        <div class="notification-badge" *ngIf="countNotifications > 0 && countNotifications < 10">
+          {{countNotifications}}
         </div>
+        <div class="notification-badge" *ngIf="countNotifications > 9">9+</div>
+      </button>
 
-        <div class="notifications-list">
-          <div *ngIf="listNotifications.length === 0 && !loading" class="no-notifications">
-            <p>No notifications</p>
+      <div class="modal-notifications" *ngIf="openModalNotifications">
+        <div class="modal-notifications-content" (scroll)="onScroll($event)">
+          <div class="modal-header">
+            <h2>Notifications</h2>
+            <span class="close-modal" (click)="openModalNotifications = false">X</span>
           </div>
 
-          <div class="notification-item" *ngFor="let notification of listNotifications">
-            <div class="notification-content">
-              <span>{{notification.message}}</span>
+          <div class="notifications-list">
+            <div *ngIf="listNotifications.length === 0 && !loading" class="no-notifications">
+              <p>No notifications</p>
             </div>
-            <div class="notification-actions">
-              <span class="close-notification" (click)="ocultNotifications(notification.notificationId)">×</span>
-            </div>
-          </div>
 
-          <div class="loading-more" *ngIf="loading">
-            <div class="spinner"></div>
-            <span>Loading more notifications...</span>
+            <div class="notification-item" *ngFor="let notification of listNotifications">
+              <div class="notification-content">
+                <span>{{notification.message}}</span>
+              </div>
+              <div class="notification-actions">
+                <span class="close-notification" (click)="ocultNotifications(notification.notificationId)">X</span>
+              </div>
+            </div>
+
+            <div class="loading-more" *ngIf="loading">
+              <div class="spinner"></div>
+              <span>Loading more notifications...</span>
+            </div>
           </div>
         </div>
       </div>
