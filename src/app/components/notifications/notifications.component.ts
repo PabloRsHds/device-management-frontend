@@ -19,7 +19,9 @@ export class NotificationsComponent {
   countNotifications = 0;
 
   page = 0;
-  size = 4;
+  size = 7;
+
+  loadingNotifications = false;
 
   openModalNotifications = false;
 
@@ -98,11 +100,16 @@ export class NotificationsComponent {
   onScroll(event: Event) {
     const element = event.target as HTMLElement;
 
-    const chegouNoFim =
-      element.scrollHeight - element.scrollTop <= element.clientHeight + 5;
+    // Calcula se chegou no final (80% do scroll)
+    const scrollPosition = element.scrollTop;
+    const totalHeight = element.scrollHeight;
+    const visibleHeight = element.clientHeight;
 
-    if (chegouNoFim) {
-      this.loadMore();
+    // Quando estiver a 20px do final
+    if (totalHeight - (scrollPosition + visibleHeight) < 20) {
+      if (!this.loading && this.hasMore) {
+        this.loadMore();
+      }
     }
   }
 }

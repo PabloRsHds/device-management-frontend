@@ -1,29 +1,40 @@
 <div class="search-container">
-
-  <button (click)="openNotifications()">🔔
-    <div class="icon" *ngIf="countNotifications > 0 && countNotifications < 10">{{countNotifications}}</div>
-    <div class="icon" *ngIf="countNotifications > 9">9+</div>
+  <div class="notification-wrapper">
+    <button class="notification-btn" (click)="openNotifications()">
+      🔔
+      <div class="notification-badge" *ngIf="countNotifications > 0 && countNotifications < 10">
+        {{countNotifications}}
+      </div>
+      <div class="notification-badge" *ngIf="countNotifications > 9">9+</div>
+    </button>
 
     <div class="modal-notifications" *ngIf="openModalNotifications">
-      <div class="modal-notifications-content"
-      (scroll)="onScroll($event)">
-        <div>
+      <div class="modal-notifications-content" (scroll)="onScroll($event)">
+        <div class="modal-header">
           <h2>Notifications</h2>
+          <span class="close-modal" (click)="openModalNotifications = false">×</span>
         </div>
-        <div class="content" *ngFor="let notification of listNotifications">
-          <div>
-            <p (click)="ocultNotifications(notification.notificationId)">X</p>
+
+        <div class="notifications-list">
+          <div *ngIf="listNotifications.length === 0 && !loading" class="no-notifications">
+            <p>No notifications</p>
           </div>
-          <div>
-            <span>{{notification.message}}</span>
+
+          <div class="notification-item" *ngFor="let notification of listNotifications">
+            <div class="notification-content">
+              <span>{{notification.message}}</span>
+            </div>
+            <div class="notification-actions">
+              <span class="close-notification" (click)="ocultNotifications(notification.notificationId)">×</span>
+            </div>
+          </div>
+
+          <div class="loading-more" *ngIf="loading">
+            <div class="spinner"></div>
+            <span>Loading more notifications...</span>
           </div>
         </div>
       </div>
     </div>
-
-  </button>
-
+  </div>
 </div>
-
-
-

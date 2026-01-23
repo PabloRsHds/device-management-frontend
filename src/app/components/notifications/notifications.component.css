@@ -1,106 +1,308 @@
 /**** NOTIFICATIONS ****/
 
-.modal-notifications {
-  position: fixed;
-  top: 135px;
-  right: 240px;
-  z-index: 9999;
+.search-container {
+  position: relative;
 }
 
-.modal-notifications-content {
-  width: 500px;
-  height: 450px;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.938);
-  overflow-y: auto;
+.notification-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
-.modal-notifications-content h2 {
-  color: white;
-  text-align: center;
-  margin: 20px 0px 30px 0px;
-  text-indent: 0px;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.modal-notifications-content .content{
-  background-color: #0422506e;
-  padding: 10px;
-  border-radius: 10px;
-  margin: 0px auto 10px auto;
-  width: 90%;
-}
-
-.modal-notifications-content p {
-  text-align: end;
-  color: rgb(241, 241, 241);
-  margin: 0px 10px 20px 0px;
-  cursor: pointer;
-}
-
-.modal-notifications-content p:hover {
-  text-align: end;
-  color: rgb(180, 180, 180);
-}
-
-.modal-notifications-content span {
-  color: rgb(187, 187, 187);
-  font-weight: 700;
-  text-align: center;
-  padding: 10px;
-}
-
-/* largura da barra */
-.modal-notifications-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* fundo da barra */
-.modal-notifications-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-
-/* parte que se move */
-.modal-notifications-content::-webkit-scrollbar-thumb {
-  background: #0D6EFD;/* cor da barra */
-  border-radius: 10px;
-}
-
-/* hover */
-.modal-notifications-content::-webkit-scrollbar-thumb:hover {
-  background: #0D6EFD;
-}
-
-.search-container button {
+/* Botão de notificações */
+.search-container .notification-btn {
   position: relative;
   background-color: #1574ff;
   border: none;
-  border-radius: 100%;
-  padding: 10px;
+  border-radius: 50%;
+  padding: 12px;
   color: white;
   cursor: pointer;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.3s ease;
 }
 
-.search-container button:hover {
+.search-container .notification-btn:hover {
   background-color: #1058c4;
+  transform: scale(1.05);
 }
 
-.search-container .icon {
+/* Badge de contador */
+.search-container .notification-badge {
   position: absolute;
-  bottom: 25px;
-  left: 25px;
+  top: -5px;
+  right: -5px;
   background-color: rgb(223, 3, 3);
-  height: 20px;
-  width: 20px;
-  border-radius: 100%;
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-size: 12px;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/**********************/
+/* Modal de notificações */
+.modal-notifications {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 9999;
+  width: 450px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Seta do modal (opcional) */
+.modal-notifications::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid rgba(0, 0, 0, 0.938);
+}
+
+/* CONTEÚDO DO MODAL - AQUI TEM QUE TER SCROLL */
+.modal-notifications-content {
+  width: 100%;
+  height: 500px; /* ALTURA FIXA OBRIGATÓRIA */
+  max-height: 500px; /* ALTURA MÁXIMA */
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.938);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* SCROLL AQUI MESMO */
+  overflow-x: hidden;
+}
+
+/* Cabeçalho do modal - FIXO NO TOPO */
+.modal-header {
+  display: flex;
+  justify-content: space-around;
+  gap: 200px;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 15px;
+  position: sticky;
+  width: 100%;
+  top: -15px;
+  background-color: rgba(0, 0, 0, 0.938);
+  z-index: 1;
+}
+
+.modal-header h2 {
+  color: white;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.modal-header .close-modal {
+  color: rgb(241, 241, 241);
+  font-size: 24px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.modal-header .close-modal:hover {
+  color: rgb(180, 180, 180);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* LISTA DE NOTIFICAÇÕES - CRESCE DINAMICAMENTE */
+.notifications-list {
+  flex: 1; /* Ocupa todo o espaço disponível */
+  min-height: 0; /* IMPORTANTE para flex scroll */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Item individual de notificação */
+.notification-item {
+  background-color: rgba(4, 34, 80, 0.43);
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-left: 3px solid #1574ff;
+  transition: all 0.3s ease;
+  flex-shrink: 0; /* Não encolhe */
+}
+
+.notification-item:hover {
+  background-color: rgba(4, 34, 80, 0.6);
+  transform: translateX(5px);
+}
+
+.notification-content {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.notification-content span {
+  color: rgb(220, 220, 220);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.4;
+  display: block;
+  word-break: break-word;
+}
+
+.notification-actions {
+  display: flex;
+  align-items: flex-start;
+}
+
+.notification-actions .close-notification {
+  color: rgb(200, 200, 200);
+  font-size: 18px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.notification-actions .close-notification:hover {
+  color: rgb(241, 241, 241);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Mensagem quando não há notificações */
+.no-notifications {
+  text-align: center;
+  padding: 40px 20px;
+  color: rgb(150, 150, 150);
+  font-style: italic;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading indicator para paginação */
+.loading-more {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  color: #888;
+  font-size: 14px;
+  margin-top: auto; /* Fica no final */
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #0D6EFD;
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* SCROLLBAR - no container principal */
+.modal-notifications-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-notifications-content::-webkit-scrollbar-track {
+  background: rgba(241, 241, 241, 0.1);
+  border-radius: 10px;
+}
+
+.modal-notifications-content::-webkit-scrollbar-thumb {
+  background: #0D6EFD;
+  border-radius: 10px;
+}
+
+.modal-notifications-content::-webkit-scrollbar-thumb:hover {
+  background: #0b5ed7;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modal-notifications {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+  }
+
+  .modal-notifications::before {
+    display: none;
+  }
+
+  .modal-notifications-content {
+    height: auto;
+    max-height: 70vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-notifications {
+    width: 95%;
+  }
+
+  .modal-notifications-content {
+    padding: 12px;
+  }
+
+  .search-container .notification-btn {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+  }
+}
+
+/* Para garantir que o modal fique acima de outros elementos */
+.modal-notifications {
+  z-index: 10000;
+}
