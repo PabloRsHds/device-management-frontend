@@ -7,7 +7,7 @@
 
 .main-content-sensors {
   flex: 4;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg,#1e40af 0%,#3b82f6 40%,#60a5fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;

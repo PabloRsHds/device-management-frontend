@@ -6,11 +6,14 @@
 
 .main-content {
   flex: 1;
-  background: linear-gradient(#98a3ff, #6573f0, #3f4fe4);
+  background: #082549;
+  background-size: 400%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  position: relative;
 }
 
 .welcome-container {
