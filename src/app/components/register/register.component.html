@@ -8,111 +8,99 @@
 
     <form method="post" [formGroup]="registerForm" (ngSubmit)="HandleRegistration()">
 
-      <!-- Device Name -->
-      <div class="form-group">
+      <!-- Linha 1: Name + Type -->
+      <div class="form-row">
+        <div class="form-group half">
+          <input
+            type="text"
+            formControlName="name"
+            class="form-input"
+            placeholder="🏷️ Device name"
+            [class.input-error]="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')"
+          >
+          <small *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')"
+                class="error-message">
+            ⚠️ Device name is required
+          </small>
+        </div>
 
-        <input
-          type="text"
-          formControlName="name"
-          class="form-input"
-          placeholder="Enter device name"
-          [class.input-error]="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')"
-        >
-        <small *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')"
-               class="error-message">
-          ⚠️ Device name is required
-        </small>
+        <div class="form-group half">
+          <select
+            class="form-input-select"
+            formControlName="type"
+            [class.input-error]="registerForm.get('type')?.touched && registerForm.get('type')?.hasError('required')"
+          >
+            <option value="">📊 Device type...</option>
+            <option *ngFor="let item of types" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+          <small *ngIf="registerForm.get('type')?.touched && registerForm.get('type')?.hasError('required')"
+                class="error-message">
+            ⚠️ Select a device type
+          </small>
+        </div>
       </div>
 
-      <!-- Device Type -->
-      <div class="form-group">
+      <!-- Linha 2: Model + Manufacturer -->
+      <div class="form-row">
+        <div class="form-group half">
+          <input
+            type="text"
+            formControlName="deviceModel"
+            class="form-input"
+            placeholder="🖥️ Device model"
+            [class.input-error]="registerForm.get('deviceModel')?.touched && registerForm.get('deviceModel')?.hasError('required')"
+          >
+          <small *ngIf="registerForm.get('deviceModel')?.touched && registerForm.get('deviceModel')?.hasError('required')"
+                class="error-message">
+            ⚠️ Device model is required
+          </small>
+        </div>
 
-        <select
-          class="form-input-select"
-          formControlName="type"
-          [class.input-error]="registerForm.get('type')?.touched && registerForm.get('type')?.hasError('required')"
-        >
-          <option value="">Select device type...</option>
-          <option *ngFor="let item of types" [value]="item">
-            {{ item }}
-          </option>
-        </select>
-        <small *ngIf="registerForm.get('type')?.touched && registerForm.get('type')?.hasError('required')"
-               class="error-message">
-          ⚠️ Please select a device type
-        </small>
+        <div class="form-group half">
+          <input
+            type="text"
+            formControlName="manufacturer"
+            class="form-input"
+            placeholder="🏭 Manufacturer"
+            [class.input-error]="registerForm.get('manufacturer')?.touched && registerForm.get('manufacturer')?.hasError('required')"
+          >
+          <small *ngIf="registerForm.get('manufacturer')?.touched && registerForm.get('manufacturer')?.hasError('required')"
+                class="error-message">
+            ⚠️ Manufacturer is required
+          </small>
+        </div>
       </div>
 
-      <!-- Device Model -->
+      <!-- Linha 3: Location (larger) -->
       <div class="form-group">
-
-        <input
-          type="text"
-          formControlName="deviceModel"
-          class="form-input"
-          placeholder="Enter device model"
-          [class.input-error]="registerForm.get('deviceModel')?.touched && registerForm.get('deviceModel')?.hasError('required')"
-        >
-        <small *ngIf="registerForm.get('deviceModel')?.touched && registerForm.get('deviceModel')?.hasError('required')"
-               class="error-message">
-          ⚠️ Device model is required
-        </small>
-      </div>
-
-      <!-- Manufacturer -->
-      <div class="form-group">
-
-        <input
-          type="text"
-          formControlName="manufacturer"
-          class="form-input"
-          placeholder="Enter manufacturer"
-          [class.input-error]="registerForm.get('manufacturer')?.touched && registerForm.get('manufacturer')?.hasError('required')"
-        >
-        <small *ngIf="registerForm.get('manufacturer')?.touched && registerForm.get('manufacturer')?.hasError('required')"
-               class="error-message">
-          ⚠️ Manufacturer is required
-        </small>
-      </div>
-
-      <!-- Location -->
-      <div class="form-group">
-
         <textarea
-          rows="3"
+          rows="2"
           formControlName="location"
           class="form-input textarea"
-          placeholder="Enter device location"
+          placeholder="📍 Enter device location"
           [class.input-error]="registerForm.get('location')?.touched && registerForm.get('location')?.hasError('required')"
         ></textarea>
         <small *ngIf="registerForm.get('location')?.touched && registerForm.get('location')?.hasError('required')"
-               class="error-message">
+              class="error-message">
           ⚠️ Location is required
         </small>
       </div>
 
-      <!-- Description -->
+      <!-- Linha 4: Description -->
       <div class="form-group">
-
         <textarea
-          rows="4"
+          rows="3"
           formControlName="description"
           class="form-input textarea"
-          placeholder="Enter device description"
+          placeholder="📄 Device description"
           [class.input-error]="registerForm.get('description')?.touched && registerForm.get('description')?.hasError('required')"
         ></textarea>
         <small *ngIf="registerForm.get('description')?.touched && registerForm.get('description')?.hasError('required')"
-               class="error-message">
+              class="error-message">
           ⚠️ Description is required
         </small>
-      </div>
-
-      <!-- Form Status -->
-      <div class="form-status" *ngIf="registerForm.valid">
-        <div class="status-indicator">
-          <span class="status-icon">✓</span>
-          <span class="status-text">All fields are valid</span>
-        </div>
       </div>
 
       <!-- Action Buttons -->
@@ -123,15 +111,7 @@
           [disabled]="registerForm.invalid"
           [class.button-disabled]="registerForm.invalid"
         >
-          <span class="button-icon">✓</span>
           Register Device
-        </button>
-        <button
-          type="button"
-          class="form-button cancel-button"
-        >
-          <span class="button-icon">✕</span>
-          Cancel
         </button>
       </div>
 
