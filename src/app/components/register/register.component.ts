@@ -51,7 +51,7 @@ export class RegisterComponent {
 
         this.snackBar.open('Device registered successfully!', 'Close', {
             duration: 3000,
-            panelClass: ['snackbar']
+            panelClass: ['snackbar-success']
           });
       },
       error : (err: Error) => {

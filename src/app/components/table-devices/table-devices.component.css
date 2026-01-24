@@ -141,13 +141,25 @@
 
 .device-table th {
   padding: 18px 16px;
-  text-align: left;
+  text-align: center;
   color: white;
   font-weight: 600;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.device-table .expand-name {
+  padding: 0px 80px 0px 80px;
+}
+
+.device-table .expand-model {
+  padding: 0px 50px 0px 50px;
+}
+
+.device-table .expand-manufacturer {
+  padding: 0px 20px 0px 20px;
 }
 
 .device-table th:last-child {
