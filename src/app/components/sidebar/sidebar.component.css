@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   padding: 25px;
+  border-right: 1px solid rgb(107, 107, 107);
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -33,7 +34,7 @@
 .separator {
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #8fd0e4, #b08bd5);
   margin-top: 15px;
   border-radius: 2px;
 }
@@ -73,11 +74,16 @@
 }
 
 .button-pressed {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1AACD9;
   color: white;
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
   transform: translateX(5px);
+}
+
+.button-pressed:hover {
+  background-color: #1AACD9;
+  transform: translateX(5px) scale(0.98);
 }
 
 .button-pressed::before {

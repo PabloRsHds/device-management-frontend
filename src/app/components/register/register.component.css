@@ -32,18 +32,15 @@
   right: -50%;
   width: 80%;
   height: 80%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
   border-radius: 50%;
   z-index: 0;
 }
 
 .form-container {
   background: white;
+  box-shadow: 0 0px 36px 10px #05101dd7;
   border-radius: 24px;
   padding: 50px;
-  box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   width: 100%;
   max-width: 750px;
   position: relative;
@@ -83,7 +80,7 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #8fd0e4, #b08bd5);
   border-radius: 2px;
 }
 
@@ -91,10 +88,10 @@
   font-size: 36px;
   font-weight: 800;
   margin: 0 0 12px 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: #1AACD9;
   text-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
   letter-spacing: -0.5px;
 }
@@ -156,7 +153,7 @@
 .form-input:focus,
 .form-input-select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #1AACD9;
   background: white;
   box-shadow:
     0 0 0 4px rgba(102, 126, 234, 0.15),
@@ -262,7 +259,8 @@
 
 .register-button {
   background: linear-gradient(135deg,
-    #667eea 0%,
+    #1AACD9 0%,
+    #0e8cb3 50%,
     #764ba2 100%);
   color: white;
   box-shadow:
@@ -274,8 +272,9 @@
 
 .register-button:not(.button-disabled):hover {
   background: linear-gradient(135deg,
-    #5a67d8 0%,
-    #6b46c1 100%);
+    #149bc4 0%,
+    #0b799b 50%,
+    #4c296e 100%);
   transform: translateY(-3px);
   box-shadow:
     0 20px 40px -10px rgba(102, 126, 234, 0.6),
