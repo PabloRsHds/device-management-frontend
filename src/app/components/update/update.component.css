@@ -23,7 +23,7 @@
 .update-modal-content {
   position: relative;
   width: 90%;
-  max-width: 480px;
+  max-width: 550px;
   min-height: 500px;
   max-height: 90vh;
   overflow: hidden;
@@ -52,8 +52,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 25px 30px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px 20px 0 0;
+  background: linear-gradient(90deg, #1AACD9 0%, #320DD6 100%);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -183,6 +182,10 @@
   border: 1px solid #e8e8e8;
 }
 
+.input-group textarea {
+  resize: none;
+}
+
 .input-label {
   display: flex;
   align-items: center;
@@ -299,7 +302,7 @@
 .submit-btn {
   flex: 1;
   padding: 16px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1AACD9 0%, #320DD6 100%);
   border: none;
   border-radius: 12px;
   color: white;
@@ -488,4 +491,66 @@
 
 .submit-btn:active:not(.disabled) {
   animation: successPulse 0.3s ease;
+}
+
+/*Icon*/
+
+.icon-confirm {
+  width: 20px;
+  height: 20px;
+  color: #adadad;
+}
+
+.icon-close {
+  width: 20px;
+  height: 20px;
+  color: #adadad;
+}
+
+.icon-arrow {
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  color: #adadad;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover .icon-arrow {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.icon-arrow:hover{
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  color: #adadad;
+}
+
+.icon-name {
+  width: 20px;
+  height: 20px;
+  color: #4d7ec7;
+}
+
+.icon-monitor {
+  width: 20px;
+  height: 20px;
+  color: #1aacd9;
+}
+
+.icon-factory {
+  width: 20px;
+  height: 20px;
+  color: #667eea;
+}
+
+.icon-pin {
+  width: 20px;
+  height: 20px;
+  color: #c40505;
+}
+
+.icon-paper {
+  color: #b39512;
 }

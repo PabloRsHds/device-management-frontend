@@ -11,7 +11,10 @@
 
     <div class="modal-body">
       <div class="warning-container">
-        <div class="warning-icon">⚠️</div>
+        <span class="icon-warning">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert-icon lucide-triangle-alert"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/>
+          <path d="M12 17h.01"/></svg>
+        </span>
         <p class="delete-modal-text">Are you sure you want to delete this device?</p>
         <p class="delete-modal-subtext">This action cannot be undone.</p>
       </div>
@@ -20,7 +23,11 @@
         <div class="delete-modal-buttons">
           <input type="hidden" formControlName="deviceModel">
           <button type="submit" class="delete-modal-button delete-btn">
-            <span class="btn-icon">🗑️</span>
+            <span class="icon-trash">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+                <path d="M232.7 69.9C237.1 56.8 249.3 48 263.1 48L377 48C390.8 48 403 56.8 407.4 69.9L416 96L512 96C529.7 96 544 110.3 544 128C544 145.7 529.7 160 512 160L128 160C110.3 160 96 145.7 96 128C96 110.3 110.3 96 128 96L224 96L232.7 69.9zM128 208L512 208L512 512C512 547.3 483.3 576 448 576L192 576C156.7 576 128 547.3 128 512L128 208zM216 272C202.7 272 192 282.7 192 296L192 488C192 501.3 202.7 512 216 512C229.3 512 240 501.3 240 488L240 296C240 282.7 229.3 272 216 272zM320 272C306.7 272 296 282.7 296 296L296 488C296 501.3 306.7 512 320 512C333.3 512 344 501.3 344 488L344 296C344 282.7 333.3 272 320 272zM424 272C410.7 272 400 282.7 400 296L400 488C400 501.3 410.7 512 424 512C437.3 512 448 501.3 448 488L448 296C448 282.7 437.3 272 424 272z"/>
+              </svg>
+            </span>
             Delete Device
           </button>
           <button type="button" class="delete-modal-button-cancel cancel-btn"

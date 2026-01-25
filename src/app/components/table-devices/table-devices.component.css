@@ -110,7 +110,16 @@
 }
 
 .search-input:focus ~ .search-icon svg {
-  transform: scale(1.2);
+  animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1.2);
+  }
 }
 
 .search-input::placeholder {
@@ -349,7 +358,7 @@
 .icon-trash {
   width: 16px;
   height: 16px;
-  color: #0F75F2
+  color: #c9c4c4;
 }
 
 /* No Data */
