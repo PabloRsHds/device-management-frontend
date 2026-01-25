@@ -118,8 +118,7 @@
           </button>
 
           <div class="pagination-info">
-            <span class="page-number">Page {{ currentPage$ | async }}</span>
-            <span class="page-total">of {{ totalPages$ | async }}</span>
+            <span class="page-number"><span class="page-total">Page </span> {{ currentPage$ | async }} <span class="page-total">of </span>{{ totalPages$ | async }}</span>
           </div>
 
           <button

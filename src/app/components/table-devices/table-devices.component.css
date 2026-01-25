@@ -75,7 +75,7 @@
   transform: translateY(-50%);
   width: 4px;
   height: 30px;
-  background: linear-gradient(to bottom, #667eea, #764ba2);
+  background: linear-gradient(135deg, #8fd0e4, #b08bd5);
   border-radius: 2px;
 }
 
@@ -102,7 +102,7 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #0cbef5;
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
   background-color: white;
 }
@@ -136,7 +136,7 @@
 }
 
 .device-table thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1AACD9 0%, #320DD6 100%);
 }
 
 .device-table th {
@@ -212,7 +212,7 @@
   display: inline-block;
   padding: 4px 10px;
   background-color: #f3e5f5;
-  color: #7b1fa2;
+  color: #b761db;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 600;
@@ -222,7 +222,7 @@
 .button-info {
   background: transparent;
   border: none;
-  color: #667eea;
+  color: #5c3ceb;
   padding: 6px 0;
   cursor: pointer;
   font-weight: 500;
@@ -233,13 +233,12 @@
   transition: all 0.2s ease;
 }
 
-.button-info::after {
-  content: '📄';
-  font-size: 14px;
+.button-info:hover {
+  color: #37419e;
 }
 
-.button-info:hover {
-  color: #5a67d8;
+.button-info::after {
+  font-size: 14px;
 }
 
 .button-info:hover::after {
@@ -378,12 +377,14 @@
 
 .page-number {
   font-weight: 700;
-  color: #667eea;
+  color: #2b6be2;
   font-size: 16px;
 }
 
 .page-total {
-  color: #999;
+  color: #858585;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .pagination-btn {
@@ -402,7 +403,8 @@
 }
 
 .pagination-btn:not(:disabled):hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid #4e9ee9;
+  background: linear-gradient(135deg, #1AACD9 0%, #2E2CD7 100%);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
@@ -599,11 +601,11 @@
 
 .modal-body::-webkit-scrollbar-thumb,
 .table-responsive::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(20deg, #0fb5e7 0%, #5c3ceb 100%);
   border-radius: 4px;
 }
 
 .modal-body::-webkit-scrollbar-thumb:hover,
 .table-responsive::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  background: linear-gradient(20deg, #0fb5e7 0%, #5c3ceb 100%);
 }
