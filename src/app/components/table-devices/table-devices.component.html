@@ -16,7 +16,11 @@
             placeholder="Search devices by name, model, type or manufacturer..."
             class="search-input"
           >
-          <span class="search-icon">🔍</span>
+          <span class="search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+              <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z"/>
+            </svg>
+          </span>
         </div>
 
         <!-- Tabela de dispositivos -->
@@ -43,38 +47,57 @@
                   <span class="device-type">{{device.type}}</span>
                 </td>
                 <td data-label="Model">{{device.deviceModel}}</td>
-                <td data-label="Description">
+                <td data-label="Description" class="td-cell">
                   <button
                     class="button-info description-btn"
                     (click)="functionTableInspection(device.description)"
                     [title]="device.description || 'No description'"
                   >
-                    <span>View</span>
+                    View
+                    <span class="icon-book">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+                        <path d="M480 576L192 576C139 576 96 533 96 480L96 160C96 107 139 64 192 64L496 64C522.5 64 544 85.5 544 112L544 400C544 420.9 530.6 438.7 512 445.3L512 512C529.7 512 544 526.3 544 544C544 561.7 529.7 576 512 576L480 576zM192 448C174.3 448 160 462.3 160 480C160 497.7 174.3 512 192 512L448 512L448 448L192 448zM224 216C224 229.3 234.7 240 248 240L424 240C437.3 240 448 229.3 448 216C448 202.7 437.3 192 424 192L248 192C234.7 192 224 202.7 224 216zM248 288C234.7 288 224 298.7 224 312C224 325.3 234.7 336 248 336L424 336C437.3 336 448 325.3 448 312C448 298.7 437.3 288 424 288L248 288z"/>
+                      </svg>
+                    </span>
+
                   </button>
                 </td>
                 <td data-label="Manufacturer">{{device.manufacturer}}</td>
                 <td data-label="Min Limit">
-                  <span class="limit-value">{{device.minLimit}}</span>
+                  <span class="limit-value" class="td-cell">{{device.minLimit}}</span>
                 </td>
-                <td data-label="Max Limit">
+                <td data-label="Max Limit" class="td-cell">
                   <span class="limit-value">{{device.maxLimit}}</span>
                 </td>
-                <td data-label="Unit">
+                <td data-label="Unit" class="td-cell">
                   <span class="unit-badge">{{device.unit}}</span>
                 </td>
-                <td data-label="Location">
+                <td data-label="Location" class="td-cell">
                   <button
                     class="button-info location-btn"
                     (click)="functionTableInspection(device.location)"
                     [title]="device.location || 'No location'"
                   >
-                    <span>View</span>
+                  View
+                    <span class="icon-location">
+
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+                        <path d="M352 348.4C416.1 333.9 464 276.5 464 208C464 128.5 399.5 64 320 64C240.5 64 176 128.5 176 208C176 276.5 223.9 333.9 288 348.4L288 544C288 561.7 302.3 576 320 576C337.7 576 352 561.7 352 544L352 348.4zM328 160C297.1 160 272 185.1 272 216C272 229.3 261.3 240 248 240C234.7 240 224 229.3 224 216C224 158.6 270.6 112 328 112C341.3 112 352 122.7 352 136C352 149.3 341.3 160 328 160z"/>
+                      </svg>
+                    </span>
                   </button>
                 </td>
                 <td class="action-cell" data-label="Test">
                   <button class="action-button test-button"
                     (click)="handleChangeStatus(device.deviceModel)"
                     title="Test Device">
+
+                    <span class="icon-energy">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+                        <path d="M434.8 54.1C446.7 62.7 451.1 78.3 445.7 91.9L367.3 288L512 288C525.5 288 537.5 296.4 542.1 309.1C546.7 321.8 542.8 336 532.5 344.6L244.5 584.6C233.2 594 217.1 594.5 205.2 585.9C193.3 577.3 188.9 561.7 194.3 548.1L272.7 352L128 352C114.5 352 102.5 343.6 97.9 330.9C93.3 318.2 97.2 304 107.5 295.4L395.5 55.4C406.8 46 422.9 45.5 434.8 54.1z"/>
+                      </svg>
+                    </span>
+
                     Test
                   </button>
                 </td>
@@ -82,6 +105,13 @@
                   <button class="action-button edit-button"
                     (click)="functionGetDeviceModelForUpdate(device.deviceModel)"
                     title="Update Device">
+
+                    <span class="icon-pen">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+                        <path d="M416.9 85.2L372 130.1L509.9 268L554.8 223.1C568.4 209.6 576 191.2 576 172C576 152.8 568.4 134.4 554.8 120.9L519.1 85.2C505.6 71.6 487.2 64 468 64C448.8 64 430.4 71.6 416.9 85.2zM338.1 164L122.9 379.1C112.2 389.8 104.4 403.2 100.3 417.8L64.9 545.6C62.6 553.9 64.9 562.9 71.1 569C77.3 575.1 86.2 577.5 94.5 575.2L222.3 539.7C236.9 535.6 250.2 527.9 261 517.1L476 301.9L338.1 164z"/>
+                      </svg>
+                    </span>
+
                     Update
                   </button>
                 </td>
@@ -89,6 +119,13 @@
                   <button class="action-button delete-button"
                     (click)="functionGetDeviceModelForDelete(device.deviceModel)"
                     title="Delete Device">
+
+                    <span class="icon-trash">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                      </svg>
+                    </span>
+
                     Delete
                   </button>
                 </td>
