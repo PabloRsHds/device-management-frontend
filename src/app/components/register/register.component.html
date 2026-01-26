@@ -11,34 +11,58 @@
 
         <!-- Linha 1: Name + Type -->
         <div class="form-row">
+
           <div class="form-group half">
-            <input
-              type="text"
-              formControlName="name"
-              class="form-input"
-              placeholder="🏷️ Device name"
-              [class.input-error]="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')"
-            >
+            <div class="input-container">
+              <span class="input-icon-name">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+                  <path d="M96.5 160L96.5 309.5C96.5 326.5 103.2 342.8 115.2 354.8L307.2 546.8C332.2 571.8 372.7 571.8 397.7 546.8L547.2 397.3C572.2 372.3 572.2 331.8 547.2 306.8L355.2 114.8C343.2 102.7 327 96 310 96L160.5 96C125.2 96 96.5 124.7 96.5 160zM208.5 176C226.2 176 240.5 190.3 240.5 208C240.5 225.7 226.2 240 208.5 240C190.8 240 176.5 225.7 176.5 208C176.5 190.3 190.8 176 208.5 176z"/>
+                </svg>
+              </span>
+              <input
+                type="text"
+                formControlName="name"
+                class="form-input"
+                placeholder="Device name"
+                [class.input-error]="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')"
+              >
+            </div>
             <small *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')"
                   class="error-message">
-              ⚠️ Device name is required
+
+              <span class="icon-danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
+                </svg>
+              </span>
+                  Device name is required
             </small>
           </div>
 
           <div class="form-group half">
-            <select
-              class="form-input-select"
-              formControlName="type"
-              [class.input-error]="registerForm.get('type')?.touched && registerForm.get('type')?.hasError('required')"
-            >
-              <option value="">📊 Device type...</option>
-              <option *ngFor="let item of types" [value]="item">
-                {{ item }}
-              </option>
-            </select>
+            <div class="select-container">
+              <span class="input-icon-type">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+                  <path d="M96 96C113.7 96 128 110.3 128 128L128 464C128 472.8 135.2 480 144 480L544 480C561.7 480 576 494.3 576 512C576 529.7 561.7 544 544 544L144 544C99.8 544 64 508.2 64 464L64 128C64 110.3 78.3 96 96 96zM208 288C225.7 288 240 302.3 240 320L240 384C240 401.7 225.7 416 208 416C190.3 416 176 401.7 176 384L176 320C176 302.3 190.3 288 208 288zM352 224L352 384C352 401.7 337.7 416 320 416C302.3 416 288 401.7 288 384L288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224zM432 256C449.7 256 464 270.3 464 288L464 384C464 401.7 449.7 416 432 416C414.3 416 400 401.7 400 384L400 288C400 270.3 414.3 256 432 256zM576 160L576 384C576 401.7 561.7 416 544 416C526.3 416 512 401.7 512 384L512 160C512 142.3 526.3 128 544 128C561.7 128 576 142.3 576 160z"/>
+                </svg>
+              </span>
+              <select
+                class="form-input-select"
+                formControlName="type"
+                [class.input-error]="registerForm.get('type')?.touched && registerForm.get('type')?.hasError('required')"
+              >
+                <option value="">Device type...</option>
+                <option *ngFor="let item of types" [value]="item">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
             <small *ngIf="registerForm.get('type')?.touched && registerForm.get('type')?.hasError('required')"
                   class="error-message">
-              ⚠️ Select a device type
+              <span class="icon-danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
+                </svg>
+              </span>
+              Select a device type
             </small>
           </div>
         </div>
@@ -46,61 +70,116 @@
         <!-- Linha 2: Model + Manufacturer -->
         <div class="form-row">
           <div class="form-group half">
-            <input
-              type="text"
-              formControlName="deviceModel"
-              class="form-input"
-              placeholder="🖥️ Device model"
-              [class.input-error]="registerForm.get('deviceModel')?.touched && registerForm.get('deviceModel')?.hasError('required')"
-            >
+            <div class="input-container">
+              <span class="input-icon-model">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+                  <path d="M128 96C92.7 96 64 124.7 64 160L64 416C64 451.3 92.7 480 128 480L272 480L256 528L184 528C170.7 528 160 538.7 160 552C160 565.3 170.7 576 184 576L456 576C469.3 576 480 565.3 480 552C480 538.7 469.3 528 456 528L384 528L368 480L512 480C547.3 480 576 451.3 576 416L576 160C576 124.7 547.3 96 512 96L128 96zM160 160L480 160C497.7 160 512 174.3 512 192L512 352C512 369.7 497.7 384 480 384L160 384C142.3 384 128 369.7 128 352L128 192C128 174.3 142.3 160 160 160z"/>
+                </svg>
+              </span>
+              <input
+                type="text"
+                formControlName="deviceModel"
+                class="form-input"
+                placeholder="Device model"
+                [class.input-error]="registerForm.get('deviceModel')?.touched && registerForm.get('deviceModel')?.hasError('required')"
+              >
+            </div>
             <small *ngIf="registerForm.get('deviceModel')?.touched && registerForm.get('deviceModel')?.hasError('required')"
                   class="error-message">
-              ⚠️ Device model is required
+              <span class="icon-danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
+                </svg>
+              </span>
+              Device model is required
             </small>
           </div>
 
           <div class="form-group half">
-            <input
-              type="text"
-              formControlName="manufacturer"
-              class="form-input"
-              placeholder="🏭 Manufacturer"
-              [class.input-error]="registerForm.get('manufacturer')?.touched && registerForm.get('manufacturer')?.hasError('required')"
-            >
+            <div class="input-container">
+              <span class="input-icon-manufacturer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-factory-icon lucide-factory">
+                  <path d="M12 16h.01"/><path d="M16 16h.01"/><path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M8 16h.01"/>
+                </svg>
+              </span>
+
+              <input
+                type="text"
+                formControlName="manufacturer"
+                class="form-input"
+                placeholder="Manufacturer"
+                [class.input-error]="registerForm.get('manufacturer')?.touched && registerForm.get('manufacturer')?.hasError('required')"
+              >
+            </div>
+
             <small *ngIf="registerForm.get('manufacturer')?.touched && registerForm.get('manufacturer')?.hasError('required')"
                   class="error-message">
-              ⚠️ Manufacturer is required
+
+              <span class="icon-danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
+                </svg>
+              </span>
+              Manufacturer is required
             </small>
           </div>
         </div>
 
         <!-- Linha 3: Location (larger) -->
         <div class="form-group">
-          <textarea
-            rows="2"
-            formControlName="location"
-            class="form-input textarea"
-            placeholder="📍 Enter device location"
-            [class.input-error]="registerForm.get('location')?.touched && registerForm.get('location')?.hasError('required')"
-          ></textarea>
+          <div class="textarea-container">
+            <span class="input-icon-location">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+                <path d="M352 348.4C416.1 333.9 464 276.5 464 208C464 128.5 399.5 64 320 64C240.5 64 176 128.5 176 208C176 276.5 223.9 333.9 288 348.4L288 544C288 561.7 302.3 576 320 576C337.7 576 352 561.7 352 544L352 348.4zM328 160C297.1 160 272 185.1 272 216C272 229.3 261.3 240 248 240C234.7 240 224 229.3 224 216C224 158.6 270.6 112 328 112C341.3 112 352 122.7 352 136C352 149.3 341.3 160 328 160z"/>
+              </svg>
+            </span>
+
+            <textarea
+              rows="2"
+              formControlName="location"
+              class="form-input textarea"
+              placeholder="Enter device location"
+              [class.input-error]="registerForm.get('location')?.touched && registerForm.get('location')?.hasError('required')"
+            ></textarea>
+          </div>
+
           <small *ngIf="registerForm.get('location')?.touched && registerForm.get('location')?.hasError('required')"
                 class="error-message">
-            ⚠️ Location is required
+
+            <span class="icon-danger">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
+              </svg>
+            </span>
+            Location is required
           </small>
         </div>
 
         <!-- Linha 4: Description -->
         <div class="form-group">
-          <textarea
-            rows="3"
-            formControlName="description"
-            class="form-input textarea"
-            placeholder="📄 Device description"
-            [class.input-error]="registerForm.get('description')?.touched && registerForm.get('description')?.hasError('required')"
-          ></textarea>
+          <div class="textarea-container">
+
+            <span class="input-icon-description">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-text-icon lucide-notebook-text">
+                <path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9.5 8h5"/><path d="M9.5 12H16"/><path d="M9.5 16H14"/>
+              </svg>
+            </span>
+
+            <textarea
+              rows="3"
+              formControlName="description"
+              class="form-input textarea"
+              placeholder="Device description"
+              [class.input-error]="registerForm.get('description')?.touched && registerForm.get('description')?.hasError('required')"
+            ></textarea>
+          </div>
+
           <small *ngIf="registerForm.get('description')?.touched && registerForm.get('description')?.hasError('required')"
                 class="error-message">
-            ⚠️ Description is required
+
+            <span class="icon-danger">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
+              </svg>
+            </span>
+
+            Description is required
           </small>
         </div>
 

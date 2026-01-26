@@ -47,7 +47,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 25px 30px;
-  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  background-color: #a51321;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -198,10 +198,6 @@
   color: #667eea;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
-}
-
-.btn-icon {
-  font-size: 18px;
 }
 
 /* Responsive */

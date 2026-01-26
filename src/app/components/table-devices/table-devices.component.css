@@ -374,9 +374,39 @@
   gap: 15px;
 }
 
-.empty-icon {
-  font-size: 48px;
-  opacity: 0.3;
+.icon-previous {
+  width: 15px;
+  height: 15px;
+  color: #667eea;
+  transform: rotate(180deg);
+}
+
+.pagination-btn:hover .icon-previous{
+  color: #ffffff;
+}
+
+.pagination-btn:disabled .icon-previous{
+  color: #cfcfcf;
+}
+
+.icon-next {
+  width: 15px;
+  height: 15px;
+  color: #667eea;
+}
+
+.pagination-btn:hover .icon-next{
+  color: #ffffff;
+}
+
+.pagination-btn:disabled .icon-next{
+  color: #cfcfcf;
+}
+
+.icon-satelite {
+  width: 50px;
+  height: 50px;
+  color: #d3d2d2;
 }
 
 .empty-state p {
