@@ -76,7 +76,7 @@
   transform: translateY(-50%);
   width: 4px;
   height: 30px;
-  background: linear-gradient(to bottom, #667eea, #764ba2);
+  background: linear-gradient(135deg, #8fd0e4, #b08bd5);
   border-radius: 2px;
 }
 
@@ -110,9 +110,22 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #0cbef5;
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
   background-color: white;
+}
+
+.search-input:focus ~ .search-icon svg {
+  animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1.2);
+  }
 }
 
 .search-input::placeholder {
@@ -144,12 +157,12 @@
 }
 
 .sensors-table thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1AACD9 0%, #320DD6 100%);
 }
 
 .sensors-table th {
   padding: 18px 16px;
-  text-align: left;
+  text-align: center;
   color: white;
   font-weight: 600;
   font-size: 14px;
@@ -177,10 +190,13 @@
 
 .sensors-table td {
   padding: 16px;
-  text-align: left;
   vertical-align: middle;
   color: #555;
   font-size: 14px;
+}
+
+.td-centralize {
+  text-align: center;
 }
 
 /* Device Name */
@@ -218,6 +234,7 @@
 /* Status */
 .status-container {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 10px;
 }
@@ -244,17 +261,6 @@
 .status-active {
   background-color: #28a745;
   box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
-}
-
-.status-inactive {
-  background-color: #6c757d;
-  box-shadow: 0 0 10px rgba(108, 117, 125, 0.5);
-}
-
-.status-warning {
-  background-color: #ffc107;
-  box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
-  animation: warningPulse 1s infinite;
 }
 
 @keyframes warningPulse {
@@ -350,7 +356,8 @@
 }
 
 .pagination-btn:not(:disabled):hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid #4e9ee9;
+  background: linear-gradient(135deg, #1AACD9 0%, #2E2CD7 100%);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
@@ -438,10 +445,60 @@
 }
 
 .table-responsive::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #1AACD9 0%, #2E2CD7 100%);
   border-radius: 4px;
 }
 
 .table-responsive::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+  background: linear-gradient(135deg, #1AACD9 0%, #2E2CD7 100%);
+}
+
+/* Search Icon */
+.search-icon {
+  position: absolute;
+  left: 20px;
+  top: 58%;
+  transform: translateY(-50%);
+  font-size: 18px;
+}
+
+.search-icon svg{
+  width: 20px;
+  height: 20px;
+  color: rgb(54, 11, 133);
+}
+
+.icon-satelite {
+  width: 50px;
+  height: 50px;
+  color: #d3d2d2;
+}
+
+.icon-next {
+  width: 15px;
+  height: 15px;
+  color: #667eea;
+}
+
+.pagination-btn:hover .icon-next{
+  color: #ffffff;
+}
+
+.pagination-btn:disabled .icon-next{
+  color: #cfcfcf;
+}
+
+.icon-previous {
+  width: 15px;
+  height: 15px;
+  color: #667eea;
+  transform: rotate(180deg);
+}
+
+.pagination-btn:hover .icon-previous{
+  color: #ffffff;
+}
+
+.pagination-btn:disabled .icon-previous{
+  color: #cfcfcf;
 }
