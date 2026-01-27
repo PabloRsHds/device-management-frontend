@@ -138,7 +138,7 @@
 .form-input,
 .form-input-select {
   width: 100%;
-  text-indent: 20px;
+  text-indent: 25px;
   padding: 10px;
   border: 2px solid #e1e5eb;
   border-radius: 14px;
@@ -418,10 +418,8 @@
 
 .input-icon-name {
   position: absolute;
-  width: 15px;
-  height: 15px;
   color: rgb(15, 91, 163);
-  top: 45%;
+  top: 57%;
   left: 10px;
   transform: translateY(-50%);
   pointer-events: none;
@@ -429,9 +427,9 @@
 
 .input-icon-type {
   position: absolute;
-  width: 15px;
-  height: 15px;
-  top: 45%;
+  width: 20px;
+  height: 20px;
+  top: 50%;
   left: 10px;
   transform: translateY(-50%);
   pointer-events: none;
@@ -439,10 +437,10 @@
 
 .input-icon-model {
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   color: rgb(14, 182, 233);
-  top: 45%;
+  top: 48%;
   left: 10px;
   transform: translateY(-50%);
   pointer-events: none;
@@ -450,8 +448,8 @@
 
 .input-icon-manufacturer {
   position: absolute;
-  color: rgb(68, 68, 68);
-  top: 55%;
+  color: #667eea;
+  top: 57%;
   left: 10px;
   transform: translateY(-50%);
   pointer-events: none;
@@ -459,10 +457,10 @@
 
 .input-icon-location {
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   color: rgb(206, 20, 20);
-  top: 26%;
+  top: 28.5%;
   left: 10px;
   transform: translateY(-50%);
   pointer-events: none;
@@ -470,10 +468,8 @@
 
 .input-icon-description {
   position: absolute;
-  width: 15px;
-  height: 15px;
   color: rgb(214, 177, 13);
-  top: 23%;
+  top: 29%;
   left: 10px;
   transform: translateY(-50%);
   pointer-events: none;

@@ -496,19 +496,11 @@
 }
 
 .icon-gear {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   color: #b1aeae;
 }
 
 .icon-clipboard {
-  width: 20px;
-  height: 20px;
   color: #667eea;
-}
-
-.icon-char-pie {
-  width: 20px;
-  height: 20px;
-  color: #13a3cf;
 }
