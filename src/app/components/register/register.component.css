@@ -420,7 +420,7 @@
   position: absolute;
   width: 15px;
   height: 15px;
-  color: rgb(255, 174, 0);
+  color: rgb(15, 91, 163);
   top: 45%;
   left: 10px;
   transform: translateY(-50%);
@@ -431,7 +431,6 @@
   position: absolute;
   width: 15px;
   height: 15px;
-  color: rgb(145, 27, 180);
   top: 45%;
   left: 10px;
   transform: translateY(-50%);
