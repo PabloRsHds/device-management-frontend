@@ -21,6 +21,8 @@ export class LoginComponent {
   router = inject(Router);
   snackBar = inject(MatSnackBar);
 
+  showPassword = false;
+
   ngOnInit(){
     this.configurationFormLogin();
   }
