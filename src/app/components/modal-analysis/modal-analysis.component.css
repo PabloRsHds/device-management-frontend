@@ -157,6 +157,7 @@
 
 /* Cards Grid */
 .modal-cards {
+  background: rgb(240, 245, 255);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;

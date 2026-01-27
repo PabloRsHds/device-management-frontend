@@ -23,7 +23,7 @@
 .delete-modal-content {
   width: 90%;
   max-width: 450px;
-  background: white;
+  background-color: rgb(240, 245, 255);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);

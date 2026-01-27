@@ -33,7 +33,7 @@
 }
 
 .table-container {
-  background: white;
+  background: rgb(240, 245, 255);
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   overflow: hidden;
