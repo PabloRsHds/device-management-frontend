@@ -19,7 +19,7 @@ export class LoginComponent {
   private service = inject(LoginService);
   formBuilder = inject(FormBuilder);
   router = inject(Router);
-  snackBar = inject(MatSnackBar);
+  private snackBar = inject(MatSnackBar);
 
   showPassword = false;
 
@@ -44,6 +44,11 @@ export class LoginComponent {
         });
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('refreshToken', response.refreshToken);
+
+        this.snackBar.open('Login completed successfully!', 'Close', {
+          duration: 3000,
+          panelClass : ['snackbar-success']
+        });
         this.router.navigate(['device/home']);
       },
       error: (error) => {

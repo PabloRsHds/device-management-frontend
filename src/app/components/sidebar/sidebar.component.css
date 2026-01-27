@@ -64,13 +64,8 @@
 
 .menu-button:hover {
   background: rgba(255, 255, 255, 0.15);
-  transform: translateX(5px);
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.menu-button:active {
-  transform: translateX(3px) scale(0.98);
 }
 
 .button-pressed {
@@ -78,12 +73,10 @@
   color: white;
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-  transform: translateX(5px);
 }
 
 .button-pressed:hover {
   background-color: #1AACD9;
-  transform: translateX(5px) scale(0.98);
 }
 
 .button-pressed::before {
@@ -95,6 +88,33 @@
   width: 4px;
   background: white;
   border-radius: 0 2px 2px 0;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.logout-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  padding: 14px 18px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
@@ -140,4 +160,16 @@
     bottom: 0;
     border-radius: 2px 2px 0 0;
   }
+}
+
+.logout-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logout-icon svg{
+  height: 20px;
+  width: 20px;
+  color: white;
 }

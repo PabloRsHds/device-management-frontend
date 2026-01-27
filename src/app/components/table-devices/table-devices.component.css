@@ -207,6 +207,7 @@
   vertical-align: middle;
   color: #555;
   font-size: 14px;
+  border-bottom: 1px solid #cfcfcf;
 }
 
 .device-table .td-cell {

@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +12,19 @@ import { CommonModule } from '@angular/common';
 export class SidebarComponent {
 
   @Output() menuSelected = new EventEmitter<number>();
+
+  private snackBar = inject(MatSnackBar);
+  private router = inject(Router);
+
+  logout() {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    this.snackBar.open('Logout completed successfully!', 'Close', {
+      duration: 3000,
+      panelClass: ['snackbar-success']
+    });
+    this.router.navigate(['device'])
+  }
 
   buttons = [
     {id: 1, title: 'Add Device', pressed : false},
